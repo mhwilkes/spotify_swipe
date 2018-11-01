@@ -57,14 +57,29 @@ public class TuneableQuery {
     private String target_;
 
 
-
-
     //TODO Will need multiple constructors for each request type
 
     /**
-     *
+     * @param limit        Size of recommended list
+     * @param market       Track Relinking country code
+     * @param max_         Hard Ceiling on track attributes, Comma Separated
+     * @param min_         Hard Floor on track attributes, Comma Separated
+     * @param seed_artists Comma separated list of Spotify IDS for seed artists
+     * @param seed_genres  Comma separated list of genres for genre seed
+     * @param seed_tracks  Comma separated list of Spotify IDS for tracks
+     * @param target_      Preferred attribute values, Will chose target values near this value
      */
-    public TuneableQuery() {
+    public TuneableQuery(String limit, String market, String max_, String min_, String seed_artists,
+                         String seed_genres, String seed_tracks, String target_) {
+
+        this.limit = limit;
+        this.market = market;
+        this.max_ = max_;
+        this.min_ = min_;
+        this.seed_artists = seed_artists;
+        this.seed_genres = seed_genres;
+        this.seed_tracks = seed_tracks;
+        this.target_ = target_;
 
     }
 
