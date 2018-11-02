@@ -3,7 +3,9 @@
     package="net.wcc.spotify_swipe.feature">
 
     <application>
-        <activity android:name=".MainActivity" android:label="Welcome to SongSwipe">
+        <activity
+            android:name=".MainActivity"
+            android:label="Welcome to SongSwipe">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -21,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NavMenu"
+            android:label="@string/title_activity_nav_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
