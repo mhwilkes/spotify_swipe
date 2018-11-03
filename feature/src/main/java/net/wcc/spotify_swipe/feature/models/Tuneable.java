@@ -1,6 +1,6 @@
 package net.wcc.spotify_swipe.feature.models;
 
-public class Tuneable {
+class Tuneable {
     /**
      * A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
      */
