@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">spotify_swipe</string>
+    <string name="app_name">SongSwipe</string>
     <string name="title_activity_nav_menu">NavMenu</string>
     <string name="title_activity_settings">Settings</string>
 </resources>
