@@ -2,4 +2,4 @@
 
 **https://github.com/google/gson
 
-https://jitpack.io/#nihad92/SwipeableCards/1.0.19
+https://github.com/nihad92/SwipeableCards
