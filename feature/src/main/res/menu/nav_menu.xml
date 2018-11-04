@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+
+        <item
+            android:id="@+id/account"
+            android:title="Account" />
+        <item
+            android:id="@+id/general"
+            android:title="General" />
+        <item
+            android:id="@+id/notifications"
+            android:title="Notifications" />
+        <item
+            android:id="@+id/help"
+            android:title="Help" />
+        <item
+            android:id="@+id/privacy"
+            android:title="Privacy" />
+        <item
+            android:id="@+id/api"
+            android:title="API" />
+    </group>
+
+
+</menu>
