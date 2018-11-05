@@ -1,13 +1,12 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
-import java.util.Base64;
 import com.google.gson.Gson;
 import net.wcc.spotify_swipe.feature.models.AccessToken;
 
 public class AuthHandler {
 
-    private String client_id;
-    private String client_secret;
+    private String      client_id;
+    private String      client_secret;
     private AccessToken accessToken;
 
     private AccessToken getAccessToken(String client_id, String client_secret){
