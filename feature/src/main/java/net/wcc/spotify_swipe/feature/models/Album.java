@@ -192,4 +192,9 @@ public class Album {
     public String getUri() {
         return uri;
     }
+
+    /*
+    TODO: overloaded constructors + combinations for query to return
+    TODO: Get Album , Get Album Tracks, Get Several Albums
+     */
 }
