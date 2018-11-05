@@ -75,12 +75,4 @@ public class Artist {
      */
     private int offset;
 
-
-
-    // Get Artist Top Rated
-
-    // Get Related Artists
-
-    // Get Several Artists
-
 }
