@@ -12,7 +12,7 @@ public class AuthHandler {
 
     private AccessToken getAccessToken(String client_id, String client_secret){
         Gson gson = new Gson();
-        return gson.fromJson(//TODO: string returned from request, AccessToken.class);
+        return gson.fromJson(/*TODO: string returned from request*/ new String(), AccessToken.class);
     }
 
     public AuthHandler(String client_id, String client_secret) {
