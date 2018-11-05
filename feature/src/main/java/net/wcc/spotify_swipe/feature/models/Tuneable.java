@@ -136,4 +136,61 @@ class Tuneable {
 
     }
 
+    public float getAcousticness() {
+        return acousticness;
+    }
+
+    public float getDanceability() {
+        return danceability;
+    }
+
+    public int getDuration_ms() {
+        return duration_ms;
+    }
+
+    public float getEnergy() {
+        return energy;
+    }
+
+    public float getInstrumentalness() {
+        return instrumentalness;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public float getLiveness() {
+        return liveness;
+    }
+
+    public float getLoudness() {
+        return loudness;
+    }
+
+    public float getSpeechiness() {
+        return speechiness;
+    }
+
+    public float getTempo() {
+        return tempo;
+    }
+
+    public float getValence() {
+        return valence;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public int getTime_signature() {
+        return time_signature;
+    }
+
+
 }

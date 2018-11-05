@@ -1,7 +1,7 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
-import java.util.Base64;
 import com.google.gson.Gson;
+
 import net.wcc.spotify_swipe.feature.models.AccessToken;
 
 public class AuthHandler {
@@ -10,7 +10,7 @@ public class AuthHandler {
     private String client_secret;
     private AccessToken accessToken;
 
-    private AccessToken getAccessToken(String client_id, String client_secret){
+    private AccessToken getAccessToken(String client_id, String client_secret) {
         Gson gson = new Gson();
         return gson.fromJson(/*TODO: string returned from request*/ new String(), AccessToken.class);
     }

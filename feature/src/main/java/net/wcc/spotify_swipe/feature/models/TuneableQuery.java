@@ -83,4 +83,35 @@ class TuneableQuery {
 
     }
 
+    public String getLimit() {
+        return limit;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public String getMax_() {
+        return max_;
+    }
+
+    public String getMin_() {
+        return min_;
+    }
+
+    public String getSeed_artists() {
+        return seed_artists;
+    }
+
+    public String getSeed_genres() {
+        return seed_genres;
+    }
+
+    public String getSeed_tracks() {
+        return seed_tracks;
+    }
+
+    public String getTarget_() {
+        return target_;
+    }
 }
