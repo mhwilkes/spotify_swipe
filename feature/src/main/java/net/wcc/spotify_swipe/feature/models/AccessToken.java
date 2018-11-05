@@ -23,6 +23,6 @@ public class AccessToken {
     }
 
     public String getAuthHeader() {
-        return "Authorization: " + token_type + " " + access_token;
+        return token_type + " " + access_token;
     }
 }

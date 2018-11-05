@@ -9,6 +9,7 @@ public class AuthHandler {
     private String      client_id;
     private String      client_secret;
     private AccessToken accessToken;
+    private RequestHandler reqHandler;
 
     private AccessToken getAccessToken(String client_id, String client_secret) {
         Gson gson = new Gson();
