@@ -6,8 +6,6 @@ import java.net.URL;
 
 public class Album {
 
-    public String album_type;
-
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
      */
