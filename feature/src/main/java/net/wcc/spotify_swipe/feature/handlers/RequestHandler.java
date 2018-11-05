@@ -10,10 +10,10 @@ public class RequestHandler {
     public RequestHandler() { }
 
     public String makePostRequest(){
-
+        return "garbage";
     }
 
     public String makeGetRequest(){
-
+        return "garbage";
     }
 }
