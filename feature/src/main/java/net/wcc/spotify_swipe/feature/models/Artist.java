@@ -52,27 +52,9 @@ public class Artist {
      * The object type: "artist"
      */
     private String uri;
-
-    // Get Artist Album
-
-    /**
-     *
+    
+    /*
+    TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
-    private String include_groups;
-
-    /**
-     *
-     */
-    private String market;
-
-    /**
-     *
-     */
-    private int limit;
-
-    /**
-     *
-     */
-    private int offset;
 
 }

@@ -97,4 +97,104 @@ public class Album {
     private String uri;
 
 
+    //Full object
+    public Album(String album_type, Artist[] artists, String[] available_markets, String[] copyrights, String[] external_ids, URL[] external_urls, String[] genres, String href, String id, Image[] images, String label, String name, int popularity, String release_date, String release_date_precision, Track[] tracks, String type, String uri) {
+
+        this.album_type = album_type;
+        this.artists = artists;
+        this.available_markets = available_markets;
+        this.copyrights = copyrights;
+        this.external_ids = external_ids;
+        this.external_urls = external_urls;
+        this.genres = genres;
+        this.href = href;
+        this.id = id;
+        this.images = images;
+        this.label = label;
+        this.name = name;
+        this.popularity = popularity;
+        this.release_date = release_date;
+        this.release_date_precision = release_date_precision;
+        this.tracks = tracks;
+        this.type = type;
+        this.uri = uri;
+
+    }
+
+    public String getAlbum_type() {
+        return album_type;
+    }
+
+    public Artist[] getArtists() {
+        return artists;
+    }
+
+    public String[] getAvailable_markets() {
+        return available_markets;
+    }
+
+    public String[] getCopyrights() {
+        return copyrights;
+    }
+
+    public String[] getExternal_ids() {
+        return external_ids;
+    }
+
+    public URL[] getExternal_urls() {
+        return external_urls;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Image[] getImages() {
+        return images;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public String getRelease_date_precision() {
+        return release_date_precision;
+    }
+
+    public Track[] getTracks() {
+        return tracks;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    /*
+    TODO: overloaded constructors + combinations for query to return
+    TODO: Get Album , Get Album Tracks, Get Several Albums
+     */
 }
