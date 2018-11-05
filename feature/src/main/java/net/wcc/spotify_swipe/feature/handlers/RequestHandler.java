@@ -7,12 +7,13 @@ import java.net.URL;
 
 public class RequestHandler {
 
-    HttpURLConnection urlConnection;
+    public RequestHandler() { }
 
-    public RequestHandler(URL,  ) {
+    public String makePostRequest(){
 
     }
 
+    public String makeGetRequest(){
 
-
+    }
 }
