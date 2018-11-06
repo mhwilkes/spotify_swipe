@@ -6,8 +6,8 @@ import net.wcc.spotify_swipe.feature.models.AccessToken;
 
 public class AuthHandler {
 
-    private String      client_id;
-    private String      client_secret;
+    private String client_id;
+    private String client_secret;
     private AccessToken accessToken;
     private RequestHandler reqHandler;
 
