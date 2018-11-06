@@ -13,13 +13,14 @@ import java.util.Map;
 
 public class Request {
 
-    private HttpURLConnection   conn;
-    private URL                 url;
-    private String              method;
+    private HttpURLConnection conn;
+    private URL url;
+    private String method;
 
-    
 
-    public Request(String baseURL, String client_id, String client_secret) { // Auth Request Constructor
+    public Request(String baseURL, String client_id, String client_secret) {
+        // Auth Request
+        // Constructor
 
         method = "POST";
 
@@ -42,7 +43,9 @@ public class Request {
 
     }
 
-    public Request(String baseURL, String endpoint, Map<String, String> params) { // Query Request Constructor
+    public Request(String baseURL, String endpoint, Map<String, String> params) {
+        // Query
+        // Request Constructor
         method = "GET";
 
     }
