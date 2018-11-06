@@ -52,7 +52,7 @@ public class Artist {
      * The object type: "artist"
      */
     private String uri;
-    
+
     /*
     TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
