@@ -43,6 +43,11 @@ public class Request {
 
     }
 
+    /**
+     * @param baseURL  Base Spotify API Endpoint URL
+     * @param endpoint Expected endpoint to send API call too
+     * @param params   Takes Map<String key, String value> provided from requested call to input all parameters to API Request
+     */
     public Request(String baseURL, String endpoint, Map<String, String> params) {
         // Query
         // Request Constructor
