@@ -1,47 +1,60 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
 import com.google.gson.Gson;
+import net.wcc.spotify_swipe.feature.models.AccessToken;
+import net.wcc.spotify_swipe.feature.requests.Request;
 
 import java.net.MalformedURLException;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Map;
 
-import net.wcc.spotify_swipe.feature.models.AccessToken;
-import net.wcc.spotify_swipe.feature.requests.Request;
+class AuthHandler {
+    // The Spotify api Authorization Endpoint.
+    private final String authEndpoint = "https://accounts.spotify.com/api/token";
+    // Spotify Client ID
+    private String client_id;
+    // Spotify Client Secret
+    private String client_secret;
+    // The request object that will retrieve the Access Token.
+    private Request request;
+    // The Map that holds the header parameters for the auth request.
+    private HashMap<String, String> headerParameters = new HashMap<>();
+    // The Map that holds the url parameters for the auth request.
+    private HashMap<String, String> urlParameters = new HashMap<>();
 
-public class AuthHandler {
 
-    private String  client_id;      // Spotify Client ID
-    private String  client_secret;  // Spotify Client Secret
-    private Request request;        // The request that will retrieve the Access Token.
+    // Constructor
+    public AuthHandler(String client_id, String client_secret) {
+        // Define the Client ID.
+        this.client_id = client_id;
 
-    private Map<String, String> headerParameters    = new HashMap<>(); // The Map that holds the header parameters for the auth request.
-    private Map<String, String> urlParameters       = new HashMap<>(); // The Map that holds the url parameters for the auth request.
+        // Define the Client Secret.
+        this.client_secret = client_secret;
+    }
 
-    private final String authEndpoint = "https://accounts.spotify.com/api/token"; // The Spotify api Authorization Endpoint.
-
-    public AccessToken getAccessToken(String client_id, String client_secret) { // Consume client credentials and give an Access Token object.
+    // Consume client credentials and give an Access Token object.
+    public AccessToken getAccessToken(String client_id, String client_secret) {
         Gson gson = new Gson();
 
-        final String clientCredentials = Base64.getEncoder().encodeToString( (client_id + ":" + client_secret).getBytes() ); // Format client credentials to conform with api requirements.
+        // Format client credentials to conform with api requirements.
+        final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret).getBytes());
 
-        headerParameters.put("Authorization", "Basic " + clientCredentials); // Define the authorization header parameter.
-        urlParameters.put("grant_type", "client_credentials");               // Define the grant_type url parameter.
+        // Define the authorization header parameter.
+        headerParameters.put("Authorization", "Basic " + clientCredentials);
+
+        // Define the grant_type url parameter.
+        urlParameters.put("grant_type", "client_credentials");
 
         try {
-            request = new Request(this.authEndpoint, this.headerParameters, this.urlParameters, true); // Create the request.
+            // Create the request.
+            request = new Request(this.authEndpoint, this.headerParameters, this.urlParameters, true);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             // TODO: HANDLE THIS PROPERLY
         }
 
-        return gson.fromJson(request.execute(), AccessToken.class); // Return the result of the executed request parsed by Gson as an AccessToken.
-    }
-
-    public AuthHandler(String client_id, String client_secret) {
-        this.client_id      = client_id;        // Define the Client ID.
-        this.client_secret  = client_secret;    // Define the Client Secret.
+        // Return the result of the executed request parsed by Gson as an AccessToken.
+        return gson.fromJson(request.execute(), AccessToken.class);
     }
 
 }

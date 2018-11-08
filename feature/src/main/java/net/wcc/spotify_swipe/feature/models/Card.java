@@ -1,3 +1,3 @@
 package net.wcc.spotify_swipe.feature.models;
 
-public class Card {}
+class Card {}
