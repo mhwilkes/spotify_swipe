@@ -1,7 +1,7 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
 import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.models.AccessToken;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import net.wcc.spotify_swipe.feature.requests.Request;
 
 import java.net.MalformedURLException;

@@ -1,4 +1,4 @@
-package net.wcc.spotify_swipe.feature.models;
+package net.wcc.spotify_swipe.feature.requests;
 
 public class AccessToken {
 

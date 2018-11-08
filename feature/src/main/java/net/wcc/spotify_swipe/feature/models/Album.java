@@ -2,6 +2,7 @@ package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import net.wcc.spotify_swipe.feature.requests.Request;
 import org.json.JSONException;
 
@@ -205,8 +206,11 @@ public class Album {
         // TODO return album built from API Response scaffold
     }
 
-    public ArrayList<Track> requestAlbumTracks(Album a) {
+    public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
         final String endpoint = "/v1/albums/" + a.getId() + "/tracks";
+
+        Request requestTracks = new Request(endpoint,true);
+        Gson gson = new Gson();
 
         //TODO parse all tracks on selected album and return
     }
