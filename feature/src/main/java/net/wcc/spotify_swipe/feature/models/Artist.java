@@ -53,8 +53,81 @@ public class Artist {
      */
     private String uri;
 
+    //Simple Artist
+    public Artist(URL[] external_urls, String href, String id, String name, String type, String uri) {
+        this.external_urls = external_urls;
+        this.href = href;
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.uri = uri;
+    }
+
+    public URL[] getExternal_urls() {
+        return external_urls;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public Image[] getImages() {
+        return images;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
     /*
     TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
+
+    public Artist requestArtist(String ID) {
+        final String endpoint = "/v1/artists/" + ID;
+
+        //TODO return Artist from API Response
+    }
+
+    public Album requestArtistAlbums(Artist a) {
+        final String endpoint = "/v1/artists/" + a.getID() + "/tracks";
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public Track[] requestArtistTopTracks(Artist a, String market) {
+        //Return top tracks
+    }
+
+    public Artist[] requestRelatedArtists(Artist a) {
+
+    }
+
+    public Artist[] requestArtists(String IDS[]) {
+
+        final String  endpoint = "/v1/artists/";
+        StringBuilder sb       = new StringBuilder(endpoint);
+        for (int i = 0; i < IDS.length; i++) {
+            sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
+        }
+    }
 
 }

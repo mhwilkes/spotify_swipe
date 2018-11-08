@@ -1,10 +1,18 @@
 package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
+import com.google.gson.Gson;
+import net.wcc.spotify_swipe.feature.requests.Request;
+import org.json.JSONException;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Album {
+
+    private final String baseURL = "https://api.spotify.com/v1";
+
 
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
@@ -153,10 +161,6 @@ public class Album {
         return href;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public Image[] getImages() {
         return images;
     }
@@ -193,8 +197,45 @@ public class Album {
         return uri;
     }
 
+    public Album requestAlbum(String ID) throws MalformedURLException, JSONException {
+        final String endpoint = "/v1/albums/" + ID;
+        Request      r        = new Request(ID, true);
+        Gson         gson     = new Gson();
+
+        // TODO return album built from API Response scaffold
+    }
+
+    public ArrayList<Track> requestAlbumTracks(Album a) {
+        final String endpoint = "/v1/albums/" + a.getId() + "/tracks";
+
+        //TODO parse all tracks on selected album and return
+    }
+
+    public String getId() {
+        return id;
+    }
+
     /*
     TODO: overloaded constructors + combinations for query to return
     TODO: Get Album , Get Album Tracks, Get Several Albums
      */
+
+    public Album[] requestAlbums(String[] IDS) {
+        final String  endpoint = "/v1/albums/";
+        StringBuilder sb       = new StringBuilder(endpoint);
+        for (int i = 0; i < IDS.length; i++) {
+            sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
+        }
+
+        try {
+            Request requestAlbums = new Request(sb.toString(), null, null, true);
+            Gson    gson          = new Gson();
+            gson.toJson(requestAlbums.execute());
+
+            //TODO parse all albums from JSON, return Album Array
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace(); //TODO Proper Handling
+        }
+    }
 }
