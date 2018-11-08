@@ -6,7 +6,7 @@ public class AccessToken {
     private String token_type;
     private int expires_in;
 
-    public AccessToken(){
+    public AccessToken() {
 
     }
 

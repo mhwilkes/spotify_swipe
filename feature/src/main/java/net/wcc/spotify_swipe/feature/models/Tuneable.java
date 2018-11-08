@@ -115,9 +115,7 @@ class Tuneable {
      * @param time_signature   Estimated meter or measure of song
      * @param valence          Level of positivity
      */
-    public Tuneable(float acousticness, float danceability, int duration_ms, float energy,
-                    float instrumentalness, int key, float liveness, float loudness, int mode,
-                    int popularity, float speechiness, float tempo, int time_signature, float valence) {
+    public Tuneable(float acousticness, float danceability, int duration_ms, float energy, float instrumentalness, int key, float liveness, float loudness, int mode, int popularity, float speechiness, float tempo, int time_signature, float valence) {
 
         this.acousticness = acousticness;
         this.danceability = danceability;

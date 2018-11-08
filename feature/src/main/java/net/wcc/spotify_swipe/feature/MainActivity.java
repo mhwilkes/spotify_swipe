@@ -7,6 +7,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This activity is the starting point, on-boarding portion
+     *
      * @param savedInstanceState
      */
 

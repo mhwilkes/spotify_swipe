@@ -69,8 +69,7 @@ class TuneableQuery {
      * @param seed_tracks  Comma separated list of Spotify IDS for tracks
      * @param target_      Preferred attribute values, Will chose target values near this value
      */
-    public TuneableQuery(String limit, String market, String max_, String min_, String seed_artists,
-                         String seed_genres, String seed_tracks, String target_) {
+    public TuneableQuery(String limit, String market, String max_, String min_, String seed_artists, String seed_genres, String seed_tracks, String target_) {
 
         this.limit = limit;
         this.market = market;
