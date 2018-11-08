@@ -16,7 +16,7 @@ android:
 before_install:
  - chmod +x gradlew
 
-script: ./gradlew connectedAndroidTest
+script: gradle build connectedCheck
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
