@@ -1,58 +1,98 @@
 package net.wcc.spotify_swipe.feature.requests;
 
-import java.io.IOException;
+import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.io.BufferedReader;
-import java.io.Reader;
 import java.io.InputStreamReader;
-import java.util.Base64;
 import java.util.Map;
 
 public class Request {
 
-    private HttpURLConnection conn;
-    private URL url;
-    private String method;
+    private HttpURLConnection   connection          = null; // The HTTP connection to the server.
+    private URL                 url                 = null; // The URL the HTTP request will be sent to.
+    private Map<String, String> headerParameters    = null; // The header parameters sent with the request.
+    private String              urlParameters       = null; // The url parameters sent with the request.
+    private Boolean             isPost              = null; // If true, execute as a POST request, otherwise execute as a GET request.
 
 
-    public Request(String baseURL, String client_id, String client_secret) {
-        // Auth Request
-        // Constructor
-
-        method = "POST";
-
-        String encodedCreds = Base64.getEncoder().encodeToString((client_id + ":" + client_secret).getBytes());
-
-        try {
-            url = new URL(baseURL);
-        } catch (MalformedURLException e) {
-            //TODO: Handle this properly
-            e.printStackTrace();
-        }
-
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            //TODO: Handle this properly
-            e.printStackTrace();
-        }
-
-
+    public Request(String url, Map<String, String> headerParameters, Map<String, String> urlParameters, Boolean isPost) throws MalformedURLException {
+        this.headerParameters   = headerParameters;
+        this.urlParameters      = formatURLParameters(urlParameters);
+        this.isPost             = isPost;
+        this.url                = new URL(this.isPost ? url : url + '?' + this.urlParameters);
     }
 
-    /**
-     * @param baseURL  Base Spotify API Endpoint URL
-     * @param endpoint Expected endpoint to send API call too
-     * @param params   Takes Map<String key, String value> provided from requested call to input all parameters to API Request
-     */
-    public Request(String baseURL, String endpoint, Map<String, String> params) {
-        // Query
-        // Request Constructor
-        method = "GET";
+    private String formatURLParameters(Map<String, String> urlParameters){
+        StringBuilder formattedURLParameters = new StringBuilder();
 
+        for (Map.Entry<String,String> uP : urlParameters.entrySet()) {
+            if (formattedURLParameters.length() > 0) formattedURLParameters.append('&');
+            formattedURLParameters.append(uP.getKey() + "=" + uP.getValue());
+        }
+
+        return formattedURLParameters.toString();
+    }
+
+    private Boolean makeRequest()  {
+
+        try {
+            this.connection = (HttpURLConnection) url.openConnection();
+
+            this.connection.setUseCaches(false);
+            this.connection.setDoOutput(true);
+
+            this.connection.setRequestMethod(this.isPost ? "POST" : "GET");
+
+            this.connection.setRequestProperty("Content-Type",   "application/x-www-form-urlencoded");
+
+            for (Map.Entry<String, String> hP : headerParameters.entrySet()) {
+                this.connection.setRequestProperty(hP.getKey(), hP.getValue());
+            }
+
+            if (this.isPost) {
+                this.connection.setRequestProperty("Content-Length", "" + Integer.toString(this.urlParameters.getBytes().length) );
+
+                DataOutputStream wr = new DataOutputStream(this.connection.getOutputStream());
+                wr.writeBytes(this.urlParameters);
+                wr.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (this.connection != null) this.connection.disconnect();
+            return false;
+        }
+
+        return true;
+    }
+
+    private String getResponse() {
+        try {
+
+            InputStream inputStream = this.connection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            StringBuffer response = new StringBuffer();
+            while((line = bufferedReader.readLine()) != null) response.append(line + '\n');
+
+            bufferedReader.close();
+
+            return response.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (this.connection != null) this.connection.disconnect();
+        }
+
+        return "";
+    }
+
+    public String execute() {
+        return (makeRequest() ? getResponse() : null);
     }
 
 }
