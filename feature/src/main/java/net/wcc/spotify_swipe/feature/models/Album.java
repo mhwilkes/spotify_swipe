@@ -2,18 +2,15 @@ package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import net.wcc.spotify_swipe.feature.requests.Request;
-import org.json.JSONException;
+import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class Album {
-
-    private final String baseURL = "https://api.spotify.com/v1";
-
 
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
@@ -198,16 +195,16 @@ public class Album {
         return uri;
     }
 
-    public Album requestAlbum(String ID) throws MalformedURLException, JSONException {
-        final String endpoint = "/v1/albums/" + ID;
-        Request      r        = new Request(ID, true);
+    final static public Album requestAlbum(String ID) throws MalformedURLException {
+        final String endpoint = Request.getBaseURL() + "/v1/albums/" + new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken();
+        Request      r        = new Request(endpoint, true);
         Gson         gson     = new Gson();
 
         Album a = gson.fromJson(r.execute(), Album.class);
         return a;
     }
 
-    public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
+    final public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
         final String endpoint = "/v1/albums/" + a.getId() + "/tracks";
 
         Request requestTracks = new Request(endpoint, true);
@@ -227,7 +224,7 @@ public class Album {
     TODO: Get Album , Get Album Tracks, Get Several Albums
      */
 
-    public Album[] requestAlbums(String[] IDS) {
+    final public Album[] requestAlbums(String[] IDS) {
         final String  endpoint = "/v1/albums/";
         StringBuilder sb       = new StringBuilder(endpoint);
         for (int i = 0; i < IDS.length; i++) {

@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.util.Base64;
 import java.util.HashMap;
 
-class AuthHandler {
+public class AuthHandler {
     // The Spotify api Authorization Endpoint.
     private final String                  authEndpoint     = "https://accounts.spotify.com/api/token";
     // Spotify Client ID
@@ -33,11 +33,11 @@ class AuthHandler {
     }
 
     // Consume client credentials and give an Access Token object.
-    public AccessToken getAccessToken(String client_id, String client_secret) {
+    public AccessToken getAccessToken() {
         Gson gson = new Gson();
 
         // Format client credentials to conform with api requirements.
-        final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret).getBytes());
+        final String clientCredentials = Base64.getEncoder().encodeToString((this.client_id + ":" + this.client_secret).getBytes());
 
         // Define the authorization header parameter.
         headerParameters.put("Authorization", "Basic " + clientCredentials);

@@ -10,25 +10,19 @@ import java.net.URL;
 import java.util.Map;
 
 public class Request {
+    private static final String baseURL = "https://api.spotify.com/v1";
 
-    private final String              baseURL          = "https://api.spotify.com/v1";
-    private       HttpURLConnection   connection       = null; // The HTTP connection to the server.
-    private       URL                 url              = null; // The URL the HTTP request will be sent to.
-    private       Map<String, String> headerParameters = null; // The header parameters sent with the request.
-    private       String              urlParameters    = null; // The url parameters sent with the request.
-    private       Boolean             isPost           = null; // If true, execute as a POST request, otherwise execute as a GET request.
+    private HttpURLConnection   connection       = null; // The HTTP connection to the server.
+    private URL                 url              = null; // The URL the HTTP request will be sent to.
+    private Map<String, String> headerParameters = null; // The header parameters sent with the request.
+    private String              urlParameters    = null; // The url parameters sent with the request.
+    private Boolean             isPost           = null; // If true, execute as a POST request, otherwise execute as a GET request.
 
     public Request(String url, Map<String, String> headerParameters, Map<String, String> urlParameters, Boolean isPost) throws MalformedURLException {
         this.headerParameters = headerParameters;
         this.urlParameters = formatURLParameters(urlParameters);
         this.isPost = isPost;
         this.url = new URL(this.isPost ? url : url + '?' + this.urlParameters);
-    }
-
-    // Simplest Request
-    public Request(String url, boolean isPost) throws MalformedURLException {
-        this.url = new URL(url);
-        this.isPost = isPost;
     }
 
     private String formatURLParameters(Map<String, String> urlParameters) {
@@ -41,6 +35,12 @@ public class Request {
         }
 
         return formattedURLParameters.toString();
+    }
+
+    // Simplest Request
+    public Request(String url, boolean isPost) throws MalformedURLException {
+        this.url = new URL(url);
+        this.isPost = isPost;
     }
 
     public String execute() {
@@ -79,6 +79,10 @@ public class Request {
         }
 
         return true;
+    }
+
+    public static String getBaseURL() {
+        return baseURL;
     }
 
     private String getResponse() {
