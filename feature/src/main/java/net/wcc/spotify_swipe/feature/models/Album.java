@@ -203,16 +203,19 @@ public class Album {
         Request      r        = new Request(ID, true);
         Gson         gson     = new Gson();
 
-        // TODO return album built from API Response scaffold
+        Album a = gson.fromJson(r.execute(), Album.class);
+        return a;
     }
 
     public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
         final String endpoint = "/v1/albums/" + a.getId() + "/tracks";
 
-        Request requestTracks = new Request(endpoint,true);
-        Gson gson = new Gson();
+        Request requestTracks = new Request(endpoint, true);
+        Gson    gson          = new Gson();
 
         //TODO parse all tracks on selected album and return
+
+        return null; //TODO REMOVE THIS AFTER DONE
     }
 
     public String getId() {
@@ -241,5 +244,7 @@ public class Album {
         } catch (MalformedURLException e) {
             e.printStackTrace(); //TODO Proper Handling
         }
+
+        return null; //TODO REMOVE THIS AFTER DONE
     }
 }

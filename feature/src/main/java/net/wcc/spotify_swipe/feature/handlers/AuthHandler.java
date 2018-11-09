@@ -10,17 +10,17 @@ import java.util.HashMap;
 
 class AuthHandler {
     // The Spotify api Authorization Endpoint.
-    private final String authEndpoint = "https://accounts.spotify.com/api/token";
+    private final String                  authEndpoint     = "https://accounts.spotify.com/api/token";
     // Spotify Client ID
-    private String client_id;
+    private       String                  client_id;
     // Spotify Client Secret
-    private String client_secret;
+    private       String                  client_secret;
     // The request object that will retrieve the Access Token.
-    private Request request;
+    private       Request                 request;
     // The Map that holds the header parameters for the auth request.
-    private HashMap<String, String> headerParameters = new HashMap<>();
+    private       HashMap<String, String> headerParameters = new HashMap<>();
     // The Map that holds the url parameters for the auth request.
-    private HashMap<String, String> urlParameters = new HashMap<>();
+    private       HashMap<String, String> urlParameters    = new HashMap<>();
 
 
     // Constructor

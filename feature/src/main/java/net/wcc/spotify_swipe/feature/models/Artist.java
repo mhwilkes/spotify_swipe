@@ -1,7 +1,10 @@
 package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
+import com.google.gson.Gson;
+import net.wcc.spotify_swipe.feature.requests.Request;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Artist {
@@ -99,14 +102,23 @@ public class Artist {
     TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
 
-    public Artist requestArtist(String ID) {
+    public Artist requestArtist(String ID) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + ID;
+        Gson         gson     = new Gson();
+        Request      r        = new Request(endpoint, true);
+        Artist       artist   = gson.fromJson(r.execute(), Artist.class);
 
-        //TODO return Artist from API Response
+        return artist;
+
     }
 
-    public Album requestArtistAlbums(Artist a) {
+    public Album requestArtistAlbums(Artist a) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + a.getID() + "/tracks";
+        Request      r        = new Request(endpoint, true);
+        Gson         gson     = new Gson();
+
+        Album album = gson.fromJson(r.execute(), Album.class);
+        return album;
     }
 
     public String getID() {
@@ -115,10 +127,13 @@ public class Artist {
 
     public Track[] requestArtistTopTracks(Artist a, String market) {
         //Return top tracks
+
+        return null; //TODO REMOVE THIS AFTER DONE
     }
 
     public Artist[] requestRelatedArtists(Artist a) {
 
+        return null; //TODO REMOVE THIS AFTER DONE
     }
 
     public Artist[] requestArtists(String IDS[]) {
@@ -128,6 +143,10 @@ public class Artist {
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
         }
+
+        //TODO Need to figure out parsing multiple artists from API Reply
+
+        return null; //TODO REMOVE THIS AFTER DONE
     }
 
 }
