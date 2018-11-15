@@ -1,5 +1,8 @@
 package net.wcc.spotify_swipe.feature.requests;
 
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -17,8 +20,9 @@ public class Request {
     private Map<String, String> headerParameters = null; // The header parameters sent with the request.
     private String              urlParameters    = null; // The url parameters sent with the request.
     private Boolean             isPost           = null; // If true, execute as a POST request, otherwise execute as a GET request.
+    private String              rtn              = null;
 
-    public Request(String url, Map<String, String> headerParameters, Map<String, String> urlParameters, Boolean isPost) throws MalformedURLException {
+    public Request(String url, Map<String, String> headerParameters, Map<String, String> urlParameters, Boolean isPost, AccessToken accessToken) throws MalformedURLException {
         this.headerParameters = headerParameters;
         this.urlParameters = formatURLParameters(urlParameters);
         this.isPost = isPost;
@@ -26,6 +30,8 @@ public class Request {
     }
 
     private String formatURLParameters(Map<String, String> urlParameters) {
+        if (urlParameters == null)
+            return "";
         StringBuilder formattedURLParameters = new StringBuilder();
 
         for (Map.Entry<String, String> uP : urlParameters.entrySet()) {
@@ -38,16 +44,38 @@ public class Request {
     }
 
     // Simplest Request
-    public Request(String url, boolean isPost) throws MalformedURLException {
+    public Request(String url, boolean isPost, Map<String, String> urlParameters) throws MalformedURLException {
         this.url = new URL(url);
+        this.isPost = isPost;
+        this.urlParameters = formatURLParameters(urlParameters);
+    }
+
+    //Auth Handler Request
+    public Request(String url, Map<String, String> headerParameters, Map<String, String> urlParameters, Boolean isPost) throws MalformedURLException {
+        this.url = new URL(url);
+        this.headerParameters = headerParameters;
+        this.urlParameters = formatURLParameters(urlParameters);
         this.isPost = isPost;
     }
 
-    public String execute() {
-        return (makeRequest() ? getResponse() : null);
+    public static String getBaseURL() {
+        return baseURL;
     }
 
+    public String execute() {
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                rtn = (makeRequest() ? getResponse() : null);
+            }
+        });
+        return rtn;
+    }
+
+    @NonNull
     private Boolean makeRequest() {
+
 
         try {
             this.connection = (HttpURLConnection) url.openConnection();
@@ -59,9 +87,12 @@ public class Request {
 
             this.connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-            for (Map.Entry<String, String> hP : headerParameters.entrySet()) {
-                this.connection.setRequestProperty(hP.getKey(), hP.getValue());
+            if (headerParameters != null) {
+                for (Map.Entry<String, String> hP : headerParameters.entrySet()) {
+                    this.connection.setRequestProperty(hP.getKey(), hP.getValue());
+                }
             }
+
 
             if (this.isPost) {
                 this.connection.setRequestProperty("Content-Length", "" + Integer.toString(this.urlParameters.getBytes().length));
@@ -79,10 +110,6 @@ public class Request {
         }
 
         return true;
-    }
-
-    public static String getBaseURL() {
-        return baseURL;
     }
 
     private String getResponse() {

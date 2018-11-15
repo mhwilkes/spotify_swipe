@@ -105,7 +105,7 @@ public class Artist {
     public Artist requestArtist(String ID) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + ID;
         Gson         gson     = new Gson();
-        Request      r        = new Request(endpoint, true);
+        Request      r        = new Request(endpoint, null, null, true);
         Artist       artist   = gson.fromJson(r.execute(), Artist.class);
 
         return artist;
@@ -114,7 +114,7 @@ public class Artist {
 
     public Album requestArtistAlbums(Artist a) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + a.getID() + "/tracks";
-        Request      r        = new Request(endpoint, true);
+        Request      r        = new Request(endpoint, null, null, true);
         Gson         gson     = new Gson();
 
         Album album = gson.fromJson(r.execute(), Album.class);

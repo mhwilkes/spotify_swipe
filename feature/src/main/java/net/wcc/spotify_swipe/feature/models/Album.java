@@ -196,8 +196,10 @@ public class Album {
     }
 
     final static public Album requestAlbum(String ID) throws MalformedURLException {
-        final String endpoint = Request.getBaseURL() + "/v1/albums/" + new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken();
-        Request      r        = new Request(endpoint, true);
+        AccessToken at = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken();
+
+        final String endpoint = Request.getBaseURL() + "/albums/" + ID + " -H Authorization: Bearer {}";
+        Request      r        = new Request(endpoint, null, null, true);
         Gson         gson     = new Gson();
 
         Album a = gson.fromJson(r.execute(), Album.class);
@@ -205,9 +207,9 @@ public class Album {
     }
 
     final public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
-        final String endpoint = "/v1/albums/" + a.getId() + "/tracks";
+        final String endpoint = "albums/" + a.getId() + "/tracks";
 
-        Request requestTracks = new Request(endpoint, true);
+        Request requestTracks = new Request(endpoint, null, null, true);
         Gson    gson          = new Gson();
 
         //TODO parse all tracks on selected album and return
