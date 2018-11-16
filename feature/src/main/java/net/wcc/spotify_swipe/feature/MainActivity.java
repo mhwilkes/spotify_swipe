@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.Album;
 
 import java.net.MalformedURLException;
@@ -30,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    System.out.println(Album.requestAlbum("0sNOF9WDwhWunNAHPD3Baj"));
+                    System.out.println(new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5","9b7780574cb1414596bf3a241d15ace0").getAccessToken());
+                    System.out.println(Album.requestAlbum("6akEvsycLGftJxYudPjmqK"));
                 } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnirestException e) {
                     e.printStackTrace();
                 }
             }

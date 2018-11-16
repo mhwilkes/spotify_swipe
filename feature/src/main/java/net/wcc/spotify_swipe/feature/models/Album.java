@@ -2,13 +2,13 @@ package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
 import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import net.wcc.spotify_swipe.feature.requests.Request;
-import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Album {
 
@@ -127,6 +127,19 @@ public class Album {
 
     }
 
+    final static public Album requestAlbum(String ID) throws MalformedURLException {
+
+
+        final String        endpoint         = Request.getBaseURL() + "/albums/" + ID;
+        Map<String, String> headerParameters = new HashMap<>();
+        headerParameters.put("Authorization: ", "BQBnHhDr-M1pSSGmUZk8r0xiy2wnQyE4nM-3D8JDsja72GQUiC3VF_GzlR7TtRUFJc9DrjEB-5ms1NIGMSbJul6qlOPil_4fUaWWIkHcqOYZ4yrwwvZoKeOhlg0XPp6DlpeaGufdp5ZGtBOXApPJyMfsppgUet3JFfZD5rV7");
+        Request r    = new Request(endpoint, headerParameters, null, true);
+        Gson    gson = new Gson();
+
+        Album a = gson.fromJson(r.execute(), Album.class);
+        return a;
+    }
+
     public String getAlbum_type() {
         return album_type;
     }
@@ -193,17 +206,6 @@ public class Album {
 
     public String getUri() {
         return uri;
-    }
-
-    final static public Album requestAlbum(String ID) throws MalformedURLException {
-        AccessToken at = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken();
-
-        final String endpoint = Request.getBaseURL() + "/albums/" + ID + " -H Authorization: Bearer {}";
-        Request      r        = new Request(endpoint, null, null, true);
-        Gson         gson     = new Gson();
-
-        Album a = gson.fromJson(r.execute(), Album.class);
-        return a;
     }
 
     final public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
