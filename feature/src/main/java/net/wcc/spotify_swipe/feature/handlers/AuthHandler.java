@@ -1,22 +1,23 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
+import android.os.AsyncTask;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.async.Callback;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
 import net.wcc.spotify_swipe.feature.requests.Request;
 
-import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Future;
 
 public class AuthHandler {
-    private String rtn;
     // The Spotify api Authorization Endpoint.
     private final String                  authEndpoint     = "https://accounts.spotify.com/api/token/";
+    private       String                  rtn;
     // Spotify Client ID
     private       String                  client_id;
     // Spotify Client Secret
@@ -44,34 +45,47 @@ public class AuthHandler {
         // Format client credentials to conform with api requirements.
         final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret).getBytes());
         // Define the authorization header parameter.
-        System.out.println(clientCredentials);
         headerParameters.put("Authorization:", "Basic " + clientCredentials);
 
         // Define the grant_type url parameter.
         urlParameters.put("grant_type", "client_credentials");
 
 
-        Future<HttpResponse<JsonNode>> future = Unirest.post("https://accounts.spotify.com/api/token").header("Authorization", "Basic M2EzNmU1OGJlOTZiNGM0YWI4ODI5ZmI1NzAyZDA1YTU6OWI3NzgwNTc0Y2IxNDE0NTk2YmYzYTI0MWQxNWFjZTA=").header("Content-Type", "application/x-www-form-urlencoded").header("cache-control", "no-cache").body("grant_type=client_credentials&undefined=").asJsonAsync(new Callback<JsonNode>() {
-
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void completed(HttpResponse<JsonNode> response) {
-                int                 code    = response.getCode();
-                Map<String, String> headers = response.getHeaders();
-                JsonNode            body    = response.getBody();
-                InputStream         rawBody = response.getRawBody();
-                rtn = body.toString();
-            }
+            public void run() {
+                try {
+                    Future<HttpResponse<String>> future = Unirest.post("https://accounts.spotify.com/api/token/")
+                            .header("Authorization", "Basic M2EzNmU1OGJlOTZiNGM0YWI4ODI5ZmI1NzAyZDA1YTU6OWI3NzgwNTc0Y2IxNDE0NTk2YmYzYTI0MWQxNWFjZTA=")
+                            .header("Content-Type", "application/x-www-form-urlencoded")
+                            .header("Postman-Token", "930daefb-c537-4062-9dab-2cec908a7a2e")
+                            .header("cache-control", "no-cache")
+                            .body("grant_type=client_credentials")
+                            .asStringAsync(new Callback<String>() {
+                                @Override
+                                public void completed(HttpResponse<String> response) {
+                                    rtn = response.getBody();
+                                    System.out.println(rtn);
 
-            @Override
-            public void failed(UnirestException e) {
-                System.out.println("The request has failed");
-            }
+                                }
 
-            @Override
-            public void cancelled() {
-                System.out.println("The request has been cancelled");
+                                @Override
+                                public void failed(UnirestException e) {
+                                    System.out.println(e);
+                                }
+
+                                @Override
+                                public void cancelled() {
+                                    System.out.println("The request has been cancelled");
+                                }
+                            });
+                        future.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
         return rtn;
     }
 
