@@ -2,7 +2,6 @@ package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
 import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.requests.Request;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -105,20 +104,16 @@ public class Artist {
     public Artist requestArtist(String ID) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + ID;
         Gson         gson     = new Gson();
-        Request      r        = new Request(endpoint, null, null, true);
-        Artist       artist   = gson.fromJson(r.execute(), Artist.class);
 
-        return artist;
+
+        return null;
 
     }
 
     public Album requestArtistAlbums(Artist a) throws MalformedURLException {
         final String endpoint = "/v1/artists/" + a.getID() + "/tracks";
-        Request      r        = new Request(endpoint, null, null, true);
-        Gson         gson     = new Gson();
 
-        Album album = gson.fromJson(r.execute(), Album.class);
-        return album;
+        return null;
     }
 
     public String getID() {

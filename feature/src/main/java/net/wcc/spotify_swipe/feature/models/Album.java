@@ -1,16 +1,23 @@
 package net.wcc.spotify_swipe.feature.models;
 
 import android.media.Image;
+import android.text.format.DateUtils;
 import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.requests.Request;
+import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
 public class Album {
+
+    private static String endpoint = "https://api.spotify.com/v1/albums/";
 
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
@@ -127,17 +134,25 @@ public class Album {
 
     }
 
-    final static public Album requestAlbum(String ID) throws MalformedURLException {
 
+    public static Album requestAlbum(String ID, String market, AccessToken a) throws IOException {
+        OkHttpClient client = new OkHttpClient();
 
-        final String        endpoint         = Request.getBaseURL() + "/albums/" + ID;
-        Map<String, String> headerParameters = new HashMap<>();
-        headerParameters.put("Authorization: ", "BQBnHhDr-M1pSSGmUZk8r0xiy2wnQyE4nM-3D8JDsja72GQUiC3VF_GzlR7TtRUFJc9DrjEB-5ms1NIGMSbJul6qlOPil_4fUaWWIkHcqOYZ4yrwwvZoKeOhlg0XPp6DlpeaGufdp5ZGtBOXApPJyMfsppgUet3JFfZD5rV7");
-        Request r    = new Request(endpoint, headerParameters, null, true);
-        Gson    gson = new Gson();
+        Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Authorization", a.getAccess_token()).addHeader("Content-Type", "application/json").addHeader("Accept", "application/json").addHeader("cache-control", "no-cache").build();
 
-        Album a = gson.fromJson(r.execute(), Album.class);
-        return a;
+        Response response = client.newCall(request).execute();
+        Gson     gson     = new Gson();
+        return gson.fromJson(response.body().string(), Album.class);
+    }
+
+    public static Album requestAlbum(String ID, AccessToken a) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Authorization", a.getAccess_token()).addHeader("Content-Type", "application/json").addHeader("Accept", "application/json").addHeader("cache-control", "no-cache").build();
+
+        Response response = client.newCall(request).execute();
+        Gson     gson     = new Gson();
+        return gson.fromJson(response.body().string(), Album.class);
     }
 
     public String getAlbum_type() {
@@ -211,8 +226,8 @@ public class Album {
     final public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
         final String endpoint = "albums/" + a.getId() + "/tracks";
 
-        Request requestTracks = new Request(endpoint, null, null, true);
-        Gson    gson          = new Gson();
+
+        Gson gson = new Gson();
 
         //TODO parse all tracks on selected album and return
 
@@ -233,17 +248,6 @@ public class Album {
         StringBuilder sb       = new StringBuilder(endpoint);
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
-        }
-
-        try {
-            Request requestAlbums = new Request(sb.toString(), null, null, true);
-            Gson    gson          = new Gson();
-            gson.toJson(requestAlbums.execute());
-
-            //TODO parse all albums from JSON, return Album Array
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace(); //TODO Proper Handling
         }
 
         return null; //TODO REMOVE THIS AFTER DONE
