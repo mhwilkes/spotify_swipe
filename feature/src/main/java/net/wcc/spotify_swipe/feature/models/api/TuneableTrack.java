@@ -1,14 +1,19 @@
-package net.wcc.spotify_swipe.feature.models;
+package net.wcc.spotify_swipe.feature.models.api;
 
-class Tuneable {
+public class TuneableTrack {
+
+
     /**
-     * A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
+     * A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the
+     * track is acoustic.
      */
     private float acousticness;
 
     /**
-     * Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo,
-     * rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+     * Danceability describes how suitable a track is for dancing based on a combination of musical elements
+     * including tempo,
+     * rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most
+     * danceable.
      */
     private float danceability;
 
@@ -25,11 +30,13 @@ class Tuneable {
      */
     private float energy;
 
+
     /**
      * Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental
      * in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness
      * value is to 1.0, the greater likelihood the track contains no vocal content.
-     * Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+     * Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value
+     * approaches 1.0.
      */
     private float instrumentalness;
 
@@ -42,7 +49,8 @@ class Tuneable {
 
     /**
      * Detects the presence of an audience in the recording. Higher liveness values represent an increased
-     * probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
+     * probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is
+     * live.
      */
     private float liveness;
 
@@ -65,7 +73,9 @@ class Tuneable {
      * the track has had and how recent those plays are. Note: When applying track relinking via the market parameter,
      * it is expected to find relinked tracks with popularities that do not match min_*, max_*and target_* popularities.
      * These relinked tracks are accurate replacements for unplayable tracks with the expected popularity scores.
-     * Original, non-relinked tracks are available via the linked_from attribute of the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">relinked track response.</a>
+     * Original, non-relinked tracks are available via the linked_from attribute of the
+     * <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">relinked track
+     * response.</a>
      */
     private int popularity;
 
@@ -74,7 +84,8 @@ class Tuneable {
      * the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.
      * Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between
      * 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered,
-     * including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
+     * including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like
+     * tracks.
      */
     private float speechiness;
 
@@ -97,26 +108,9 @@ class Tuneable {
      */
     private float valence;
 
-    //TODO will need multiple constructors for each request type
-
-    /**
-     * @param acousticness     Level of acoustic content
-     * @param danceability     Level of danceability
-     * @param duration_ms      Duration in MS
-     * @param energy           Level of Energy
-     * @param instrumentalness Level of Instrumental content
-     * @param key              Type of key performed in
-     * @param liveness         Level of certainty of live performance
-     * @param loudness         Level of loudness
-     * @param mode             Level of modality for scale used
-     * @param popularity       Level of popularity
-     * @param speechiness      Level of spoken words
-     * @param tempo            Level of estimated BPM
-     * @param time_signature   Estimated meter or measure of song
-     * @param valence          Level of positivity
-     */
-    public Tuneable(float acousticness, float danceability, int duration_ms, float energy, float instrumentalness, int key, float liveness, float loudness, int mode, int popularity, float speechiness, float tempo, int time_signature, float valence) {
-
+    public TuneableTrack(float acousticness, float danceability, int duration_ms, float energy, float
+            instrumentalness, int key, float liveness, float loudness, int mode, int popularity, float speechiness,
+            float tempo, int time_signature, float valence) {
         this.acousticness = acousticness;
         this.danceability = danceability;
         this.duration_ms = duration_ms;
@@ -131,8 +125,9 @@ class Tuneable {
         this.tempo = tempo;
         this.time_signature = time_signature;
         this.valence = valence;
-
     }
+
+
 
     public float getAcousticness() {
         return acousticness;

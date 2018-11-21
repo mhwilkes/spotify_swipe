@@ -1,23 +1,18 @@
-package net.wcc.spotify_swipe.feature.models;
+package net.wcc.spotify_swipe.feature.models.api;
 
-import android.media.Image;
-import android.text.format.DateUtils;
+import android.os.StrictMode;
 import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Album {
 
     private static String endpoint = "https://api.spotify.com/v1/albums/";
+
 
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
@@ -25,32 +20,35 @@ public class Album {
     private String album_type;
 
     /**
-     * The artists of the album. Each artist object includes a link in href to more detailed information about the artist.
+     * The artists of the album. Each artist object includes a link in href to more detailed information about the
+     * artist.
      */
     private Artist[] artists;
 
     /**
-     * The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market.
+     * The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is
+     * considered available in a market when at least 1 of its tracks is available in that market.
      */
     private String[] available_markets;
 
     /**
      * The copyright statements of the album.
      */
-    private String[] copyrights;
+    private Copyright[] copyrights;
 
     /**
      * Known external IDs for the album.
      */
-    private String[] external_ids;
+    private ExternalID external_ids;
 
     /**
      * Known external URLs for this album.
      */
-    private URL[] external_urls;
+    private ExternalURL external_urls;
 
     /**
-     * A list of the genres used to classify the album. For example: "Prog Rock" , "Post-Grunge". (If not yet classified, the array is empty.)
+     * A list of the genres used to classify the album. For example: "Prog Rock" , "Post-Grunge". (If not yet
+     * classified, the array is empty.)
      */
     private String[] genres;
 
@@ -80,12 +78,14 @@ public class Album {
     private String name;
 
     /**
-     * The popularity of the album. The value will be between 0 and 100, with 100 being the most popular. The popularity is calculated from the popularity of the album’s individual tracks.
+     * The popularity of the album. The value will be between 0 and 100, with 100 being the most popular. The
+     * popularity is calculated from the popularity of the album’s individual tracks.
      */
     private int popularity;
 
     /**
-     * The date the album was first released, for example "1981-12-15". Depending on the precision, it might be shown as "1981" or "1981-12".
+     * The date the album was first released, for example "1981-12-15". Depending on the precision, it might be shown
+     * as "1981" or "1981-12".
      */
     private String release_date;
 
@@ -97,7 +97,7 @@ public class Album {
     /**
      * The tracks of the album.
      */
-    private Track[] tracks;
+    private Paging tracks;
 
     /**
      * The object type: “album”
@@ -111,7 +111,10 @@ public class Album {
 
 
     //Full object
-    public Album(String album_type, Artist[] artists, String[] available_markets, String[] copyrights, String[] external_ids, URL[] external_urls, String[] genres, String href, String id, Image[] images, String label, String name, int popularity, String release_date, String release_date_precision, Track[] tracks, String type, String uri) {
+    public Album(String album_type, Artist[] artists, String[] available_markets, Copyright[] copyrights, ExternalID
+            external_ids, ExternalURL external_urls, String[] genres, String href, String id, Image[] images, String
+            label, String name, int popularity, String release_date, String release_date_precision, Restriction
+            restrictions, Paging tracks, String type, String uri) {
 
         this.album_type = album_type;
         this.artists = artists;
@@ -132,23 +135,32 @@ public class Album {
         this.type = type;
         this.uri = uri;
 
+        //TODO Not use the main thread for API Requests, develop ASYNC Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
     }
 
-
+    //Album with market Code
     public static Album requestAlbum(String ID, String market, AccessToken a) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Authorization", a.getAccess_token()).addHeader("Content-Type", "application/json").addHeader("Accept", "application/json").addHeader("cache-control", "no-cache").build();
+        Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
+                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
+                "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
         return gson.fromJson(response.body().string(), Album.class);
     }
 
+    // Basic Request
     public static Album requestAlbum(String ID, AccessToken a) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Authorization", a.getAccess_token()).addHeader("Content-Type", "application/json").addHeader("Accept", "application/json").addHeader("cache-control", "no-cache").build();
+        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a
+                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
@@ -167,15 +179,15 @@ public class Album {
         return available_markets;
     }
 
-    public String[] getCopyrights() {
+    public Copyright[] getCopyrights() {
         return copyrights;
     }
 
-    public String[] getExternal_ids() {
+    public ExternalID getExternal_ids() {
         return external_ids;
     }
 
-    public URL[] getExternal_urls() {
+    public ExternalURL getExternal_urls() {
         return external_urls;
     }
 
@@ -211,7 +223,7 @@ public class Album {
         return release_date_precision;
     }
 
-    public Track[] getTracks() {
+    public Paging getTracks() {
         return tracks;
     }
 
@@ -223,33 +235,43 @@ public class Album {
         return uri;
     }
 
-    final public ArrayList<Track> requestAlbumTracks(Album a) throws MalformedURLException {
-        final String endpoint = "albums/" + a.getId() + "/tracks";
+    final public Track[] requestAlbumTracks(Album a, AccessToken at) throws IOException {
+        final String endpoint = getEndpoint() + a.getId() + "/tracks";
 
+        OkHttpClient client = new OkHttpClient();
 
-        Gson gson = new Gson();
+        Request request = new Request.Builder().url(endpoint).get().addHeader("Accept", "application/json").addHeader
+                ("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at.getAccess_token())
+                .addHeader("cache-control", "no-cache").build();
 
-        //TODO parse all tracks on selected album and return
+        Response response = client.newCall(request).execute();
+        Gson     gson     = new Gson();
+        return gson.fromJson(response.body().string(), Track[].class);
 
-        return null; //TODO REMOVE THIS AFTER DONE
+    }
+
+    public static String getEndpoint() {
+        return endpoint;
     }
 
     public String getId() {
         return id;
     }
 
-    /*
-    TODO: overloaded constructors + combinations for query to return
-    TODO: Get Album , Get Album Tracks, Get Several Albums
-     */
-
-    final public Album[] requestAlbums(String[] IDS) {
-        final String  endpoint = "/v1/albums/";
-        StringBuilder sb       = new StringBuilder(endpoint);
+    final public Album[] requestAlbums(String[] IDS, AccessToken a) throws IOException {
+        StringBuilder sb = new StringBuilder(endpoint);
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
         }
 
-        return null; //TODO REMOVE THIS AFTER DONE
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(sb.toString()).get().addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a
+                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
+
+        Response response = client.newCall(request).execute();
+        Gson     gson     = new Gson();
+        return gson.fromJson(response.body().string(), Album[].class);
     }
 }

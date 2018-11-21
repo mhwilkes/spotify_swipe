@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class AuthHandler {
-    // The Spotify api Authorization Endpoint.
-    private final String authEndpoint = "https://accounts.spotify.com/api/token/";
     // Spotify Client ID
     private       String client_id;
     // Spotify Client Secret
@@ -33,17 +31,21 @@ public class AuthHandler {
     public AccessToken getAccessToken() throws IOException {
 
         // Format client credentials to conform with api requirements.
-        final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret).getBytes());
+        final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret)
+                .getBytes());
 
         OkHttpClient client = new OkHttpClient();
 
         MediaType   mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body      = RequestBody.create(mediaType, "grant_type=client_credentials");
-        Request request = new Request.Builder().url(authEndpoint).post(body).addHeader("Authorization", "Basic " + clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader("cache-control", "no-cache").build();
+        // The Spotify api Authorization Endpoint.
+        String authEndpoint = "https://accounts.spotify.com/api/token/";
+        Request request = new Request.Builder().url(authEndpoint).post(body).addHeader("Authorization", "Basic " + ""
+                + clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
+                ("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
-
         return gson.fromJson(response.body().string(), AccessToken.class);
     }
 

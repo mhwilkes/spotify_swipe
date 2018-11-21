@@ -3,7 +3,6 @@ package net.wcc.spotify_swipe.feature.requests;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AccessToken {
@@ -20,10 +19,8 @@ public class AccessToken {
         this.token_type = token_type;
         this.expires_in = expires_in;
         this.scope = scope;
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         creation_time = new Date();
-        this.cachedToken = access_token;
+        cachedToken = access_token;
     }
 
     public static Date getCreation_time() {
@@ -35,15 +32,16 @@ public class AccessToken {
     }
 
     public static synchronized String refreshToken(String client_id, String client_secret) throws IOException {
-        return new AuthHandler(client_id, client_secret).getAccessToken().getAccess_token();
-    }
-
-    public String getToken_type() {
-        return token_type;
+        cachedToken = new AuthHandler(client_id, client_secret).getAccessToken().getAccess_token();
+        return cachedToken;
     }
 
     public String getAccess_token() {
         return access_token;
+    }
+
+    public String getToken_type() {
+        return token_type;
     }
 
     public int getExpires_in() {
