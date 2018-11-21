@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
-import net.wcc.spotify_swipe.feature.models.Album;
+import net.wcc.spotify_swipe.feature.models.api.Album;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,17 +26,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         b = findViewById(R.id.start);
 
-
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 try {
-                    System.out.println(new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5","9b7780574cb1414596bf3a241d15ace0").getAccessToken());
-                    System.out.println(Album.requestAlbum("6akEvsycLGftJxYudPjmqK"));
+                    System.out.println(Album.requestAlbum("4aawyAB9vmqN3uQ7FjRGTy", new AuthHandler
+                            ("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken()
+                    ).getHref());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
-                } catch (UnirestException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
