@@ -1,18 +1,14 @@
 package net.wcc.spotify_swipe.feature.requests;
 
-import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
-
-import java.io.IOException;
 import java.util.Date;
 
 public class AccessToken {
 
-    private static String cachedToken;
-    private static Date   creation_time;
-    private        String access_token;
-    private        String token_type;
-    private        int    expires_in;
-    private        String scope;
+    private Date   creation_time;
+    private String access_token;
+    private String token_type;
+    private int    expires_in;
+    private String scope;
 
     public AccessToken(String access_token, String token_type, int expires_in, String scope) {
         this.access_token = access_token;
@@ -20,20 +16,10 @@ public class AccessToken {
         this.expires_in = expires_in;
         this.scope = scope;
         creation_time = new Date();
-        cachedToken = access_token;
     }
 
-    public static Date getCreation_time() {
+    public Date getCreation_time() {
         return creation_time;
-    }
-
-    public static synchronized String getCachedToken() {
-        return cachedToken;
-    }
-
-    public static synchronized String refreshToken(String client_id, String client_secret) throws IOException {
-        cachedToken = new AuthHandler(client_id, client_secret).getAccessToken().getAccess_token();
-        return cachedToken;
     }
 
     public String getAccess_token() {

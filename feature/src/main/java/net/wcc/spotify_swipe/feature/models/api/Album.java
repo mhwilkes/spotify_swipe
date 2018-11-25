@@ -13,7 +13,6 @@ public class Album {
 
     private static String endpoint = "https://api.spotify.com/v1/albums/";
 
-
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
      */
@@ -89,6 +88,8 @@ public class Album {
      */
     private String release_date;
 
+    private Restriction restrictions;
+
     /**
      * The precision with which release_date value is known: "year" , "month" , or "day".
      */
@@ -130,6 +131,7 @@ public class Album {
         this.name = name;
         this.popularity = popularity;
         this.release_date = release_date;
+        this.restrictions = restrictions;
         this.release_date_precision = release_date_precision;
         this.tracks = tracks;
         this.type = type;
@@ -142,7 +144,7 @@ public class Album {
     }
 
     //Album with market Code
-    public static Album requestAlbum(String ID, String market, AccessToken a) throws IOException {
+    public Album requestAlbum(String ID, String market, AccessToken a) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
@@ -250,7 +252,7 @@ public class Album {
 
     }
 
-    public static String getEndpoint() {
+    public String getEndpoint() {
         return endpoint;
     }
 

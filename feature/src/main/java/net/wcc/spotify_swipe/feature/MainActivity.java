@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
-import net.wcc.spotify_swipe.feature.models.api.Album;
+import net.wcc.spotify_swipe.feature.models.api.Artist;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    System.out.println(Album.requestAlbum("4aawyAB9vmqN3uQ7FjRGTy", new AuthHandler
-                            ("3a36e58be96b4c4ab8829fb5702d05a5", "9b7780574cb1414596bf3a241d15ace0").getAccessToken()
-                    ).getHref());
+                    AuthHandler a = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5",
+                            "9b7780574cb1414596bf3a241d15ace0");
+                    AccessToken at = a.getAccessToken();
+
+                    System.out.println(Artist.requestArtist("0TnOYISbd1XYRBk9myaseg", at).getType());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

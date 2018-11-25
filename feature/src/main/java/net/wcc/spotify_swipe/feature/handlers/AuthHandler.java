@@ -7,12 +7,15 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 
 public class AuthHandler {
     // Spotify Client ID
-    private       String client_id;
+    private String client_id;
     // Spotify Client Secret
-    private       String client_secret;
+    private String client_secret;
+
+    private AccessToken accessToken;
 
     // Constructor
     public AuthHandler(String client_id, String client_secret) {
@@ -27,8 +30,17 @@ public class AuthHandler {
         StrictMode.setThreadPolicy(policy);
     }
 
+    public synchronized AccessToken getAccessToken() throws IOException {
+        if (accessToken != null && accessToken.getCreation_time().before(new Date())) {
+            return accessToken;
+        } else
+            accessToken = new AuthHandler(client_id, client_secret).getToken();
+        return accessToken;
+
+    }
+
     // Consume client credentials and give an Access Token object.
-    public AccessToken getAccessToken() throws IOException {
+    private AccessToken getToken() throws IOException {
 
         // Format client credentials to conform with api requirements.
         final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret)
@@ -40,8 +52,8 @@ public class AuthHandler {
         RequestBody body      = RequestBody.create(mediaType, "grant_type=client_credentials");
         // The Spotify api Authorization Endpoint.
         String authEndpoint = "https://accounts.spotify.com/api/token/";
-        Request request = new Request.Builder().url(authEndpoint).post(body).addHeader("Authorization", "Basic " + ""
-                + clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
+        Request request = new Request.Builder().url(authEndpoint).post(body).addHeader("Authorization", "Basic " +
+                clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
                 ("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();

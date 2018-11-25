@@ -118,9 +118,23 @@ public class Artist {
     TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
 
-    public Artist requestArtist(String ID, String include_groups, String market, int limit, int offset, AccessToken
-            a) throws IOException {
-        StringBuilder endpoint = new StringBuilder(getEndpoint() + ID + "/albums");
+    public static Artist requestArtist(String ID, AccessToken a) throws IOException {
+        String endpoint = getEndpoint() + ID + "/albums/";
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
+                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
+                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+
+        Response response = client.newCall(request).execute();
+        Gson     gson     = new Gson();
+        return gson.fromJson(response.body().string(), Artist.class);
+    }
+
+    public static Artist requestArtist(String ID, String include_groups, String market, int limit, int offset,
+                                       AccessToken a) throws IOException {
+        StringBuilder endpoint = new StringBuilder(getEndpoint() + ID + "/albums/");
         if (include_groups != null) {
             endpoint.append("?include_groups=").append(include_groups);
         }
@@ -137,7 +151,7 @@ public class Artist {
 
         Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
@@ -149,7 +163,7 @@ public class Artist {
     }
 
     public AlbumSimple[] requestArtistAlbums(Artist a, String include_groups, String market, int limit, int offset,
-            AccessToken at) throws IOException {
+                                             AccessToken at) throws IOException {
         StringBuilder endpoint = new StringBuilder(getEndpoint() + a.getID() + "/albums");
         if (include_groups != null) {
             endpoint.append("?include_groups=" + include_groups);
@@ -167,7 +181,7 @@ public class Artist {
 
         Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
