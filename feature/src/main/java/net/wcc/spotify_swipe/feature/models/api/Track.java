@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Track {
 
-    private static String endpoint = "https://api.spotify.com/v1/tracks/";
+    private static final String endpoint = "https://api.spotify.com/v1/tracks/";
 
     /**
      * The album on which the track appears. The album object includes a link in href to full information about the
@@ -128,7 +128,7 @@ public class Track {
     public Track(AlbumSimple album, ArtistSimple[] artists, String[] available_markets, int disc_number, int
             duration_ms, Boolean explicit, ExternalID external_ids, ExternalURL external_urls, String href, String
             id, Boolean is_playable, TrackLink linked_from, Restriction restrictions, String name, int popularity,
-            String preview_url, int track_number, String type, String uri, Boolean is_local) {
+                 String preview_url, int track_number, String type, String uri, Boolean is_local) {
 
         this.album = album;
         this.artists = artists;
@@ -152,10 +152,14 @@ public class Track {
         this.is_local = is_local;
     }
 
+    public static String getEndpoint() {
+        return endpoint;
+    }
+
     public static Track requestTrack(String ID, AccessToken a) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
+        Request request = new Request.Builder().url(getEndpoint() + ID).get().addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a
                         .getAccess_token()).addHeader("cache-control", "no-cache").build();
 
@@ -167,9 +171,10 @@ public class Track {
     public static Track requestTrack(String ID, String market, AccessToken a) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
-                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+        Request request = new Request.Builder().url(getEndpoint() + ID + "?market=" + market).get().addHeader
+                ("Accept", "application/json").addHeader("Content-Type", "application/json").addHeader
+                ("Authorization", "Bearer " + "" + "" + "" + a.getAccess_token()).addHeader("cache-control",
+                "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
@@ -177,7 +182,7 @@ public class Track {
     }
 
     final public Track[] requestTracks(String[] IDS, AccessToken a) throws IOException {
-        StringBuilder sb = new StringBuilder(endpoint + "?ids=");
+        StringBuilder sb = new StringBuilder(getEndpoint() + "?ids=");
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
         }

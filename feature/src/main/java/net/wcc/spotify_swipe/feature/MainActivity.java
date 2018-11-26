@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
                     AuthHandler a = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5",
                             "9b7780574cb1414596bf3a241d15ace0");
                     AccessToken at = a.getAccessToken();
-
-                    System.out.println(Artist.requestArtist("0TnOYISbd1XYRBk9myaseg", at).getType());
+                    System.out.println(a.getAccessToken().getAccess_token());
+                    System.out.println(Artist.requestArtist("0TnOYISbd1XYRBk9myaseg", at).getName());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

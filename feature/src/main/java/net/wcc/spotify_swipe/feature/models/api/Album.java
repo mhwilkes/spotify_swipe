@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Album {
 
-    private static String endpoint = "https://api.spotify.com/v1/albums/";
+    private static final String endpoint = "https://api.spotify.com/v1/albums/";
 
     /**
      * The type of the album: one of "album" , "single" , or "compilation".
@@ -64,7 +64,7 @@ public class Album {
     /**
      * The cover art for the album in various sizes, widest first.
      */
-    private Image[] images;
+    private net.wcc.spotify_swipe.feature.models.api.Image[] images;
 
     /**
      * The label for the album.
@@ -149,7 +149,7 @@ public class Album {
 
         Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();

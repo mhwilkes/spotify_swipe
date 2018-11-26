@@ -7,15 +7,27 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Date;
 
 public class AuthHandler {
+    protected String getClient_id() {
+        return client_id;
+    }
+
+    protected String getClient_secret() {
+        return client_secret;
+    }
+
+    public static String getAuthEndpoint() {
+        return authEndpoint;
+    }
+
     // Spotify Client ID
     private String client_id;
     // Spotify Client Secret
     private String client_secret;
 
-    private AccessToken accessToken;
+    private static String      authEndpoint = "https://accounts.spotify.com/api/token/";
+    private        AccessToken accessToken;
 
     // Constructor
     public AuthHandler(String client_id, String client_secret) {
@@ -30,18 +42,11 @@ public class AuthHandler {
         StrictMode.setThreadPolicy(policy);
     }
 
-    public synchronized AccessToken getAccessToken() throws IOException {
-        if (accessToken != null && accessToken.getCreation_time().before(new Date())) {
-            return accessToken;
-        } else
-            accessToken = new AuthHandler(client_id, client_secret).getToken();
-        return accessToken;
-
-    }
-
     // Consume client credentials and give an Access Token object.
-    private AccessToken getToken() throws IOException {
-
+    public AccessToken getAccessToken() throws IOException {
+        if (this.accessToken != null) {
+            return this.accessToken;
+        }
         // Format client credentials to conform with api requirements.
         final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret)
                 .getBytes());
@@ -51,14 +56,15 @@ public class AuthHandler {
         MediaType   mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body      = RequestBody.create(mediaType, "grant_type=client_credentials");
         // The Spotify api Authorization Endpoint.
-        String authEndpoint = "https://accounts.spotify.com/api/token/";
-        Request request = new Request.Builder().url(authEndpoint).post(body).addHeader("Authorization", "Basic " +
-                clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
+
+        Request request = new Request.Builder().url(getAuthEndpoint()).post(body).addHeader("Authorization", "Basic "
+                + clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
                 ("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
-        return gson.fromJson(response.body().string(), AccessToken.class);
+        accessToken = gson.fromJson(response.body().string(), AccessToken.class);
+        return accessToken;
     }
 
 }

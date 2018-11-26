@@ -1,6 +1,6 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
-import android.media.Image;
+import android.os.StrictMode;
 import com.google.gson.Gson;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import okhttp3.OkHttpClient;
@@ -10,6 +10,8 @@ import okhttp3.Response;
 import java.io.IOException;
 
 public class Artist {
+
+    private static final String endpoint = "https://api.spotify.com/v1/artists/";
 
     /**
      * Known external URLs for this artist.
@@ -37,7 +39,7 @@ public class Artist {
     /**
      * The Spotify ID for the artist.
      */
-    private Image[] images;
+    private net.wcc.spotify_swipe.feature.models.api.Image[] images;
 
     /**
      * Images of the artist in various sizes, widest first.
@@ -72,6 +74,10 @@ public class Artist {
         this.popularity = popularity;
         this.type = type;
         this.uri = uri;
+
+        //TODO Not use the main thread for API Requests, develop ASYNC Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     public Followers getFollowers() {
@@ -119,13 +125,12 @@ public class Artist {
      */
 
     public static Artist requestArtist(String ID, AccessToken a) throws IOException {
-        String endpoint = getEndpoint() + ID + "/albums/";
+        String endpoint = getEndpoint() + ID;
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
-                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
@@ -134,7 +139,7 @@ public class Artist {
 
     public static Artist requestArtist(String ID, String include_groups, String market, int limit, int offset,
                                        AccessToken a) throws IOException {
-        StringBuilder endpoint = new StringBuilder(getEndpoint() + ID + "/albums/");
+        StringBuilder endpoint = new StringBuilder(getEndpoint() + ID);
         if (include_groups != null) {
             endpoint.append("?include_groups=").append(include_groups);
         }
@@ -151,7 +156,7 @@ public class Artist {
 
         Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + "" + "" + "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
@@ -159,7 +164,7 @@ public class Artist {
     }
 
     public static String getEndpoint() {
-        return "https://api.spotify.com/v1/artists/";
+        return endpoint;
     }
 
     public AlbumSimple[] requestArtistAlbums(Artist a, String include_groups, String market, int limit, int offset,
@@ -181,7 +186,7 @@ public class Artist {
 
         Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + "" + "" + "" + "" + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
