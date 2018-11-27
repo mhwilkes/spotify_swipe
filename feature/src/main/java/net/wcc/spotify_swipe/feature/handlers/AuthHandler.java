@@ -1,57 +1,31 @@
 package net.wcc.spotify_swipe.feature.handlers;
 
 import android.os.StrictMode;
-import com.google.gson.Gson;
+import android.util.Log;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.util.Base64;
 
 public class AuthHandler {
-    protected String getClient_id() {
-        return client_id;
-    }
+    private static String authEndpoint = "https://accounts.spotify.com/api/token/";
+    private static String clientCredentials;
 
-    protected String getClient_secret() {
-        return client_secret;
-    }
-
-    public static String getAuthEndpoint() {
-        return authEndpoint;
-    }
-
-    // Spotify Client ID
-    private String client_id;
-    // Spotify Client Secret
-    private String client_secret;
-
-    private static String      authEndpoint = "https://accounts.spotify.com/api/token/";
-    private        AccessToken accessToken;
+    private ResponseBody responseBody;
 
     // Constructor
-    public AuthHandler(String client_id, String client_secret) {
-        // Define the Client ID.
-        this.client_id = client_id;
-
-        // Define the Client Secret.
-        this.client_secret = client_secret;
-
+    public AuthHandler(String clientCredentials) throws IOException {
+        this.clientCredentials = clientCredentials;
         //TODO Not use the main thread for API Requests, develop ASYNC Policy
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
     }
 
     // Consume client credentials and give an Access Token object.
     public AccessToken getAccessToken() throws IOException {
-        if (this.accessToken != null) {
-            return this.accessToken;
-        }
-        // Format client credentials to conform with api requirements.
-        final String clientCredentials = Base64.getEncoder().encodeToString((client_id + ":" + client_secret)
-                .getBytes());
 
-        OkHttpClient client = new OkHttpClient();
+        // Format client credentials to conform with api requirements.
 
         MediaType   mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body      = RequestBody.create(mediaType, "grant_type=client_credentials");
@@ -61,10 +35,27 @@ public class AuthHandler {
                 + clientCredentials).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader
                 ("cache-control", "no-cache").build();
 
-        Response response = client.newCall(request).execute();
-        Gson     gson     = new Gson();
-        accessToken = gson.fromJson(response.body().string(), AccessToken.class);
-        return accessToken;
+        Client.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+                Log.w("Auth Response", "Auth Returned Successfully");
+                responseBody = response.body();
+
+            }
+
+        });
+        return Client.getGson().fromJson(responseBody.string(), AccessToken.class);
+    }
+
+    public static String getAuthEndpoint() {
+        return authEndpoint;
     }
 
 }

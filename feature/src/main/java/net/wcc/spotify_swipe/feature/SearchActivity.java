@@ -1,7 +1,7 @@
 package net.wcc.spotify_swipe.feature;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class SearchActivity extends AppCompatActivity {
 

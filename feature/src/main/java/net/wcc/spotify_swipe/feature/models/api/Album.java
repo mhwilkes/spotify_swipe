@@ -1,9 +1,6 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
-import android.os.StrictMode;
-import com.google.gson.Gson;
-import net.wcc.spotify_swipe.feature.requests.AccessToken;
-import okhttp3.OkHttpClient;
+import net.wcc.spotify_swipe.feature.handlers.Client;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -11,111 +8,75 @@ import java.io.IOException;
 
 public class Album {
 
-    private static final String endpoint = "https://api.spotify.com/v1/albums/";
+    private static final String       endpoint = "https://api.spotify.com/v1/albums/"; //Local Endpoint
+    private              String       album_type;
+    private              Artist[]     artists;
+    private              String[]     available_markets;
+    private              Copyright[]  copyrights;
+    private              ExternalID   external_ids;
+    private              ExternalURL  external_urls;
+    private              String[]     genres;
+    private              String       href;
+    private              String       id;
+    private              CoverImage[] images;
+    private              String       label;
+    private              String       name;
+    private              int          popularity;
+    private              String       release_date;
+    private              Restriction  restrictions;
+    private              String       release_date_precision;
+    private              Paging       tracks;
+    private              String       type;
+    private              String       uri;
 
     /**
-     * The type of the album: one of "album" , "single" , or "compilation".
+     * @param album_type
+     *         The type of the album: one of "album" , "single" , or "compilation".
+     * @param artists
+     *         The artists of the album. Each artist object includes a link in href to more detailed information about
+     *         the artist.
+     * @param available_markets
+     *         The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is
+     *         considered available in a market when at least 1 of its tracks is available in that market.
+     * @param copyrights
+     *         The copyright statements of the album.
+     * @param external_ids
+     *         Known external IDs for the album.
+     * @param external_urls
+     *         Known external URLs for this album.
+     * @param genres
+     *         A list of the genres used to classify the album. For example: "Prog Rock" , "Post-Grunge". (If not yet
+     *         classified, the array is empty.)
+     * @param href
+     *         A link to the Web API endpoint providing full details of the album.
+     * @param id
+     *         The Spotify ID for the album.
+     * @param images
+     *         The cover art for the album in various sizes, widest first.
+     * @param label
+     *         The label for the album.
+     * @param name
+     *         The name of the album. In case of an album takedown, the value may be an empty string.
+     * @param popularity
+     *         The popularity of the album. The value will be between 0 and 100, with 100 being the most popular. The
+     *         popularity is calculated from the popularity of the album’s individual tracks.
+     * @param release_date
+     * @param release_date_precision
+     *         The date the album was first released, for example "1981-12-15". Depending on the precision, it might be
+     *         shown as "1981" or "1981-12".
+     * @param restrictions
+     *         The precision with which release_date value is known: "year" , "month" , or "day".
+     * @param tracks
+     *         The tracks of the album.
+     * @param type
+     *         The object type: “album”
+     * @param uri
+     *         The Spotify URI for the album.
      */
-    private String album_type;
-
-    /**
-     * The artists of the album. Each artist object includes a link in href to more detailed information about the
-     * artist.
-     */
-    private Artist[] artists;
-
-    /**
-     * The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is
-     * considered available in a market when at least 1 of its tracks is available in that market.
-     */
-    private String[] available_markets;
-
-    /**
-     * The copyright statements of the album.
-     */
-    private Copyright[] copyrights;
-
-    /**
-     * Known external IDs for the album.
-     */
-    private ExternalID external_ids;
-
-    /**
-     * Known external URLs for this album.
-     */
-    private ExternalURL external_urls;
-
-    /**
-     * A list of the genres used to classify the album. For example: "Prog Rock" , "Post-Grunge". (If not yet
-     * classified, the array is empty.)
-     */
-    private String[] genres;
-
-    /**
-     * A link to the Web API endpoint providing full details of the album.
-     */
-    private String href;
-
-    /**
-     * The Spotify ID for the album.
-     */
-    private String id;
-
-    /**
-     * The cover art for the album in various sizes, widest first.
-     */
-    private net.wcc.spotify_swipe.feature.models.api.Image[] images;
-
-    /**
-     * The label for the album.
-     */
-    private String label;
-
-    /**
-     * The name of the album. In case of an album takedown, the value may be an empty string.
-     */
-    private String name;
-
-    /**
-     * The popularity of the album. The value will be between 0 and 100, with 100 being the most popular. The
-     * popularity is calculated from the popularity of the album’s individual tracks.
-     */
-    private int popularity;
-
-    /**
-     * The date the album was first released, for example "1981-12-15". Depending on the precision, it might be shown
-     * as "1981" or "1981-12".
-     */
-    private String release_date;
-
-    private Restriction restrictions;
-
-    /**
-     * The precision with which release_date value is known: "year" , "month" , or "day".
-     */
-    private String release_date_precision;
-
-    /**
-     * The tracks of the album.
-     */
-    private Paging tracks;
-
-    /**
-     * The object type: “album”
-     */
-    private String type;
-
-    /**
-     * The Spotify URI for the album.
-     */
-    private String uri;
-
-
-    //Full object
     public Album(String album_type, Artist[] artists, String[] available_markets, Copyright[] copyrights, ExternalID
-            external_ids, ExternalURL external_urls, String[] genres, String href, String id, Image[] images, String
-            label, String name, int popularity, String release_date, String release_date_precision, Restriction
-            restrictions, Paging tracks, String type, String uri) {
+            external_ids, ExternalURL external_urls, String[] genres, String href, String id, CoverImage[] images,
+                 String label, String name, int popularity, String release_date, String release_date_precision,
+                 Restriction restrictions, Paging tracks, String type, String uri) {
 
         this.album_type = album_type;
         this.artists = artists;
@@ -137,143 +98,221 @@ public class Album {
         this.type = type;
         this.uri = uri;
 
-        //TODO Not use the main thread for API Requests, develop ASYNC Policy
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
     }
 
-    //Album with market Code
-    public Album requestAlbum(String ID, String market, AccessToken a) throws IOException {
-        OkHttpClient client = new OkHttpClient();
+    /**
+     * @param ID
+     *
+     * @return
+     *
+     * @throws IOException
+     */
+    public static Album requestAlbum(String ID) throws IOException {
+
+        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
+                        .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
+
+        Response response = Client.getClient().newCall(request).execute();
+
+        return Client.getGson().fromJson(response.body().string(), Album.class);
+    }
+
+    /**
+     * @param ID
+     * @param market
+     *
+     * @return
+     *
+     * @throws IOException
+     */
+    //TODO this may be unecessary, also find out why autoformat adds empty string literals
+    public Album requestAlbum(String ID, String market) throws IOException {
 
         Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + Client.getAuthorizationToken().getAccess_token
+                ()).addHeader("cache-control", "no-cache").build();
 
-        Response response = client.newCall(request).execute();
-        Gson     gson     = new Gson();
-        return gson.fromJson(response.body().string(), Album.class);
+        Response response = Client.getClient().newCall(request).execute();
+
+        return Client.getGson().fromJson(response.body().string(), Album.class);
     }
 
-    // Basic Request
-    public static Album requestAlbum(String ID, AccessToken a) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a
-                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
-
-        Response response = client.newCall(request).execute();
-        Gson     gson     = new Gson();
-        return gson.fromJson(response.body().string(), Album.class);
-    }
-
-    public String getAlbum_type() {
-        return album_type;
-    }
-
-    public Artist[] getArtists() {
-        return artists;
-    }
-
-    public String[] getAvailable_markets() {
-        return available_markets;
-    }
-
-    public Copyright[] getCopyrights() {
-        return copyrights;
-    }
-
-    public ExternalID getExternal_ids() {
-        return external_ids;
-    }
-
-    public ExternalURL getExternal_urls() {
-        return external_urls;
-    }
-
-    public String[] getGenres() {
-        return genres;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public Image[] getImages() {
-        return images;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public String getRelease_date() {
-        return release_date;
-    }
-
-    public String getRelease_date_precision() {
-        return release_date_precision;
-    }
-
-    public Paging getTracks() {
-        return tracks;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    final public Track[] requestAlbumTracks(Album a, AccessToken at) throws IOException {
+    /**
+     * @param a
+     *
+     * @return
+     *
+     * @throws IOException
+     */
+    final public Track[] requestAlbumTracks(Album a) throws IOException {
         final String endpoint = getEndpoint() + a.getId() + "/tracks";
 
-        OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder().url(endpoint).get().addHeader("Accept", "application/json").addHeader
-                ("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at.getAccess_token())
-                .addHeader("cache-control", "no-cache").build();
+                ("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
+                .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = client.newCall(request).execute();
-        Gson     gson     = new Gson();
-        return gson.fromJson(response.body().string(), Track[].class);
+        Response response = Client.getClient().newCall(request).execute();
+
+        return Client.getGson().fromJson(response.body().string(), Track[].class);
 
     }
 
+    /**
+     * @return
+     */
     public String getEndpoint() {
         return endpoint;
     }
 
+    /**
+     * @return
+     */
     public String getId() {
         return id;
     }
 
-    final public Album[] requestAlbums(String[] IDS, AccessToken a) throws IOException {
+    /**
+     * @param IDS
+     *
+     * @return
+     *
+     * @throws IOException
+     */
+    final public Album[] requestAlbums(String[] IDS) throws IOException {
         StringBuilder sb = new StringBuilder(endpoint);
+
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
         }
 
-        OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder().url(sb.toString()).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + a
-                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
+                        .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = client.newCall(request).execute();
-        Gson     gson     = new Gson();
-        return gson.fromJson(response.body().string(), Album[].class);
+        Response response = Client.getClient().newCall(request).execute();
+
+        return Client.getGson().fromJson(response.body().string(), Album[].class);
     }
+
+    /**
+     * @return
+     */
+    public String getAlbum_type() {
+        return album_type;
+    }
+
+    /**
+     * @return
+     */
+    public Artist[] getArtists() {
+        return artists;
+    }
+
+    /**
+     * @return
+     */
+    public String[] getAvailable_markets() {
+        return available_markets;
+    }
+
+    /**
+     * @return
+     */
+    public Copyright[] getCopyrights() {
+        return copyrights;
+    }
+
+    /**
+     * @return
+     */
+    public ExternalID getExternal_ids() {
+        return external_ids;
+    }
+
+    /**
+     * @return
+     */
+    public ExternalURL getExternal_urls() {
+        return external_urls;
+    }
+
+    /**
+     * @return
+     */
+    public String[] getGenres() {
+        return genres;
+    }
+
+    /**
+     * @return
+     */
+    public String getHref() {
+        return href;
+    }
+
+    /**
+     * @return
+     */
+    public CoverImage[] getCoverImages() {
+        return images;
+    }
+
+    /**
+     * @return
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return
+     */
+    public int getPopularity() {
+        return popularity;
+    }
+
+    /**
+     * @return
+     */
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    /**
+     * @return
+     */
+    public String getRelease_date_precision() {
+        return release_date_precision;
+    }
+
+    /**
+     * @return
+     */
+    public Paging getTracks() {
+        return tracks;
+    }
+
+    /**
+     * @return
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @return
+     */
+    public String getUri() {
+        return uri;
+    }
+
 }
