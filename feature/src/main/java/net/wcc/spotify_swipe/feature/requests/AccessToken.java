@@ -40,7 +40,7 @@ public class AccessToken {
     /**
      * @return
      */
-    public String getAuthHeader() { return "Authorization: " + token_type + " " + access_token; }
+    public String getAuthHeader() { return token_type + " " + access_token; }
 
     /**
      * @return
