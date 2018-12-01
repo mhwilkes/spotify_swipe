@@ -1,6 +1,8 @@
 package net.wcc.spotify_swipe.feature.models.audio_analysis;
 
-import net.wcc.spotify_swipe.feature.handlers.Client;
+import android.os.StrictMode;
+import com.google.gson.Gson;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -70,6 +72,9 @@ public class AudioFeatures {
         this.track_href = track_href;
         this.analysis_url = analysis_url;
         this.type = type;
+        //TODO Not use the main thread for API Requests, develop ASYNC Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     /**
@@ -79,15 +84,16 @@ public class AudioFeatures {
      *
      * @throws IOException
      */
-    public static AudioFeatures requestAudioFeature(String ID) throws IOException {
-
+    public static AudioFeatures requestAudioFeature(String ID, AccessToken at) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Gson         gson   = new Gson();
         Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
-                        .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at
+                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = Client.getClient().newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), AudioFeatures.class);
+        return gson.fromJson(response.body().string(), AudioFeatures.class);
     }
 
     /**
@@ -97,8 +103,9 @@ public class AudioFeatures {
      *
      * @throws IOException
      */
-    public static AudioFeatures[] requestAudioFeatures(String[] IDS) throws IOException {
+    public static AudioFeatures[] requestAudioFeatures(String[] IDS, AccessToken at) throws IOException {
         OkHttpClient client = new OkHttpClient();
+        Gson         gson   = new Gson();
 
         StringBuilder sb = new StringBuilder(endpoint);
         for (int i = 0; i < IDS.length; i++) {
@@ -107,12 +114,12 @@ public class AudioFeatures {
 
         Request request = new Request.Builder().url(endpoint + "?ids=" + sb.toString()).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + "" + "" + "" + "" + "" + Client.getAuthorizationToken().getAccess_token()).addHeader
-                ("cache-control", "no-cache").build();
+                 at.getAccess_token()).addHeader("cache-control", "no-cache")
+                .build();
 
         Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), AudioFeatures[].class);
+        return gson.fromJson(response.body().string(), AudioFeatures[].class);
     }
 
     /**

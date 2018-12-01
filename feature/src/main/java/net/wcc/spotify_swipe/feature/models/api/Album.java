@@ -1,6 +1,9 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
-import net.wcc.spotify_swipe.feature.handlers.Client;
+import android.os.StrictMode;
+import com.google.gson.Gson;
+import net.wcc.spotify_swipe.feature.requests.AccessToken;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -97,7 +100,9 @@ public class Album {
         this.tracks = tracks;
         this.type = type;
         this.uri = uri;
-
+        //TODO Not use the main thread for API Requests, develop ASYNC Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     /**
@@ -107,15 +112,16 @@ public class Album {
      *
      * @throws IOException
      */
-    public static Album requestAlbum(String ID) throws IOException {
-
+    public static Album requestAlbum(String ID, AccessToken at) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Gson         gson   = new Gson();
         Request request = new Request.Builder().url(endpoint + ID).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
-                        .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at
+                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = Client.getClient().newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), Album.class);
+        return gson.fromJson(response.body().string(), Album.class);
     }
 
     /**
@@ -127,16 +133,16 @@ public class Album {
      * @throws IOException
      */
     //TODO this may be unecessary, also find out why autoformat adds empty string literals
-    public Album requestAlbum(String ID, String market) throws IOException {
-
+    public Album requestAlbum(String ID, String market, AccessToken at) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Gson         gson   = new Gson();
         Request request = new Request.Builder().url(endpoint + ID + "?market=" + market).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + "" + Client.getAuthorizationToken().getAccess_token
-                ()).addHeader("cache-control", "no-cache").build();
+                "" + "" + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = Client.getClient().newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), Album.class);
+        return gson.fromJson(response.body().string(), Album.class);
     }
 
     /**
@@ -146,16 +152,17 @@ public class Album {
      *
      * @throws IOException
      */
-    final public Track[] requestAlbumTracks(Album a) throws IOException {
+    final public Track[] requestAlbumTracks(Album a, AccessToken at) throws IOException {
         final String endpoint = getEndpoint() + a.getId() + "/tracks";
-
+        OkHttpClient client   = new OkHttpClient();
+        Gson         gson     = new Gson();
         Request request = new Request.Builder().url(endpoint).get().addHeader("Accept", "application/json").addHeader
-                ("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
-                .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
+                ("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at.getAccess_token())
+                .addHeader("cache-control", "no-cache").build();
 
-        Response response = Client.getClient().newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), Track[].class);
+        return gson.fromJson(response.body().string(), Track[].class);
 
     }
 
@@ -180,20 +187,21 @@ public class Album {
      *
      * @throws IOException
      */
-    final public Album[] requestAlbums(String[] IDS) throws IOException {
-        StringBuilder sb = new StringBuilder(endpoint);
-
+    public Album[] requestAlbums(String[] IDS, AccessToken at) throws IOException {
+        StringBuilder sb     = new StringBuilder(endpoint);
+        OkHttpClient  client = new OkHttpClient();
+        Gson          gson   = new Gson();
         for (int i = 0; i < IDS.length; i++) {
             sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
         }
 
         Request request = new Request.Builder().url(sb.toString()).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + Client
-                        .getAuthorizationToken().getAccess_token()).addHeader("cache-control", "no-cache").build();
+                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at
+                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
 
-        Response response = Client.getClient().newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-        return Client.getGson().fromJson(response.body().string(), Album[].class);
+        return gson.fromJson(response.body().string(), Album[].class);
     }
 
     /**
