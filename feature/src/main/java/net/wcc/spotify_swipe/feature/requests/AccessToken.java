@@ -16,11 +16,11 @@ public class AccessToken {
      * @param scope
      */
     public AccessToken(String access_token, String token_type, int expires_in, String scope) {
-        this.access_token = access_token;
-        this.token_type = token_type;
-        this.expires_in = expires_in;
-        this.scope = scope;
-        creation_time = new Date();
+        this.access_token   = access_token;
+        this.token_type     = token_type;
+        this.expires_in     = expires_in;
+        this.scope          = scope;
+        creation_time       = new Date();
     }
 
     /**
@@ -36,6 +36,11 @@ public class AccessToken {
     public String getAccess_token() {
         return access_token;
     }
+
+    /**
+     * @return
+     */
+    public String getAuthHeader() { return "Authorization: " + token_type + " " + access_token; }
 
     /**
      * @return
@@ -57,5 +62,7 @@ public class AccessToken {
     public String getScope() {
         return scope;
     }
+
+
 
 }
