@@ -159,7 +159,8 @@ public class Track {
         Gson         gson   = new Gson();
         Request request = new Request.Builder().url(getEndpoint() + ID + "?market=" + market).get().addHeader
                 ("Accept", "application/json").addHeader("Content-Type", "application/json").addHeader
-                ("Authorization", "Bearer " + at.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                ("Authorization", at.getAuthHeader())
+                .addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
 

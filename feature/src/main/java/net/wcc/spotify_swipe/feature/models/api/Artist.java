@@ -122,14 +122,14 @@ public class Artist {
     TODO: Get Artist, Get Artists Albums, Get Artists Top Tracks, Get Artists Related Artists, Get Several Artists
      */
 
-    public static Artist requestArtist(String ID, AccessToken a) throws IOException {
+    public static Artist requestArtist(String ID, AccessToken at) throws IOException {
         String endpoint = getEndpoint() + ID + "/albums/";
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder().url(endpoint).get().addHeader("Accept",
-                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
-                "" + "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
+                "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", at.getAuthHeader())
+                .addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
         Gson     gson     = new Gson();
