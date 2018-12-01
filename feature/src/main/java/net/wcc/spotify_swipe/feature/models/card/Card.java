@@ -6,17 +6,28 @@ import net.wcc.spotify_swipe.feature.models.api.Track;
 
 public class Card {
 
-    public Track song;
-    public Track[] songs;
-    public Artist artist;
+    public Track    song;
+    public Track[]  songs;
+    public Artist   artist;
     public Artist[] artists;
-    public String name, url, uri, coverArtURL;
-    public int duration;
+    public String   name, url, uri, coverArtURL;
+    public int    duration;
+    public int    id;
+    public String text;
+    public String img_url;
+    public String description;
+
+    public Card(String text, String img_url, String description) {
+        this.text = text;
+        this.img_url = img_url;
+        this.description = description;
+    }
 
     public Card(Album album) {
         //TODO This looks funky, need to know if it works.
-        this.songs = (Track[]) album.getTracks().getItems() ;
+        this.songs = (Track[]) album.getTracks().getItems();
         this.artists = album.getArtists();
+        this.id++;
     }
 
     public Card(Artist artist) {

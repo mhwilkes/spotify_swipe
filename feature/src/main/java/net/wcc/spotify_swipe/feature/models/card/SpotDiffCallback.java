@@ -4,12 +4,12 @@ import android.support.v7.util.DiffUtil;
 
 import java.util.List;
 
-public class CardDiffCallback extends DiffUtil.Callback {
+public class SpotDiffCallback extends DiffUtil.Callback {
 
-    private final List<Card> oldList;
-    private final List<Card> newList;
+    private final List<Spot> oldList;
+    private final List<Spot> newList;
 
-    public CardDiffCallback(List<Card> oldList, List<Card> newList) {
+    public SpotDiffCallback(List<Spot> oldList, List<Spot> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -31,11 +31,11 @@ public class CardDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areContentsTheSame(int oldPosition, int newPosition) {
-        Card oldCard = oldList.get(oldPosition);
-        Card newCard = newList.get(newPosition);
-        return oldCard.name.equals(newCard.name)
-                && oldCard.text.equals(newCard.text)
-                && oldCard.url.equals(newCard.url);
+        Spot oldSpot = oldList.get(oldPosition);
+        Spot newSpot = newList.get(newPosition);
+        return oldSpot.name.equals(newSpot.name)
+                && oldSpot.city.equals(newSpot.city)
+                && oldSpot.url.equals(newSpot.url);
     }
 
 }

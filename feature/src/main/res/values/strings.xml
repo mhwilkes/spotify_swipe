@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -6,6 +6,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!-- NavigationView -->
+    <string name="open_drawer" tools:ignore="ExtraTranslation">Open drawer</string>
+    <string name="close_drawer" tools:ignore="ExtraTranslation">Close drawer</string>
+    <string name="reload" tools:ignore="ExtraTranslation">Reload</string>
+    <string name="add_one_spot_at_first" tools:ignore="ExtraTranslation">Add one spot at first</string>
+    <string name="add_two_spots_at_first" tools:ignore="ExtraTranslation">Add two spots at first</string>
+    <string name="add_one_spot_at_last" tools:ignore="ExtraTranslation">Add one spot at last</string>
+    <string name="add_two_spots_at_last" tools:ignore="ExtraTranslation">Add two spots at last</string>
+    <string name="remove_one_spot_at_first" tools:ignore="ExtraTranslation">Remove one spot at first</string>
+    <string name="remove_two_spots_at_first" tools:ignore="ExtraTranslation">Remove two spots at first</string>
+    <string name="remove_one_spot_at_last" tools:ignore="ExtraTranslation">Remove one spot at last</string>
+    <string name="remove_two_spots_at_last" tools:ignore="ExtraTranslation">Remove two spots at last</string>
 
     <!-- Strings related to Settings -->
 
