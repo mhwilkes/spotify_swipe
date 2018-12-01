@@ -35,7 +35,7 @@ public class AlbumSimple {
      * @param images
      *         The cover art for the album in various sizes, widest first.
      * @param name
-     *         The name of the album. In case of an album takedown, the value may be an empty string.
+     *         The name of the album. In case of an album take down, the value may be an empty string.
      * @param release_date
      * @param release_date_precision
      *         The date the album was first released, for example "1981-12-15". Depending on the precision, it might be

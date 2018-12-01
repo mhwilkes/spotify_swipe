@@ -1,5 +1,6 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class User {
 
     private String       birthdate;

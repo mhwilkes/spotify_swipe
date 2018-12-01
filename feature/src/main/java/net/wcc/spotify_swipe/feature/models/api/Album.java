@@ -76,6 +76,7 @@ public class Album {
      * @param uri
      *         The Spotify URI for the album.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Album(String album_type, Artist[] artists, String[] available_markets, Copyright[] copyrights, ExternalID
             external_ids, ExternalURL external_urls, String[] genres, String href, String id, CoverImage[] images,
                  String label, String name, int popularity, String release_date, String release_date_precision,
@@ -132,7 +133,8 @@ public class Album {
      *
      * @throws IOException
      */
-    //TODO this may be unecessary, also find out why autoformat adds empty string literals
+    //TODO this may be unnecessary, also find out why autoformat adds empty string literals
+    @SuppressWarnings("SpellCheckingInspection")
     public Album requestAlbum(String ID, String market, AccessToken at) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Gson         gson   = new Gson();

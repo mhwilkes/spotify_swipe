@@ -1,7 +1,6 @@
 package net.wcc.spotify_swipe.feature;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,7 +9,6 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -22,10 +20,10 @@ import net.wcc.spotify_swipe.feature.models.card.SpotDiffCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class SpotActivity extends AppCompatActivity implements CardStackListener {
 
     private DrawerLayout drawerLayout;
-
     private CardStackLayoutManager manager;
     private CardStackAdapter       adapter;
     private CardStackView          cardStackView;
@@ -85,41 +83,38 @@ public class SpotActivity extends AppCompatActivity implements CardStackListener
 
         // NavigationView
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int i = menuItem.getItemId();
-                if (i == R.id.reload) {
-                    reload();
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            int i = menuItem.getItemId();
+            if (i == R.id.reload) {
+                reload();
 
-                } else if (i == R.id.add_one_spot_at_first) {
-                    addFirst(1);
+            } else if (i == R.id.add_one_spot_at_first) {
+                addFirst(1);
 
-                } else if (i == R.id.add_two_spots_at_first) {
-                    addFirst(2);
+            } else if (i == R.id.add_two_spots_at_first) {
+                addFirst(2);
 
-                } else if (i == R.id.add_one_spot_at_last) {
-                    addLast(1);
+            } else if (i == R.id.add_one_spot_at_last) {
+                addLast(1);
 
-                } else if (i == R.id.add_two_spots_at_last) {
-                    addLast(2);
+            } else if (i == R.id.add_two_spots_at_last) {
+                addLast(2);
 
-                } else if (i == R.id.remove_one_spot_at_first) {
-                    removeFirst(1);
+            } else if (i == R.id.remove_one_spot_at_first) {
+                removeFirst(1);
 
-                } else if (i == R.id.remove_two_spots_at_first) {
-                    removeFirst(2);
+            } else if (i == R.id.remove_two_spots_at_first) {
+                removeFirst(2);
 
-                } else if (i == R.id.remove_one_spot_at_last) {
-                    removeLast(1);
+            } else if (i == R.id.remove_one_spot_at_last) {
+                removeLast(1);
 
-                } else if (i == R.id.remove_two_spots_at_last) {
-                    removeLast(2);
+            } else if (i == R.id.remove_two_spots_at_last) {
+                removeLast(2);
 
-                }
-                drawerLayout.closeDrawers();
-                return true;
             }
+            drawerLayout.closeDrawers();
+            return true;
         });
     }
 
@@ -129,36 +124,27 @@ public class SpotActivity extends AppCompatActivity implements CardStackListener
 
     private void setupButton() {
         View skip = findViewById(R.id.skip_button);
-        skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder().setDirection(Direction.Left)
-                        .setDuration(200).setInterpolator(new AccelerateInterpolator()).build();
-                manager.setSwipeAnimationSetting(setting);
-                cardStackView.swipe();
-            }
+        skip.setOnClickListener(v -> {
+            SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder().setDirection(Direction.Left)
+                    .setDuration(200).setInterpolator(new AccelerateInterpolator()).build();
+            manager.setSwipeAnimationSetting(setting);
+            cardStackView.swipe();
         });
 
         View rewind = findViewById(R.id.rewind_button);
-        rewind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RewindAnimationSetting setting = new RewindAnimationSetting.Builder().setDirection(Direction.Bottom)
-                        .setDuration(200).setInterpolator(new DecelerateInterpolator()).build();
-                manager.setRewindAnimationSetting(setting);
-                cardStackView.rewind();
-            }
+        rewind.setOnClickListener(v -> {
+            RewindAnimationSetting setting = new RewindAnimationSetting.Builder().setDirection(Direction.Bottom)
+                    .setDuration(200).setInterpolator(new DecelerateInterpolator()).build();
+            manager.setRewindAnimationSetting(setting);
+            cardStackView.rewind();
         });
 
         View like = findViewById(R.id.like_button);
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder().setDirection(Direction.Right)
-                        .setDuration(200).setInterpolator(new AccelerateInterpolator()).build();
-                manager.setSwipeAnimationSetting(setting);
-                cardStackView.swipe();
-            }
+        like.setOnClickListener(v -> {
+            SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder().setDirection(Direction.Right)
+                    .setDuration(200).setInterpolator(new AccelerateInterpolator()).build();
+            manager.setSwipeAnimationSetting(setting);
+            cardStackView.swipe();
         });
     }
 
@@ -264,6 +250,7 @@ public class SpotActivity extends AppCompatActivity implements CardStackListener
         result.dispatchUpdatesTo(adapter);
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     private Spot createSpot() {
         return new Spot("Yasaka Shrine", "Kyoto", "https://source.unsplash.com/Xq1ntWruZQI/600x800");
     }

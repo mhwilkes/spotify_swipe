@@ -81,7 +81,7 @@ public class Segment {
     /**
      * @return
      */
-    public float getLouudness_end() {
+    public float getLoudness_end() {
         return loudness_end;
     }
 

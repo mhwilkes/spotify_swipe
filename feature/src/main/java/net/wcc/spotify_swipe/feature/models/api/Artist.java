@@ -127,7 +127,7 @@ public class Artist {
 
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder().url(endpoint.toString()).get().addHeader("Accept",
+        Request request = new Request.Builder().url(endpoint).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " +
                 "" + "" + "" + a.getAccess_token()).addHeader("cache-control", "no-cache").build();
 
@@ -143,10 +143,10 @@ public class Artist {
             endpoint.append("?include_groups=").append(include_groups);
         }
         if (market != null) {
-            endpoint.append("?market=" + market);
+            endpoint.append("?market=").append(market);
         }
         if (limit > 0 && limit <= 50) {
-            endpoint.append("?endpoint=" + limit);
+            endpoint.append("?endpoint=").append(limit);
         }
         if (offset > 0) {
             endpoint.append("?offset=" + offset);
@@ -170,16 +170,16 @@ public class Artist {
                                              AccessToken at) throws IOException {
         StringBuilder endpoint = new StringBuilder(getEndpoint() + a.getID() + "/albums");
         if (include_groups != null) {
-            endpoint.append("?include_groups=" + include_groups);
+            endpoint.append("?include_groups=").append(include_groups);
         }
         if (market != null) {
-            endpoint.append("?market=" + market);
+            endpoint.append("?market=").append(market);
         }
         if (limit > 0 && limit <= 50) {
-            endpoint.append("?endpoint=" + limit);
+            endpoint.append("?endpoint=").append(limit);
         }
         if (offset > 0) {
-            endpoint.append("?offset=" + offset);
+            endpoint.append("?offset=").append(offset);
         }
         OkHttpClient client = new OkHttpClient();
 
@@ -223,11 +223,11 @@ public class Artist {
     }
 
     public Artist[] requestArtists(String IDS[], AccessToken at) throws IOException {
-
+        //TODO this may be messed up
         final String  endpoint = getEndpoint() + "?ids=";
         StringBuilder sb       = new StringBuilder(endpoint);
         for (int i = 0; i < IDS.length; i++) {
-            sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
+            sb.append(IDS.length != i ? IDS[i] : IDS[i] + ',');
         }
 
         OkHttpClient client = new OkHttpClient();

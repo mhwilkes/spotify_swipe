@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button b;
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(v -> {
 
             Intent intent = new Intent(this, SpotActivity.class);
-           MainActivity.this.startActivity(intent);
+            MainActivity.this.startActivity(intent);
 
             //            try {
             //                AuthHandler a   = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5",
