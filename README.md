@@ -4,6 +4,8 @@
 
 **https://github.com/google/gson
 
-https://github.com/nihad92/SwipeableCards
+https://github.com/yuyakaido/CardStackView
 
 http://square.github.io/okhttp/
+
+https://github.com/bumptech/glide
