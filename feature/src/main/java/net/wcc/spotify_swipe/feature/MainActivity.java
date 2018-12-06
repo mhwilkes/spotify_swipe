@@ -144,9 +144,9 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         List<FrontCard> frontCards = new ArrayList<>();
         frontCards.add(new FrontCard("Get The Hang of Swiping", "Swipe Left or Right to Choose a Song", "https://source.unsplash.com/4wJxtRBueho/600x800"));
         frontCards
-                .add(new FrontCard("Fushimi Inari Shrine", "Kyoto", "https://source.unsplash.com/uUFzVJ98ZY8/600x800"));
-        frontCards.add(new FrontCard("Bamboo Forest", "Kyoto", "https://source.unsplash.com/G9JYncnA5O8/600x800"));
-        frontCards.add(new FrontCard("Brooklyn Bridge", "New York", "https://source.unsplash.com/d1sdcauhuuc/600x800"));
+                .add(new FrontCard("Swiping Left", "Swipe Left When you Don't Like a Song", "https://source.unsplash.com/uUFzVJ98ZY8/600x800"));
+        frontCards.add(new FrontCard("Swipe Right", "Swipe Right When you Want to Hear More of The Song", "https://source.unsplash.com/G9JYncnA5O8/600x800"));
+        frontCards.add(new FrontCard("Lets Get Started!", "Continue By Clicking the Button Below", "https://source.unsplash.com/d1sdcauhuuc/600x800"));
 
         return frontCards;
     }
