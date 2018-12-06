@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
 public class PlaylistSimple {
+
     private Boolean      collaborative;
     private ExternalURL  externalURL;
     private String       href;
@@ -30,7 +31,7 @@ public class PlaylistSimple {
      */
     public PlaylistSimple(Boolean collaborative, ExternalURL externalURL, String href, String id, CoverImage[]
             images, String name, User owner, Boolean publicStatus, String snapshot_id, Paging[] tracks, String type,
-                          String uri) {
+            String uri) {
         this.collaborative = collaborative;
         this.externalURL = externalURL;
         this.href = href;

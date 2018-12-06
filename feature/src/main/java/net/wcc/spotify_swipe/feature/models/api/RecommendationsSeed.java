@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
 public class RecommendationsSeed {
+
     private int    afterFilteringSize;
     private int    afterRelinkingSize;
     private String href;

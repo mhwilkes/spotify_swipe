@@ -37,10 +37,6 @@ public class AccessToken {
         return access_token;
     }
 
-    /**
-     * @return
-     */
-    public String getAuthHeader() { return token_type + " " + access_token; }
 
     /**
      * @return

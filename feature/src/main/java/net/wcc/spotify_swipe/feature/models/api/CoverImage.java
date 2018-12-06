@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
 public class CoverImage {
+
     private int    height;
     private String url;
     private int    width;

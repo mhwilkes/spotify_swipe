@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
 public class ArtistSimple {
+
     private ExternalURL external_urls;
     private String      href;
     private String      id;
@@ -9,18 +10,12 @@ public class ArtistSimple {
     private String      uri;
 
     /**
-     * @param external_urls
-     *         Known external URLs for this artist.
-     * @param href
-     *         A link to the Web API endpoint providing full details of the artist.
-     * @param id
-     *         The Spotify ID for the artist.
-     * @param name
-     *         The name of the artist
-     * @param type
-     *         The object type: "artist"
-     * @param uri
-     *         The Spotify URI for the album.
+     * @param external_urls Known external URLs for this artist.
+     * @param href          A link to the Web API endpoint providing full details of the artist.
+     * @param id            The Spotify ID for the artist.
+     * @param name          The name of the artist
+     * @param type          The object type: "artist"
+     * @param uri           The Spotify URI for the album.
      */
     public ArtistSimple(ExternalURL external_urls, String href, String id, String name, String type, String uri) {
         this.external_urls = external_urls;

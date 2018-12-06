@@ -3,6 +3,7 @@ package net.wcc.spotify_swipe.feature.models.api;
 import java.security.Timestamp;
 
 public class PlayHistory {
+
     private TrackSimple trackSimple;
     private Timestamp   played_at;
     private Context     context;

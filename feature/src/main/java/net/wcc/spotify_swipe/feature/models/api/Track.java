@@ -34,66 +34,64 @@ public class Track {
     private              Boolean        is_local;
 
     /**
-     * @param album
-     *         The album on which the track appears. The album object includes a link in href to full information about
-     *         the album.
-     * @param artists
-     *         The artists who performed the track. Each artist object includes a link in href to more detailed
-     *         information about the artist.
-     * @param available_markets
-     *         A list of the countries in which the track can be played, identified by their
-     *         <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code.</a>
-     * @param disc_number
-     *         The disc number (usually 1 unless the album consists of more than one disc).
-     * @param duration_ms
-     *         The track length in milliseconds.
-     * @param explicit
-     *         Whether or not the track has explicit lyrics ( true = yes it does; false = no it does not OR unknown).
-     * @param external_urls
-     *         Known external URLs for this track.
-     * @param href
-     *         A link to the Web API endpoint providing full details of the track.
-     * @param id
-     *         The Spotify ID for the track.
-     * @param is_playable
-     *         Part of the response when Track Relinking is applied. If true , the track is playable in the given
-     *         market. Otherwise false.
-     * @param linked_from
-     *         Part of the response when Track Relinking is applied, and the requested track has been replaced with
-     *         different track. The track in the linked_from object contains information about the originally requested
-     *         track.
-     * @param restrictions
-     *         Part of the response when Track Relinking is applied, the original track is not available in the given
-     *         market, and Spotify did not have any tracks to relink it with. The track response will still contain
-     *         metadata for the original track, and a restrictions object containing the reason why the track is not
-     *         available: "restrictions" : {"reason" : "market"}
-     * @param name
-     *         The name of the track.
-     * @param popularity
-     *         The popularity of the track. The value will be between 0 and 100, with 100 being the most popular. The
-     *         popularity of a track is a value between 0 and 100, with 100 being the most popular. The popularity is
-     *         calculated by algorithm and is based, in the most part, on the total number of plays the track has had
-     *         and how recent those plays are. Generally speaking, songs that are being played a lot now will have a
-     *         higher popularity than songs that were played a lot in the past. Duplicate tracks (e.g. the same track
-     *         from a single and an album) are rated independently. Artist and album popularity is derived
-     *         mathematically from track popularity. Note that the popularity value may lag actual popularity by a few
-     *         days: the value is not updated in real time.
-     * @param preview_url
-     *         A link to a 30 second preview (MP3 format) of the track. Can be null
-     * @param track_number
-     *         The number of the track. If an album has several discs, the track number is the number on the specified
-     *         disc.
-     * @param type
-     *         The object type: “track”.
-     * @param uri
-     *         The Spotify URI for the track.
-     * @param is_local
-     *         Whether the track is local or not
+     * @param album             The album on which the track appears. The album object includes a link in href to full
+     *                          information about
+     *                          the album.
+     * @param artists           The artists who performed the track. Each artist object includes a link in href to
+     *                          more detailed
+     *                          information about the artist.
+     * @param available_markets A list of the countries in which the track can be played, identified by their
+     *                          <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code.</a>
+     * @param disc_number       The disc number (usually 1 unless the album consists of more than one disc).
+     * @param duration_ms       The track length in milliseconds.
+     * @param explicit          Whether or not the track has explicit lyrics ( true = yes it does; false = no it does
+     *                          not OR unknown).
+     * @param external_urls     Known external URLs for this track.
+     * @param href              A link to the Web API endpoint providing full details of the track.
+     * @param id                The Spotify ID for the track.
+     * @param is_playable       Part of the response when Track Relinking is applied. If true , the track is playable
+     *                          in the given
+     *                          market. Otherwise false.
+     * @param linked_from       Part of the response when Track Relinking is applied, and the requested track has been
+     *                          replaced with
+     *                          different track. The track in the linked_from object contains information about the
+     *                          originally requested
+     *                          track.
+     * @param restrictions      Part of the response when Track Relinking is applied, the original track is not
+     *                          available in the given
+     *                          market, and Spotify did not have any tracks to relink it with. The track response will
+     *                          still contain
+     *                          metadata for the original track, and a restrictions object containing the reason why
+     *                          the track is not
+     *                          available: "restrictions" : {"reason" : "market"}
+     * @param name              The name of the track.
+     * @param popularity        The popularity of the track. The value will be between 0 and 100, with 100 being the
+     *                          most popular. The
+     *                          popularity of a track is a value between 0 and 100, with 100 being the most popular.
+     *                          The popularity is
+     *                          calculated by algorithm and is based, in the most part, on the total number of plays
+     *                          the track has had
+     *                          and how recent those plays are. Generally speaking, songs that are being played a lot
+     *                          now will have a
+     *                          higher popularity than songs that were played a lot in the past. Duplicate tracks
+     *                          (e.g. the same track
+     *                          from a single and an album) are rated independently. Artist and album popularity is
+     *                          derived
+     *                          mathematically from track popularity. Note that the popularity value may lag actual
+     *                          popularity by a few
+     *                          days: the value is not updated in real time.
+     * @param preview_url       A link to a 30 second preview (MP3 format) of the track. Can be null
+     * @param track_number      The number of the track. If an album has several discs, the track number is the number
+     *                          on the specified
+     *                          disc.
+     * @param type              The object type: “track”.
+     * @param uri               The Spotify URI for the track.
+     * @param is_local          Whether the track is local or not
      */
     public Track(AlbumSimple album, ArtistSimple[] artists, String[] available_markets, int disc_number, int
             duration_ms, Boolean explicit, ExternalID external_ids, ExternalURL external_urls, String href, String
             id, Boolean is_playable, TrackLink linked_from, Restriction restrictions, String name, int popularity,
-                 String preview_url, int track_number, String type, String uri, Boolean is_local) {
+            String preview_url, int track_number, String type, String uri, Boolean is_local) {
 
         this.album = album;
         this.artists = artists;
@@ -131,8 +129,10 @@ public class Track {
         OkHttpClient client = new OkHttpClient();
         Gson         gson   = new Gson();
         Request request = new Request.Builder().url(getEndpoint() + ID).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at
-                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
+                                               .addHeader("Content-Type", "application/json")
+                                               .addHeader("Authorization", "Bearer " + at
+                                                       .getAccess_token()).addHeader("cache-control", "no-cache")
+                                               .build();
 
         Response response = client.newCall(request).execute();
 
@@ -159,8 +159,8 @@ public class Track {
         Gson         gson   = new Gson();
         Request request = new Request.Builder().url(getEndpoint() + ID + "?market=" + market).get().addHeader
                 ("Accept", "application/json").addHeader("Content-Type", "application/json").addHeader
-                ("Authorization", at.getAuthHeader())
-                .addHeader("cache-control", "no-cache").build();
+                ("Authorization", "Bearer " + at.getAccess_token())
+                                               .addHeader("cache-control", "no-cache").build();
 
         Response response = client.newCall(request).execute();
 
@@ -179,12 +179,14 @@ public class Track {
         Gson          gson   = new Gson();
         StringBuilder sb     = new StringBuilder(getEndpoint() + "?ids=");
         for (int i = 0; i < IDS.length; i++) {
-            sb.append(IDS.length == i ? IDS[i] : IDS[i] + ',');
+            sb.append(IDS.length - 1 > i ? IDS[i] : IDS[i] + ',');
         }
 
         Request request = new Request.Builder().url(sb.toString()).get().addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + at
-                        .getAccess_token()).addHeader("cache-control", "no-cache").build();
+                                               .addHeader("Content-Type", "application/json")
+                                               .addHeader("Authorization", "Bearer " + at
+                                                       .getAccess_token()).addHeader("cache-control", "no-cache")
+                                               .build();
 
         Response response = client.newCall(request).execute();
 

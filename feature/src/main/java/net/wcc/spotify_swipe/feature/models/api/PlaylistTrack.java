@@ -3,6 +3,7 @@ package net.wcc.spotify_swipe.feature.models.api;
 import java.security.Timestamp;
 
 public class PlaylistTrack {
+
     private Timestamp added_at;
     private User      added_by;
     private Boolean   is_local;

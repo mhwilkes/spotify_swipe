@@ -17,49 +17,50 @@ import java.util.List;
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
-    private List<Spot>     spots;
+    private List<Card>     cards;
 
-    public CardStackAdapter(Context context, List<Spot> spots) {
+    public CardStackAdapter(Context context, List<Card> cards) {
         this.inflater = LayoutInflater.from(context);
-        this.spots = spots;
+        this.cards = cards;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.item_spot, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.card, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Spot spot = spots.get(position);
-        holder.name.setText(spot.name);
-        holder.city.setText(spot.city);
-        Glide.with(holder.image).load(spot.url).into(holder.image);
+        Card card = cards.get(position);
+        holder.text.setText(card.text);
+        holder.description.setText(card.description);
+        Glide.with(holder.image).load(card.img_url).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return spots.size();
+        return cards.size();
     }
 
-    public List<Spot> getSpots() {
-        return spots;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setSpots(List<Spot> spots) {
-        this.spots = spots;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView  name;
-        TextView  city;
+
+        TextView  text;
+        TextView  description;
         ImageView image;
 
         ViewHolder(View view) {
             super(view);
-            this.name = view.findViewById(R.id.item_name);
-            this.city = view.findViewById(R.id.item_city);
+            this.text = view.findViewById(R.id.item_name);
+            this.description = view.findViewById(R.id.item_city);
             this.image = view.findViewById(R.id.item_image);
         }
     }

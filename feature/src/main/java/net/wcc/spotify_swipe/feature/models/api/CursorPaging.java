@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
 public class CursorPaging {
+
     private String   next;
     private String   href;
     private Object[] items;

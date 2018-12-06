@@ -32,7 +32,6 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".SearchActivity"/>
         <activity android:name=".PopupCardActivity"/>
-        <activity android:name=".SpotActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
 
 
     </application>

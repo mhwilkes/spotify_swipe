@@ -33,9 +33,9 @@ public class CardDiffCallback extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldPosition, int newPosition) {
         Card oldCard = oldList.get(oldPosition);
         Card newCard = newList.get(newPosition);
-        return oldCard.name.equals(newCard.name)
-                && oldCard.text.equals(newCard.text)
-                && oldCard.url.equals(newCard.url);
+        return oldCard.text.equals(newCard.text)
+                && oldCard.description.equals(newCard.description)
+                && oldCard.img_url.equals(newCard.img_url);
     }
 
 }

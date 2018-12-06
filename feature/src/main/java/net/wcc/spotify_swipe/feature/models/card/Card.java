@@ -17,7 +17,8 @@ public class Card {
     public String img_url;
     public String description;
 
-    public Card(String text, String img_url, String description) {
+    public Card(String text, String description, String img_url) {
+        this.id++;
         this.text = text;
         this.img_url = img_url;
         this.description = description;
