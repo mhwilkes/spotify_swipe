@@ -21,9 +21,9 @@ import net.wcc.spotify_swipe.feature.models.api.Recommendations;
 import net.wcc.spotify_swipe.feature.models.api.Track;
 import net.wcc.spotify_swipe.feature.models.api.TrackSimple;
 import net.wcc.spotify_swipe.feature.models.audio_analysis.AudioFeatures;
-import net.wcc.spotify_swipe.feature.models.card.Card;
-import net.wcc.spotify_swipe.feature.models.card.CardDiffCallback;
-import net.wcc.spotify_swipe.feature.models.card.CardStackAdapter;
+import net.wcc.spotify_swipe.feature.models.card.FrontCard;
+import net.wcc.spotify_swipe.feature.models.card.FrontCardDiffCallback;
+import net.wcc.spotify_swipe.feature.models.card.FrontCardStackAdapter;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
 
 public class MainActivity extends AppCompatActivity implements CardStackListener {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
     private Button                 b;
     private CardStackLayoutManager manager;
-    private CardStackAdapter       adapter;
+    private FrontCardStackAdapter  adapter;
     private CardStackView          cardStackView;
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -122,36 +122,32 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         manager.setDirections(Direction.HORIZONTAL);
         manager.setCanScrollHorizontal(true);
         manager.setCanScrollVertical(true);
-        adapter = new CardStackAdapter(this, createCards());
+        adapter = new FrontCardStackAdapter(this, createCards());
         cardStackView = findViewById(R.id.swipe);
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
     }
 
     private void paginate() {
-        List<Card> oldList = adapter.getCards();
-        List<Card> newList = new ArrayList<Card>() {{
-            addAll(adapter.getCards());
+        List<FrontCard> oldList = adapter.getFrontCards();
+        List<FrontCard> newList = new ArrayList<FrontCard>() {{
+            addAll(adapter.getFrontCards());
             addAll(createCards());
         }};
-        CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
-        DiffUtil.DiffResult result   = DiffUtil.calculateDiff(callback);
-        adapter.setCards(newList);
+        FrontCardDiffCallback callback = new FrontCardDiffCallback(oldList, newList);
+        DiffUtil.DiffResult   result   = DiffUtil.calculateDiff(callback);
+        adapter.setFrontCards(newList);
         result.dispatchUpdatesTo(adapter);
     }
 
-    private List<Card> createCards() {
-        List<Card> cards = new ArrayList<>();
-        cards.add(new Card("Yasaka Shrine", "Kyoto", "https://source.unsplash.com/Xq1ntWruZQI/600x800"));
-        cards.add(new Card("Fushimi Inari Shrine", "Kyoto", "https://source.unsplash.com/NYyCqdBOKwc/600x800"));
-        cards.add(new Card("Bamboo Forest", "Kyoto", "https://source.unsplash.com/buF62ewDLcQ/600x800"));
-        cards.add(new Card("Brooklyn Bridge", "New York", "https://source.unsplash.com/THozNzxEP3g/600x800"));
-        cards.add(new Card("Empire State Building", "New York", "https://source.unsplash.com/USrZRcRS2Lw/600x800"));
-        cards.add(new Card("The statue of Liberty", "New York", "https://source.unsplash.com/PeFk7fzxTdk/600x800"));
-        cards.add(new Card("Louvre Museum", "Paris", "https://source.unsplash.com/LrMWHKqilUw/600x800"));
-        cards.add(new Card("Eiffel Tower", "Paris", "https://source.unsplash.com/HN-5Z6AmxrM/600x800"));
-        cards.add(new Card("Big Ben", "London", "https://source.unsplash.com/CdVAUADdqEc/600x800"));
-        cards.add(new Card("Great Wall of China", "China", "https://source.unsplash.com/AWh9C-QjhE4/600x800"));
-        return cards;
+    private List<FrontCard> createCards() {
+        List<FrontCard> frontCards = new ArrayList<>();
+        frontCards.add(new FrontCard("Get The Hang of Swiping", "Swipe Left or Right to Choose a Song", "https://source.unsplash.com/4wJxtRBueho/600x800"));
+        frontCards
+                .add(new FrontCard("Fushimi Inari Shrine", "Kyoto", "https://source.unsplash.com/uUFzVJ98ZY8/600x800"));
+        frontCards.add(new FrontCard("Bamboo Forest", "Kyoto", "https://source.unsplash.com/G9JYncnA5O8/600x800"));
+        frontCards.add(new FrontCard("Brooklyn Bridge", "New York", "https://source.unsplash.com/d1sdcauhuuc/600x800"));
+
+        return frontCards;
     }
 }

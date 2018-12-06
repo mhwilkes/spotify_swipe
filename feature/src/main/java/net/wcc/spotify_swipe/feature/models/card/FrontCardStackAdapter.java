@@ -14,14 +14,14 @@ import net.wcc.spotify_swipe.feature.R;
 
 import java.util.List;
 
-public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
+public class FrontCardStackAdapter extends RecyclerView.Adapter<FrontCardStackAdapter.ViewHolder> {
 
-    private LayoutInflater inflater;
-    private List<Card>     cards;
+    private LayoutInflater  inflater;
+    private List<FrontCard> mFrontCards;
 
-    public CardStackAdapter(Context context, List<Card> cards) {
+    public FrontCardStackAdapter(Context context, List<FrontCard> frontCards) {
         this.inflater = LayoutInflater.from(context);
-        this.cards = cards;
+        this.mFrontCards = frontCards;
     }
 
     @NonNull
@@ -32,23 +32,23 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Card card = cards.get(position);
-        holder.text.setText(card.text);
-        holder.description.setText(card.description);
-        Glide.with(holder.image).load(card.img_url).into(holder.image);
+        FrontCard frontCard = mFrontCards.get(position);
+        holder.text.setText(frontCard.text);
+        holder.description.setText(frontCard.description);
+        Glide.with(holder.image).load(frontCard.img_url).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return cards.size();
+        return mFrontCards.size();
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public List<FrontCard> getFrontCards() {
+        return mFrontCards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void setFrontCards(List<FrontCard> frontCards) {
+        this.mFrontCards = frontCards;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

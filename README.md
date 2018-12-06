@@ -7,10 +7,10 @@
 #### Using Gson to parse JSON responses into Java Objects
 ---
 ## https://github.com/yuyakaido/CardStackView
-#### This is used to implement the Tinder like card swiping experience
+#### This is used to implement the Tinder like frontCard swiping experience
   -Required Dependencies
   * https://github.com/bumptech/glide
-  This loads images over the internet and provides caching and support for images on cards.
+  This loads images over the internet and provides caching and support for images on frontCards.
 ---
 ## http://square.github.io/okhttp/
 #### This is used to implement HTTP Requests for the API through a structured manner. Uses 
