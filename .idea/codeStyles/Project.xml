@@ -1,8 +1,5 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <JavaCodeStyleSettings>
-      <option name="ALIGN_MULTILINE_ANNOTATION_PARAMETERS" value="true" />
-    </JavaCodeStyleSettings>
     <Objective-C-extensions>
       <file>
         <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Import" />
@@ -28,36 +25,5 @@
         <pair source="c" header="h" fileNamingConvention="NONE" />
       </extensions>
     </Objective-C-extensions>
-    <codeStyleSettings language="JAVA">
-      <option name="KEEP_LINE_BREAKS" value="false" />
-      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
-      <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
-      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
-      <option name="ALIGN_MULTILINE_ASSIGNMENT" value="true" />
-      <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />
-      <option name="ALIGN_MULTILINE_THROWS_LIST" value="true" />
-      <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
-      <option name="ALIGN_MULTILINE_ARRAY_INITIALIZER_EXPRESSION" value="true" />
-      <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
-      <option name="ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS" value="true" />
-      <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
-      <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
-      <option name="KEEP_SIMPLE_LAMBDAS_IN_ONE_LINE" value="true" />
-      <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
-      <option name="WRAP_LONG_LINES" value="true" />
-      <option name="WRAP_ON_TYPING" value="1" />
-      <arrangement>
-        <groups>
-          <group>
-            <type>OVERRIDDEN_METHODS</type>
-            <order>KEEP</order>
-          </group>
-          <group>
-            <type>DEPENDENT_METHODS</type>
-            <order>BREADTH_FIRST</order>
-          </group>
-        </groups>
-      </arrangement>
-    </codeStyleSettings>
   </code_scheme>
 </component>
