@@ -11,13 +11,16 @@ import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Album;
 import net.wcc.spotify_swipe.feature.models.api.Artist;
+import net.wcc.spotify_swipe.feature.models.api.Paging;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
+import net.wcc.spotify_swipe.feature.models.api.Search;
 import net.wcc.spotify_swipe.feature.models.api.Track;
 import net.wcc.spotify_swipe.feature.models.api.TrackSimple;
 import net.wcc.spotify_swipe.feature.models.audio_analysis.AudioFeatures;
@@ -72,10 +75,11 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
                 for (TrackSimple t : trackSimples) {
                     Log.w("API RECCOMENDATION TRACK", t.getName());
                 }
+                Search search = new Search("upc:00602537817016", "album", "US", 10, 5);
+                Paging p      = Search.requestSearch(search, at);
 
+                Log.w("API SEARCH", String.valueOf(p.getLimit()));
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,11 +146,15 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
     private List<FrontCard> createCards() {
         List<FrontCard> frontCards = new ArrayList<>();
-        frontCards.add(new FrontCard("Get The Hang of Swiping", "Swipe Left or Right to Choose a Song", "https://source.unsplash.com/4wJxtRBueho/600x800"));
+        frontCards.add(new FrontCard("Get The Hang of Swiping", "Swipe Left or Right to Choose a Song",
+                "https://source.unsplash.com/4wJxtRBueho/600x800"));
         frontCards
-                .add(new FrontCard("Swiping Left", "Swipe Left When you Don't Like a Song", "https://source.unsplash.com/uUFzVJ98ZY8/600x800"));
-        frontCards.add(new FrontCard("Swipe Right", "Swipe Right When you Want to Hear More of The Song", "https://source.unsplash.com/G9JYncnA5O8/600x800"));
-        frontCards.add(new FrontCard("Lets Get Started!", "Continue By Clicking the Button Below", "https://source.unsplash.com/d1sdcauhuuc/600x800"));
+                .add(new FrontCard("Swiping Left", "Swipe Left When you Don't Like a Song",
+                        "https://source.unsplash.com/uUFzVJ98ZY8/600x800"));
+        frontCards.add(new FrontCard("Swipe Right", "Swipe Right When you Want to Hear More of The Song",
+                "https://source.unsplash.com/G9JYncnA5O8/600x800"));
+        frontCards.add(new FrontCard("Lets Get Started!", "Continue By Clicking the Button Below",
+                "https://source.unsplash.com/d1sdcauhuuc/600x800"));
 
         return frontCards;
     }
