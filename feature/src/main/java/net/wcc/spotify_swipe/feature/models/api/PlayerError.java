@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class PlayerError {
 
+    //TODO recheck interpretation of this object, make sure the correct flow is happening
     private final HashMap<String, String> errors = new HashMap<String, String>() {{
         put("NO_PREV_TRACK", "403 FORBIDDEN");
         put("NO_NEXT_TRACK", "403 FORBIDDEN");
@@ -28,24 +29,41 @@ public class PlayerError {
     private       int                     status;
     private       String                  message, reason;
 
+    /**
+     * @param status
+     * @param message
+     * @param reason
+     */
     public PlayerError(int status, String message, String reason) {
         this.status = status;
         this.message = message;
         this.reason = reason;
     }
 
+    /**
+     * @return
+     */
     public HashMap<String, String> getErrors() {
         return errors;
     }
 
+    /**
+     * @return
+     */
     public int getStatus() {
         return status;
     }
 
+    /**
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * @return
+     */
     public String getReason() {
         return reason;
     }
