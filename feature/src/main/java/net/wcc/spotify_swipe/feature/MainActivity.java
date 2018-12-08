@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
                 Log.w("API SEARCH", String.valueOf(p.getLimit()));
 
-                Intent intent = new Intent(this, SearchActivity.class);
+                Intent intent = new Intent(this, CardActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {

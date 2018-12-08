@@ -27,16 +27,16 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.item_spot, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.card, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Card card = cards.get(position);
-        holder.text.setText(card.text);
-        holder.description.setText(card.description);
+        holder.text.setText(card.getSong_name());
+        holder.description.setText(card.getSong_artist(0).getName());
         Glide.with(holder.image)
-             .load(card.url)
+             .load(card.getImage_url())
              .into(holder.image);
     }
 

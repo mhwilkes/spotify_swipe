@@ -25,7 +25,7 @@ public class CardDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldPosition, int newPosition) {
-        return oldList.get(oldPosition).id == newList.get(newPosition).id;
+        return oldList.get(oldPosition).getSong_ID() == newList.get(newPosition).getSong_ID();
     }
 
     //TODO add card stuff
@@ -33,9 +33,9 @@ public class CardDiffCallback extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldPosition, int newPosition) {
         Card oldCard = oldList.get(oldPosition);
         Card newCard = newList.get(newPosition);
-        return oldCard.text.equals(newCard.text)
-                && oldCard.city.equals(newCard.city)
-                && oldCard.url.equals(newCard.url);
+        return oldCard.getSong_name().equals(newCard.getSong_name())
+                && oldCard.getSong_artists().equals(newCard.getSong_artists())
+                && oldCard.getSong_preview_url().equals(newCard.getSong_preview_url());
     }
 
 }

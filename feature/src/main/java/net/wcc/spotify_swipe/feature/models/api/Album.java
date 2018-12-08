@@ -102,7 +102,7 @@ public class Album {
      *
      * @throws IOException
      */
-    public static Album requestAlbum(String ID, AccessToken at) throws IOException {
+    public static AlbumSimple requestAlbum(String ID, AccessToken at) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Gson         gson   = new Gson();
         Request request = new Request.Builder().url(getEndpoint() + ID).get().addHeader("Accept", "application/json")
@@ -112,7 +112,7 @@ public class Album {
                                                .addHeader("cache-control", "no-cache")
                                                .build();
         Response response = client.newCall(request).execute();
-        return gson.fromJson(response.body().string(), Album.class);
+        return gson.fromJson(response.body().string(), AlbumSimple.class);
     }
 
     /**

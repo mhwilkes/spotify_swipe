@@ -117,7 +117,7 @@
                     android:clipChildren="false">
 
                 <com.yuyakaido.android.cardstackview.CardStackView
-                        android:id="@+id/card_stack_view"
+                        android:id="@+id/swipe"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                 </com.yuyakaido.android.cardstackview.CardStackView>
