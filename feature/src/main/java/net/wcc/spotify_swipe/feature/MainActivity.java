@@ -1,5 +1,6 @@
 package net.wcc.spotify_swipe.feature;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
@@ -11,8 +12,6 @@ import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
@@ -80,12 +79,13 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
                 Log.w("API SEARCH", String.valueOf(p.getLimit()));
 
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });
-
     }
 
     @Override
