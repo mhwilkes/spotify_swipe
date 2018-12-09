@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
@@ -15,9 +16,12 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
 import net.wcc.spotify_swipe.feature.models.api.Track;
+import net.wcc.spotify_swipe.feature.models.api.TrackSimple;
 import net.wcc.spotify_swipe.feature.models.card.Card;
 import net.wcc.spotify_swipe.feature.models.card.CardDiffCallback;
 import net.wcc.spotify_swipe.feature.models.card.CardStackAdapter;
@@ -30,11 +34,14 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private CardStackView          cardStackView;
     private AccessToken            mAccessToken;
     private Recommendations        recommendations;
+    private SharedPreferences      sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
 
         AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
                 getResources().getString(R.string.client_secret));
@@ -123,12 +130,23 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private List<Card> createCards() {
         List<Card> songCard = new ArrayList<>();
 
+        Set<String> initialSeed = sharedPreferences.getStringSet(getResources().getString(R.string.InitialSeed), null);
         try {
-            songCard.add(new Card(Track.requestTrack("3n3Ppam7vgaVa1iaRUc9Lp", mAccessToken)));
+            recommendations = Recommendations.requestRecommendations(5, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null, this.mAccessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for (TrackSimple t : recommendations.getTracks()) {
+                songCard.add(new Card(Track.requestTrack(t.getId(), this.mAccessToken)));
+            }
+
+           /* songCard.add(new Card(Track.requestTrack("3n3Ppam7vgaVa1iaRUc9Lp", mAccessToken)));
             songCard.add(new Card(Track.requestTrack("7ouMYWpwJ422jRcDASZB7P", mAccessToken)));
             songCard.add(new Card(Track.requestTrack("7xGfFoTpQ2E7fRF5lN10tr", mAccessToken)));
             songCard.add(new Card(Track.requestTrack("4VqPOruhp5EdPBeR92t6lQ", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("2takcwOaAZWiXQijPHIx7B", mAccessToken)));
+            songCard.add(new Card(Track.requestTrack("2takcwOaAZWiXQijPHIx7B", mAccessToken))); */
         } catch (IOException e) {
             e.printStackTrace();
         }
