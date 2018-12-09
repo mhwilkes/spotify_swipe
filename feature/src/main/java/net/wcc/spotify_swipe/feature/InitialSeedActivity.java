@@ -48,6 +48,7 @@ public class InitialSeedActivity extends AppCompatActivity {
         for (String s : options) {
             CheckBox option = new CheckBox(this);
             option.setText(s);
+            option.setTextSize(18.f);
             option.setTextColor(getResources().getColor(android.R.color.black, null));
             option.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
