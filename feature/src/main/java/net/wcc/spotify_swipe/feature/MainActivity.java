@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
     private CardStackLayoutManager manager;
     private FrontCardStackAdapter  adapter;
     private CardStackView          cardStackView;
+    private SharedPreferences      sp;
 
     @SuppressWarnings("SpellCheckingInspection")
     @Override
@@ -47,13 +49,25 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sp = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
+
+        if (!firstLaunch()) {
+            Intent i = new Intent();
+            if (hasInitialSeed()) {
+                i.setClass(this, CardActivity.class);
+            } else {
+                i.setClass(this, InitialSeedActivity.class);
+            }
+            startActivity(i);
+        }
+
         setupCardStackView();
 
         b = findViewById(R.id.start);
 
         b.setOnClickListener(v -> {
 
-            try {
+/*            try {
                 AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
                         getResources().getString(R.string.client_secret));
                 AccessToken at = a.getAccessToken();
@@ -77,14 +91,17 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
                 Search search = new Search("upc:00602537817016", "album", "US", 10, 5);
                 Paging p      = Search.requestSearch(search, at);
 
-                Log.w("API SEARCH", String.valueOf(p.getLimit()));
+                Log.w("API SEARCH", String.valueOf(p.getLimit())); */
+
+                // Set FirstExecution to false, once false, this activity will not be shown again.
+                this.sp.edit().putBoolean(getResources().getString(R.string.FirstExecution), false).commit();
 
                 Intent intent = new Intent(this, InitialSeedActivity.class);
                 startActivity(intent);
 
-            } catch (IOException e) {
+           /* } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         });
     }
 
@@ -109,6 +126,17 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardCanceled() {
         Log.d("CardStackView", "onCardCanceled:" + manager.getTopPosition());
+    }
+
+    public boolean firstLaunch() {
+        if (this.sp.contains(getResources().getString(R.string.FirstExecution))) {
+            return this.sp.getBoolean(getResources().getString(R.string.FirstExecution), true);
+        }
+        return true;
+    }
+
+    public boolean hasInitialSeed() {
+        return this.sp.contains(getResources().getString(R.string.InitialSeed));
     }
 
     private void setupCardStackView() {
