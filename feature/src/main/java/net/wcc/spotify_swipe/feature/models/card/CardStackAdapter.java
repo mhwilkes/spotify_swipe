@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 import net.wcc.spotify_swipe.feature.R;
 
@@ -35,6 +33,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         Card card = cards.get(position);
         holder.text.setText(card.getSong_name());
         holder.description.setText(card.getSong_artist(0).getName());
+
         Glide.with(holder.image)
              .load(card.getImage_url())
              .into(holder.image);
@@ -49,6 +48,10 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         return cards;
     }
 
+    public Card getAtPosition(int position) {
+        return cards.get(position);
+    }
+
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
@@ -58,12 +61,16 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         TextView  text;
         TextView  description;
         ImageView image;
+        int       pos;
 
         ViewHolder(View view) {
             super(view);
+
+            this.pos++;
             this.text = view.findViewById(R.id.item_name);
             this.description = view.findViewById(R.id.item_city);
             this.image = view.findViewById(R.id.item_image);
+
         }
     }
 

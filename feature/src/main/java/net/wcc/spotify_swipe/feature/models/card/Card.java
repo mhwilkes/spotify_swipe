@@ -1,5 +1,7 @@
 package net.wcc.spotify_swipe.feature.models.card;
 
+import java.io.Serializable;
+import net.wcc.spotify_swipe.feature.models.api.AlbumSimple;
 import net.wcc.spotify_swipe.feature.models.api.ArtistSimple;
 import net.wcc.spotify_swipe.feature.models.api.CoverImage;
 import net.wcc.spotify_swipe.feature.models.api.Track;
@@ -13,6 +15,7 @@ public class Card {
     private String         image_url;
     private String         song_preview_url;
     private String         song_ID;
+    private AlbumSimple    mAlbumSimple;
 
     //TODO add
     public Card(Track track) {
@@ -25,6 +28,11 @@ public class Card {
         this.card_track = track;
         this.song_preview_url = track.getPreview_url();
         this.song_ID = track.getId();
+        this.mAlbumSimple = track.getAlbum();
+    }
+
+    public AlbumSimple getAlbumSimple() {
+        return mAlbumSimple;
     }
 
     public Track getCard_track() {

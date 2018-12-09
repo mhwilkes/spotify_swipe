@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
     private void initialize() {
         manager = new CardStackLayoutManager(getApplicationContext(), this);
-        manager.setStackFrom(StackFrom.None);
+        manager.setStackFrom(StackFrom.Top);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
         manager.setScaleInterval(0.95f);
@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         manager.setDirections(Direction.HORIZONTAL);
         manager.setCanScrollHorizontal(true);
         manager.setCanScrollVertical(true);
+        manager.setTranslationInterval(8f);
         adapter = new FrontCardStackAdapter(this, createCards());
         cardStackView = findViewById(R.id.swipe);
         cardStackView.setLayoutManager(manager);

@@ -1,9 +1,12 @@
 package net.wcc.spotify_swipe.feature;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -40,7 +43,23 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         }
 
         setupCardStackView();
+
+        cardStackView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     }
+
+    final GestureDetector gestureDetector = new GestureDetector(getBaseContext(),
+            new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    Intent intent = new Intent(getApplicationContext(), PopupCardActivity.class);
+                    Card   card   = adapter.getAtPosition(manager.getTopPosition());
+                    intent.putExtra("song_name", card.getSong_name());
+                    intent.putExtra("artist_name", card.getSong_artist(0).getName());
+                    intent.putExtra("album_name", card.getAlbumSimple().getName());
+                    startActivity(intent);
+                    return true;
+                }
+            });
 
     @Override
     public void onCardDragging(Direction direction, float ratio) {
@@ -71,7 +90,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
 
     private void initialize() {
         manager = new CardStackLayoutManager(getApplicationContext(), this);
-        manager.setStackFrom(StackFrom.None);
+        manager.setStackFrom(StackFrom.Top);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
         manager.setScaleInterval(0.95f);
@@ -80,6 +99,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         manager.setDirections(Direction.HORIZONTAL);
         manager.setCanScrollHorizontal(true);
         manager.setCanScrollVertical(true);
+        manager.setTranslationInterval(8f);
         adapter = new CardStackAdapter(this, createCards());
         cardStackView = findViewById(R.id.swipe);
         cardStackView.setLayoutManager(manager);
