@@ -1,11 +1,12 @@
 package net.wcc.spotify_swipe.feature;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class InitialSeedActivity extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class InitialSeedActivity extends AppCompatActivity {
     Button nextButton;
     LinearLayout seedList;
 
-    ArrayList<String> genreSeeds;
+    Set<String> genreSeeds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +26,18 @@ public class InitialSeedActivity extends AppCompatActivity {
         nextButton      = findViewById(R.id.nextButton);
         seedList        = findViewById(R.id.seedList);
 
-        genreSeeds = new ArrayList<>();
+        genreSeeds = new HashSet<>();
 
-        instructions.setText("Choose your 3 favorite genres, then tap next...");
+        instructions.setText("Choose 5 genres from the list, then tap next...");
         nextButton.setText("Next");
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (genreSeeds.size() == 3) {
-                    // TODO: Write next step...
-                    Toast.makeText(getApplicationContext(), "You are ready to move on!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Select at least 3 genres!", Toast.LENGTH_LONG).show();
-                }
+        nextButton.setOnClickListener(v -> {
+            if (genreSeeds.size() == 5) {
+                SharedPreferences sp = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
+                sp.edit().putStringSet(getResources().getString(R.string.InitialSeed), genreSeeds).commit();
+                Intent launchCards = new Intent(this, CardActivity.class);
+                startActivity(launchCards);
+            } else {
+                Toast.makeText(getApplicationContext(), "Select at least 5 genres!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -49,19 +49,16 @@ public class InitialSeedActivity extends AppCompatActivity {
             CheckBox option = new CheckBox(this);
             option.setText(s);
             option.setTextColor(getResources().getColor(android.R.color.black, null));
-            option.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        if (genreSeeds.size() < 3) {
-                            genreSeeds.add(s);
-                        } else {
-                            Toast.makeText(InitialSeedActivity.this, "You can only choose 3 genres!", Toast.LENGTH_SHORT);
-                        }
+            option.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    if (genreSeeds.size() < 5) {
+                        genreSeeds.add(s);
                     } else {
-                        genreSeeds.remove(s);
+                        Toast.makeText(getApplicationContext(), "You can only choose 5 genres!", Toast.LENGTH_SHORT).show();
+                        option.setChecked(false);
                     }
-                    System.out.println(genreSeeds.toString());
+                } else {
+                    genreSeeds.remove(s);
                 }
             });
 
