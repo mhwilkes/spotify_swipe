@@ -65,16 +65,7 @@ public class Recommendations {
         StringBuilder st     = new StringBuilder();
         OkHttpClient  client = new OkHttpClient();
         Gson          gson   = new Gson();
-
-        for (int i = 0; i < seed_artists.length; i++) {
-            sa.append(seed_artists[i]).append(',');
-        }
-        for (int i = 0; i < seed_genres.length; i++) {
-            sg.append(seed_genres[i]).append(',');
-        }
-        for (int i = 0; i < seed_tracks.length; i++) {
-            st.append(seed_tracks[i]).append(',');
-        }
+        
         if (limit > 0) {
             sb.append("?limit=").append(limit);
         }
@@ -82,12 +73,19 @@ public class Recommendations {
             sb.append("&market=").append(market);
         }
         if (seed_artists != null) {
+            for (String s : seed_artists) {
+                sa.append(s).append(',');
+            }
             if (sa.toString().endsWith(",")) {
                 sa.setLength(sa.length() - 1);
             }
             sb.append("&seed_artists=").append(sa.toString());
         }
+
         if (seed_genres != null) {
+            for (String s : seed_genres) {
+                sg.append(s).append(',');
+            }
             if (sg.toString().endsWith(",")) {
                 sg.setLength(sg.length() - 1);
             }
@@ -95,6 +93,9 @@ public class Recommendations {
         }
 
         if (seed_tracks != null) {
+            for (String s : seed_tracks) {
+                st.append(s).append(',');
+            }
             if (st.toString().endsWith(",")) {
                 st.setLength(st.length() - 1);
             }

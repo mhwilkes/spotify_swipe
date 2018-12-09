@@ -7,7 +7,7 @@
     <application>
         <activity
                 android:name=".MainActivity"
-                android:label="Welcome to SongSwipe"
+                android:label="Welcome to SongSwipe!"
                 android:noHistory="true">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW"/>
@@ -30,15 +30,10 @@
                 android:label="@string/title_activity_nav_menu"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".SearchActivity"/>
-        <activity android:name=".CardActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
-        </activity>
+        <activity android:name=".CardActivity"/>
         <activity android:name=".PopupCardActivity"/>
         <activity android:name=".InitialSeedActivity"
-                  android:label="Lets get to know you.."
+                  android:label="Lets get to know you!"
                   android:noHistory="true">
         </activity>
     </application>
