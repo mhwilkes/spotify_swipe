@@ -20,7 +20,15 @@
     <string name="remove_one_spot_at_last" tools:ignore="ExtraTranslation">Remove one spot at last</string>
     <string name="remove_two_spots_at_last" tools:ignore="ExtraTranslation">Remove two spots at last</string>
 
+
+    <!-- API Auth Strings -->
+    <string name="client_id">3a36e58be96b4c4ab8829fb5702d05a5</string>
+    <string name="client_secret">9b7780574cb1414596bf3a241d15ace0</string>
+
     <!-- Strings related to Settings -->
+    <string name="SharedPrefsFile">SongSwipeSharedPrefs</string>
+    <string name="FirstExecution">FIRST_EXEC</string>
+    <string name="InitialSeed">INITIAL_SEED</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
