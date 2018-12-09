@@ -65,7 +65,7 @@ public class Recommendations {
         StringBuilder st     = new StringBuilder();
         OkHttpClient  client = new OkHttpClient();
         Gson          gson   = new Gson();
-        
+
         if (limit > 0) {
             sb.append("?limit=").append(limit);
         }
