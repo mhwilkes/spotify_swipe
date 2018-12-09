@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         b.setOnClickListener(v -> {
 
             try {
-                AuthHandler a = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5",
-                        "9b7780574cb1414596bf3a241d15ace0");
+                AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
+                        getResources().getString(R.string.client_secret));
                 AccessToken at = a.getAccessToken();
 
                 Log.w("API RESPONSE AUDIOFEATURES", AudioFeatures.requestAudioFeature("11dFghVXANMlKmJXsNCbNl", at)

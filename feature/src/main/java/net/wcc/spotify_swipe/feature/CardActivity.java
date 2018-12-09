@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
+import net.wcc.spotify_swipe.feature.models.api.Recommendations;
 import net.wcc.spotify_swipe.feature.models.api.Track;
 import net.wcc.spotify_swipe.feature.models.card.Card;
 import net.wcc.spotify_swipe.feature.models.card.CardDiffCallback;
@@ -28,14 +29,15 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private CardStackAdapter       adapter;
     private CardStackView          cardStackView;
     private AccessToken            mAccessToken;
+    private Recommendations        recommendations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        AuthHandler a = new AuthHandler("3a36e58be96b4c4ab8829fb5702d05a5",
-                "9b7780574cb1414596bf3a241d15ace0");
+        AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
+                getResources().getString(R.string.client_secret));
         try {
             mAccessToken = a.getAccessToken();
         } catch (IOException e) {
