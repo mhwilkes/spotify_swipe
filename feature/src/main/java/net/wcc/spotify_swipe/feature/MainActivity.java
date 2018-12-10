@@ -12,22 +12,11 @@ import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
-import net.wcc.spotify_swipe.feature.models.api.Album;
-import net.wcc.spotify_swipe.feature.models.api.Artist;
-import net.wcc.spotify_swipe.feature.models.api.Paging;
-import net.wcc.spotify_swipe.feature.models.api.Recommendations;
-import net.wcc.spotify_swipe.feature.models.api.Search;
-import net.wcc.spotify_swipe.feature.models.api.Track;
-import net.wcc.spotify_swipe.feature.models.api.TrackSimple;
-import net.wcc.spotify_swipe.feature.models.audio_analysis.AudioFeatures;
 import net.wcc.spotify_swipe.feature.models.card.FrontCard;
 import net.wcc.spotify_swipe.feature.models.card.FrontCardDiffCallback;
 import net.wcc.spotify_swipe.feature.models.card.FrontCardStackAdapter;
-import net.wcc.spotify_swipe.feature.requests.AccessToken;
 
 public class MainActivity extends AppCompatActivity implements CardStackListener {
 
