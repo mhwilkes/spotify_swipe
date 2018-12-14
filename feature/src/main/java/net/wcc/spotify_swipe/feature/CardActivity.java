@@ -8,16 +8,7 @@ import android.support.v7.util.DiffUtil;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
-import com.yuyakaido.android.cardstackview.CardStackListener;
-import com.yuyakaido.android.cardstackview.CardStackView;
-import com.yuyakaido.android.cardstackview.Direction;
-import com.yuyakaido.android.cardstackview.StackFrom;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import com.yuyakaido.android.cardstackview.*;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
 import net.wcc.spotify_swipe.feature.models.api.Track;
@@ -27,14 +18,33 @@ import net.wcc.spotify_swipe.feature.models.card.CardDiffCallback;
 import net.wcc.spotify_swipe.feature.models.card.CardStackAdapter;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class CardActivity extends AppCompatActivity implements CardStackListener {
 
     private CardStackLayoutManager manager;
-    private CardStackAdapter       adapter;
-    private CardStackView          cardStackView;
-    private AccessToken            mAccessToken;
-    private Recommendations        recommendations;
-    private SharedPreferences      sharedPreferences;
+    private CardStackAdapter adapter;
+    final GestureDetector gestureDetector = new GestureDetector(getBaseContext(),
+            new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    Intent intent = new Intent(getApplicationContext(), PopupCardActivity.class);
+                    Card card = adapter.getAtPosition(manager.getTopPosition());
+                    intent.putExtra("song_name", card.getSong_name());
+                    intent.putExtra("artist_name", card.getSong_artist(0).getName());
+                    intent.putExtra("album_name", card.getAlbumSimple().getName());
+                    intent.putExtra("song_url", card.getSong_preview_url());
+                    startActivity(intent);
+                    return true;
+                }
+            });
+    private CardStackView cardStackView;
+    private AccessToken mAccessToken;
+    private Recommendations recommendations;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +65,6 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
 
         cardStackView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     }
-
-    final GestureDetector gestureDetector = new GestureDetector(getBaseContext(),
-            new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-                    Intent intent = new Intent(getApplicationContext(), PopupCardActivity.class);
-                    Card   card   = adapter.getAtPosition(manager.getTopPosition());
-                    intent.putExtra("song_name", card.getSong_name());
-                    intent.putExtra("artist_name", card.getSong_artist(0).getName());
-                    intent.putExtra("album_name", card.getAlbumSimple().getName());
-                    startActivity(intent);
-                    return true;
-                }
-            });
 
     @Override
     public void onCardDragging(Direction direction, float ratio) {
@@ -121,8 +117,8 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
             addAll(adapter.getCards());
             addAll(createCards());
         }};
-        CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
-        DiffUtil.DiffResult result   = DiffUtil.calculateDiff(callback);
+        CardDiffCallback callback = new CardDiffCallback(oldList, newList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         adapter.setCards(newList);
         result.dispatchUpdatesTo(adapter);
     }

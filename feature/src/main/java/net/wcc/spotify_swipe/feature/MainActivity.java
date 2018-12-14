@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
                 Log.w("API SEARCH", String.valueOf(p.getLimit())); */
 
                 // Set FirstExecution to false, once false, this activity will not be shown again.
-                this.sp.edit().putBoolean(getResources().getString(R.string.FirstExecution), false).commit();
+                this.sp.edit().putBoolean(getResources().getString(R.string.FirstExecution), false).apply();
 
                 Intent intent = new Intent(this, InitialSeedActivity.class);
                 startActivity(intent);
