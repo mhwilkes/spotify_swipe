@@ -26,25 +26,26 @@ import java.util.Set;
 public class CardActivity extends AppCompatActivity implements CardStackListener {
 
     private CardStackLayoutManager manager;
-    private CardStackAdapter adapter;
-    final GestureDetector gestureDetector = new GestureDetector(getBaseContext(),
+    private CardStackAdapter       adapter;
+    final   GestureDetector        gestureDetector = new GestureDetector(getBaseContext(),
             new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     Intent intent = new Intent(getApplicationContext(), PopupCardActivity.class);
-                    Card card = adapter.getAtPosition(manager.getTopPosition());
+                    Card   card   = adapter.getAtPosition(manager.getTopPosition());
                     intent.putExtra("song_name", card.getSong_name());
                     intent.putExtra("artist_name", card.getSong_artist(0).getName());
                     intent.putExtra("album_name", card.getAlbumSimple().getName());
                     intent.putExtra("song_url", card.getSong_preview_url());
+                    intent.putExtra("album_cover", card.getImage_url());
                     startActivity(intent);
                     return true;
                 }
             });
-    private CardStackView cardStackView;
-    private AccessToken mAccessToken;
-    private Recommendations recommendations;
-    private SharedPreferences sharedPreferences;
+    private CardStackView          cardStackView;
+    private AccessToken            mAccessToken;
+    private Recommendations        recommendations;
+    private SharedPreferences      sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +118,8 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
             addAll(adapter.getCards());
             addAll(createCards());
         }};
-        CardDiffCallback callback = new CardDiffCallback(oldList, newList);
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+        CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
+        DiffUtil.DiffResult result   = DiffUtil.calculateDiff(callback);
         adapter.setCards(newList);
         result.dispatchUpdatesTo(adapter);
     }
@@ -126,9 +127,12 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private List<Card> createCards() {
         List<Card> songCard = new ArrayList<>();
 
-        Set<String> initialSeed = sharedPreferences.getStringSet(getResources().getString(R.string.InitialSeed), null);
+        Set<String> initialSeed = sharedPreferences
+                .getStringSet(getResources().getString(R.string.InitialSeed), null);
         try {
-            recommendations = Recommendations.requestRecommendations(5, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null, this.mAccessToken);
+            recommendations = Recommendations
+                    .requestRecommendations(5, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
+                            this.mAccessToken);
         } catch (IOException e) {
             e.printStackTrace();
         }

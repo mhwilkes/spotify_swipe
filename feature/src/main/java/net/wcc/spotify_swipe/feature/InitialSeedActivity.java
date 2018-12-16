@@ -10,9 +10,10 @@ import java.util.*;
 
 public class InitialSeedActivity extends AppCompatActivity {
 
-    final String[] genres = {"acoustic", "alternative", "anime", "chill", "classical", "dance", "death-metal", "dubstep", "hip-hop", "pop", "reggae", "soul", "soundtracks", "study", "techno"};
-    TextView instructions;
-    Button nextButton;
+    final String[] genres = {"acoustic", "alternative", "anime", "chill", "classical", "dance", "death-metal",
+            "dubstep", "hip-hop", "pop", "reggae", "soul", "soundtracks", "study", "techno"};
+    TextView     instructions;
+    Button       nextButton;
     LinearLayout seedList;
 
     Set<String> genreSeeds;
@@ -22,9 +23,9 @@ public class InitialSeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_seed);
 
-        instructions    = findViewById(R.id.instructions);
-        nextButton      = findViewById(R.id.nextButton);
-        seedList        = findViewById(R.id.seedList);
+        instructions = findViewById(R.id.instructions);
+        nextButton = findViewById(R.id.nextButton);
+        seedList = findViewById(R.id.seedList);
 
         genreSeeds = new HashSet<>();
 
@@ -55,7 +56,8 @@ public class InitialSeedActivity extends AppCompatActivity {
                     if (genreSeeds.size() < 5) {
                         genreSeeds.add(s);
                     } else {
-                        Toast.makeText(getApplicationContext(), "You can only choose 5 genres!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "You can only choose 5 genres!", Toast.LENGTH_SHORT)
+                             .show();
                         option.setChecked(false);
                     }
                 } else {
