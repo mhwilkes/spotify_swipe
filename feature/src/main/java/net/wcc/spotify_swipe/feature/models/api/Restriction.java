@@ -4,13 +4,13 @@ public class Restriction {
     private String reason;
 
     /**
-     * @param reason
+     * @param reason Restriction Reason
      */
     public Restriction(String reason) {
         this.reason = reason;
     }
     /**
-     * @return
+     * @return Restriction Message Reason
      */
     public String getReason() {
         return reason;

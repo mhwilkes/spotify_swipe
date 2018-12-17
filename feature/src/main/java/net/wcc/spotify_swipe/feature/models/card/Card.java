@@ -1,6 +1,5 @@
 package net.wcc.spotify_swipe.feature.models.card;
 
-import java.io.Serializable;
 import net.wcc.spotify_swipe.feature.models.api.AlbumSimple;
 import net.wcc.spotify_swipe.feature.models.api.ArtistSimple;
 import net.wcc.spotify_swipe.feature.models.api.CoverImage;
@@ -18,7 +17,11 @@ public class Card {
     private String         song_url;
     private AlbumSimple    mAlbumSimple;
 
-    //TODO add
+    /**
+     * Takes Track Object and sets essential Data for Card Object
+     *
+     * @param track Track for Card
+     */
     public Card(Track track) {
         this.song_name = track.getName();
         this.song_artists = track.getArtists();
@@ -33,42 +36,83 @@ public class Card {
         this.mAlbumSimple = track.getAlbum();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSong_url() {
         return song_url;
     }
 
+    /**
+     *
+     * @return
+     */
     public AlbumSimple getAlbumSimple() {
         return mAlbumSimple;
     }
 
+    /**
+     *
+     * @return
+     */
     public Track getCard_track() {
         return card_track;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSong_name() {
         return song_name;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArtistSimple[] getSong_artists() {
         return song_artists;
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public ArtistSimple getSong_artist(int position) {
         return song_artists[position];
     }
 
+    /**
+     *
+     * @return
+     */
     public CoverImage[] getSong_cover() {
         return song_cover;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImage_url() {
         return image_url;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSong_preview_url() {
         return song_preview_url;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSong_ID() {
         return song_ID;
     }

@@ -10,8 +10,8 @@ public class PlayHistory {
 
     /**
      * @param trackSimple Simple Track Object
-     * @param played_at
-     * @param context
+     * @param played_at Played At Timestamp
+     * @param context Context
      */
     public PlayHistory(TrackSimple trackSimple, Timestamp played_at, Context context) {
         this.trackSimple = trackSimple;
@@ -20,21 +20,21 @@ public class PlayHistory {
     }
 
     /**
-     * @return
+     * @return Simple Track
      */
     public TrackSimple getTrackSimple() {
         return trackSimple;
     }
 
     /**
-     * @return
+     * @return Played At
      */
     public Timestamp getPlayed_at() {
         return played_at;
     }
 
     /**
-     * @return
+     * @return Context
      */
     public Context getContext() {
         return context;

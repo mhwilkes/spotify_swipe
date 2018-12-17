@@ -113,16 +113,17 @@ public class Track {
         this.type = type;
         this.uri = uri;
         this.is_local = is_local;
+
         //TODO Not use the main thread for API Requests, develop ASYNC Policy
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
 
     /**
-     * @param ID
      *
-     * @return
-     *
+     * @param ID ID of Track
+     * @param at Access Token
+     * @return Track
      * @throws IOException
      */
     public static Track requestTrack(String ID, AccessToken at) throws IOException {
@@ -140,18 +141,18 @@ public class Track {
     }
 
     /**
-     * @return
+     * @return Endpoint for API URL
      */
     public static String getEndpoint() {
         return endpoint;
     }
 
     /**
-     * @param ID
-     * @param market
      *
-     * @return
-     *
+     * @param ID ID of Track
+     * @param market Market for Track
+     * @param at Access Token
+     * @return Track
      * @throws IOException
      */
     public static Track requestTrack(String ID, String market, AccessToken at) throws IOException {
@@ -168,10 +169,10 @@ public class Track {
     }
 
     /**
-     * @param IDS
      *
-     * @return
-     *
+     * @param IDS array Of Track ID's
+     * @param at Access Token
+     * @return array of Tracks
      * @throws IOException
      */
     public Track[] requestTracks(String[] IDS, AccessToken at) throws IOException {
@@ -194,140 +195,140 @@ public class Track {
     }
 
     /**
-     * @return
+     * @return Is Track Local
      */
     public Boolean getIs_local() {
         return is_local;
     }
 
     /**
-     * @return
+     * @return Album of Track
      */
     public AlbumSimple getAlbum() {
         return album;
     }
 
     /**
-     * @return
+     * @return Simple Artist
      */
     public ArtistSimple[] getArtists() {
         return artists;
     }
 
     /**
-     * @return
+     * @return Markets Track is available in
      */
     public String[] getAvailable_markets() {
         return available_markets;
     }
 
     /**
-     * @return
+     * @return Disc Number
      */
     public int getDisc_number() {
         return disc_number;
     }
 
     /**
-     * @return
+     * @return Duration
      */
     public int getDuration_ms() {
         return duration_ms;
     }
 
     /**
-     * @return
+     * @return Is Explicit
      */
     public Boolean getExplicit() {
         return explicit;
     }
 
     /**
-     * @return
+     * @return External ID's
      */
     public ExternalID getExternal_ids() {
         return external_ids;
     }
 
     /**
-     * @return
+     * @return External URL's
      */
     public ExternalURL getExternal_urls() {
         return external_urls;
     }
 
     /**
-     * @return
+     * @return URL to Track API Access
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return Track ID
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Is Playable
      */
     public Boolean getIs_playable() {
         return is_playable;
     }
 
     /**
-     * @return
+     * @return Linked From
      */
     public Object getLinked_from() {
         return linked_from;
     }
 
     /**
-     * @return
+     * @return Restrictions
      */
     public Restriction getRestrictions() {
         return restrictions;
     }
 
     /**
-     * @return
+     * @return Track Name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Track Popularity
      */
     public int getPopularity() {
         return popularity;
     }
 
     /**
-     * @return
+     * @return Preview URL of Track
      */
     public String getPreview_url() {
         return preview_url;
     }
 
     /**
-     * @return
+     * @return Track Number
      */
     public int getTrack_number() {
         return track_number;
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;

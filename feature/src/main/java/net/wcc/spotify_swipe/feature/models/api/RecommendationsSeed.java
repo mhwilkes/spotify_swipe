@@ -10,12 +10,12 @@ public class RecommendationsSeed {
     private String type;
 
     /**
-     * @param afterFilteringSize
-     * @param afterRelinkingSize
-     * @param href
-     * @param id
-     * @param initialPoolSize
-     * @param type
+     * @param afterFilteringSize Filter Size
+     * @param afterRelinkingSize Relinking Size
+     * @param href               URL of Recommendations
+     * @param id                 ID of Object
+     * @param initialPoolSize    Initial Size
+     * @param type               Type
      */
     public RecommendationsSeed(int afterFilteringSize, int afterRelinkingSize, String href, String id, int
             initialPoolSize, String type) {
@@ -28,42 +28,42 @@ public class RecommendationsSeed {
     }
 
     /**
-     * @return
+     * @return Filtered Size
      */
     public int getAfterFilteringSize() {
         return afterFilteringSize;
     }
 
     /**
-     * @return
+     * @return Relinked Size
      */
     public int getAfterRelinkingSize() {
         return afterRelinkingSize;
     }
 
     /**
-     * @return
+     * @return URL of Recommendation
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return ID of Object
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Initial Size
      */
     public int getInitialPoolSize() {
         return initialPoolSize;
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         return type;
