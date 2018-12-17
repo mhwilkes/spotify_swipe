@@ -10,6 +10,7 @@
     <!-- NavigationView -->
     <string name="open_drawer" tools:ignore="ExtraTranslation">Open drawer</string>
     <string name="close_drawer" tools:ignore="ExtraTranslation">Close drawer</string>
+    <string name="viewSongs" tools:ignore="ExtraTranslation">View Songs</string>
     <string name="reload" tools:ignore="ExtraTranslation">Reload</string>
     <string name="add_one_spot_at_first" tools:ignore="ExtraTranslation">Add one spot at first</string>
     <string name="add_two_spots_at_first" tools:ignore="ExtraTranslation">Add two spots at first</string>

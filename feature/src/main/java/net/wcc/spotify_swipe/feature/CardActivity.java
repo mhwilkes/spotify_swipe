@@ -3,11 +3,16 @@ package net.wcc.spotify_swipe.feature;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import com.yuyakaido.android.cardstackview.*;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
@@ -47,6 +52,9 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private Recommendations        recommendations;
     private SharedPreferences      sharedPreferences;
     private int                    trackBufferSize = 10;
+    private FloatingActionButton   like;
+    private FloatingActionButton   dislike;
+    private FloatingActionButton   reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,29 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         setupCardStackView();
 
         cardStackView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+
+        like = findViewById(R.id.like_button);
+        like.setOnClickListener(v -> cardStackView.swipe());
+
+        dislike = findViewById(R.id.skip_button);
+        dislike.setOnClickListener(v -> cardStackView.swipe());
+
+        reload = findViewById(R.id.rewind_button);
+        reload.setOnClickListener(v -> paginate());
+
+        NavigationView nv = findViewById(R.id.navigation_view);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.viewSongs:
+                        Intent i = new Intent();
+                        //i.setClass();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
