@@ -18,20 +18,20 @@ public class Playlist {
     private String       uri;
 
     /**
-     * @param collaborative
-     * @param description
-     * @param externalURL
-     * @param followers
-     * @param href
-     * @param id
-     * @param images
-     * @param name
-     * @param owner
-     * @param publicStatus
-     * @param snapshot_id
-     * @param tracks
-     * @param type
-     * @param uri
+     * @param collaborative Is Collaborative
+     * @param description Playlist Description
+     * @param externalURL External URL
+     * @param followers Who Follows
+     * @param href URL to Playlist
+     * @param id Playlist ID
+     * @param images Images of Covers
+     * @param name Playlist Name
+     * @param owner User who owns
+     * @param publicStatus Is Public
+     * @param snapshot_id Snapshot ID
+     * @param tracks Tracks in playlist in Paging object
+     * @param type Type
+     * @param uri URI
      */
     public Playlist(Boolean collaborative, String description, ExternalURL externalURL, Followers followers, String
             href, String id, CoverImage[] images, String name, User owner, Boolean publicStatus, String snapshot_id,
@@ -53,98 +53,98 @@ public class Playlist {
     }
 
     /**
-     * @return
+     * @return If it is Collaborative
      */
     public Boolean getCollaborative() {
         return collaborative;
     }
 
     /**
-     * @return
+     * @return Description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @return
+     * @return External URLs
      */
     public ExternalURL getExternalURL() {
         return externalURL;
     }
 
     /**
-     * @return
+     * @return Followers
      */
     public Followers getFollowers() {
         return followers;
     }
 
     /**
-     * @return
+     * @return URL to Playlist
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return ID of Playlist
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Images
      */
     public CoverImage[] getImages() {
         return images;
     }
 
     /**
-     * @return
+     * @return Name of Playlist
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Owner of Playlist
      */
     public User getOwner() {
         return owner;
     }
 
     /**
-     * @return
+     * @return Publication Status
      */
     public Boolean getPublicStatus() {
         return publicStatus;
     }
 
     /**
-     * @return
+     * @return Snapshot ID
      */
     public String getSnapshot_id() {
         return snapshot_id;
     }
 
     /**
-     * @return
+     * @return array of Tracks
      */
     public Paging[] getTracks() {
         return tracks;
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;

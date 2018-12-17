@@ -1,6 +1,5 @@
 package net.wcc.spotify_swipe.feature.models.api;
 
-import android.util.Log;
 import com.google.gson.Gson;
 import java.io.IOException;
 import net.wcc.spotify_swipe.feature.requests.AccessToken;
@@ -15,8 +14,8 @@ public class Recommendations {
     private static String                endpoint = "https://api.spotify.com/v1/recommendations";
 
     /**
-     * @param seeds
-     * @param tracks
+     * @param seeds  Seed Objects used for Reccommendations
+     * @param tracks Tracks Recommended
      */
     public Recommendations(RecommendationsSeed[] seeds, TrackSimple[] tracks) {
         this.seeds = seeds;
@@ -24,36 +23,34 @@ public class Recommendations {
     }
 
     /**
-     * @return
+     * @return array of Seeds
      */
     public RecommendationsSeed[] getSeeds() {
         return seeds;
     }
 
     /**
-     * @return
+     * @return Endpoint to API Access
      */
     public static String getEndpoint() {
         return endpoint;
     }
 
     /**
-     * @return
+     * @return array of Tracks
      */
     public TrackSimple[] getTracks() {
         return tracks;
     }
 
     /**
-     *
-     * @param limit
-     * @param market
-     * @param seed_artists
-     * @param seed_genres
-     * @param seed_tracks
-     * @param at
-     * @return
-     * @throws IOException
+     * @param limit        # of Tracks to return
+     * @param market       Market of Tracks
+     * @param seed_artists Seeded Artists
+     * @param seed_genres  Seeded Genres
+     * @param seed_tracks  Seeded Tracks
+     * @param at           Access Token
+     * @return Recommendations Object
      */
     public static Recommendations requestRecommendations(int limit, String market, String[] seed_artists,
             String[] seed_genres, String[] seed_tracks,

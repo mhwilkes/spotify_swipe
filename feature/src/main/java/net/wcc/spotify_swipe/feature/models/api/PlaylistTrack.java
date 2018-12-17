@@ -10,10 +10,10 @@ public class PlaylistTrack {
     private Track     track;
 
     /**
-     * @param added_at
-     * @param added_by
-     * @param is_local
-     * @param track
+     * @param added_at Timestamp when Added
+     * @param added_by Who Added
+     * @param is_local If track is Local
+     * @param track Track
      */
     public PlaylistTrack(Timestamp added_at, User added_by, Boolean is_local, Track track) {
         this.added_at = added_at;
@@ -23,28 +23,28 @@ public class PlaylistTrack {
     }
 
     /**
-     * @return
+     * @return Time Added
      */
     public Timestamp getAdded_at() {
         return added_at;
     }
 
     /**
-     * @return
+     * @return User who Added
      */
     public User getAdded_by() {
         return added_by;
     }
 
     /**
-     * @return
+     * @return If Track is Local
      */
     public Boolean getIs_local() {
         return is_local;
     }
 
     /**
-     * @return
+     * @return Track
      */
     public Track getTrack() {
         return track;

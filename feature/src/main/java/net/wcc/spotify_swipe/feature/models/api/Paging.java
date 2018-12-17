@@ -11,13 +11,13 @@ public class Paging {
     private int      total;
 
     /**
-     * @param href
-     * @param items
-     * @param limit
-     * @param next
-     * @param offset
-     * @param previous
-     * @param total
+     * @param href URL to Item
+     * @param items Array of Items being paged
+     * @param limit Limit of Items
+     * @param next Next Item
+     * @param offset Offset used for Paging
+     * @param previous Last Item
+     * @param total Total # of Items
      */
     public Paging(String href, Object[] items, int limit, String next, int offset, String previous, int total) {
         this.href = href;
@@ -30,49 +30,49 @@ public class Paging {
     }
 
     /**
-     * @return
+     * @return URL of Item
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return array of Items
      */
     public Object[] getItems() {
         return items;
     }
 
     /**
-     * @return
+     * @return # of items for Limit
      */
     public int getLimit() {
         return limit;
     }
 
     /**
-     * @return
+     * @return Next Item
      */
     public String getNext() {
         return next;
     }
 
     /**
-     * @return
+     * @return Offset
      */
     public int getOffset() {
         return offset;
     }
 
     /**
-     * @return
+     * @return Previous Item
      */
     public String getPrevious() {
         return previous;
     }
 
     /**
-     * @return
+     * @return Total # of Items
      */
     public int getTotal() {
         return total;

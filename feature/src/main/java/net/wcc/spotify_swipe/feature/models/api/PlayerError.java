@@ -29,9 +29,9 @@ public class PlayerError {
     private       String                  message, reason;
 
     /**
-     * @param status
-     * @param message
-     * @param reason
+     * @param status  Status Code
+     * @param message Status Message
+     * @param reason  Reason Message
      */
     public PlayerError(int status, String message, String reason) {
         this.status = status;
@@ -40,28 +40,28 @@ public class PlayerError {
     }
 
     /**
-     * @return
+     * @return HashMap of Possible Errors
      */
     public HashMap<String, String> getErrors() {
         return errors;
     }
 
     /**
-     * @return
+     * @return Status
      */
     public int getStatus() {
         return status;
     }
 
     /**
-     * @return
+     * @return Message
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * @return
+     * @return Reason
      */
     public String getReason() {
         return reason;

@@ -9,7 +9,7 @@ public class PlayHistory {
     private Context     context;
 
     /**
-     * @param trackSimple
+     * @param trackSimple Simple Track Object
      * @param played_at
      * @param context
      */
