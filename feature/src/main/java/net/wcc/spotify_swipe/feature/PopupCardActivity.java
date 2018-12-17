@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,8 @@ public class PopupCardActivity extends AppCompatActivity {
                 player.setVolume(.7f, .7f);
                 player.setOnPreparedListener(mp -> player.start());
             } else {
-                is_preview.setText("No Preview Available!");
+                is_preview.setTypeface(Typeface.DEFAULT_BOLD);
+                is_preview.setText("No preview available!");
             }
 
         } catch (IOException e) {
