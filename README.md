@@ -13,6 +13,10 @@
   This loads images over the internet and provides caching and support for images on frontCards.
 ---
 ## http://square.github.io/okhttp/
-#### This is used to implement HTTP Requests for the API through a structured manner. Uses 
+#### This is used to implement HTTP Requests for the API through a structured manner. 
+---
+## https://github.com/timrijckaert/FloatingMusicActionButton
+#### This is used to implement an Interactive Pause/Play Button on the Popup Card Activity.
+  This supports the use of different states involved with pausing and playing.
 ---
  
