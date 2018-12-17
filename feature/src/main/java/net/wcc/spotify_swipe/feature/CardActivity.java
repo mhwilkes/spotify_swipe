@@ -150,8 +150,8 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         List<Card> newList = new ArrayList<Card>() {{
             addAll(createCards());
         }};
-        CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
-        DiffUtil.DiffResult result   = DiffUtil.calculateDiff(callback);
+        CardDiffCallback callback  = new CardDiffCallback(oldList, newList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         adapter.setCards(newList);
         result.dispatchUpdatesTo(adapter);
     }
@@ -163,7 +163,8 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
                 .getStringSet(getResources().getString(R.string.InitialSeed), null);
         try {
             recommendations = Recommendations
-                    .requestRecommendations(trackBufferSize, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
+                    .requestRecommendations(trackBufferSize, "US", null,
+                            initialSeed.toArray(new String[initialSeed.size()]), null,
                             this.mAccessToken);
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,7 +172,9 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
 
         try {
             for (TrackSimple t : recommendations.getTracks()) {
-                songCard.add(new Card(Track.requestTrack(t.getId(), this.mAccessToken)));
+                if (t.getPreview_url() != null) {
+                    songCard.add(new Card(Track.requestTrack(t.getId(), this.mAccessToken)));
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

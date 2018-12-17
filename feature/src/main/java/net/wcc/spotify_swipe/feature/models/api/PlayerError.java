@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class PlayerError {
 
-    //TODO recheck interpretation of this object, make sure the correct flow is happening
     private final HashMap<String, String> errors = new HashMap<String, String>() {{
         put("NO_PREV_TRACK", "403 FORBIDDEN");
         put("NO_NEXT_TRACK", "403 FORBIDDEN");
