@@ -3,11 +3,16 @@ package net.wcc.spotify_swipe.feature;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import com.yuyakaido.android.cardstackview.*;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
@@ -47,6 +52,10 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private AccessToken            mAccessToken;
     private Recommendations        recommendations;
     private SharedPreferences      sharedPreferences;
+    private int                    trackBufferSize = 10;
+    private FloatingActionButton   like;
+    private FloatingActionButton   dislike;
+    private FloatingActionButton   reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,29 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         setupCardStackView();
 
         cardStackView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+
+        like = findViewById(R.id.like_button);
+        like.setOnClickListener(v -> cardStackView.swipe());
+
+        dislike = findViewById(R.id.skip_button);
+        dislike.setOnClickListener(v -> cardStackView.swipe());
+
+        reload = findViewById(R.id.rewind_button);
+        reload.setOnClickListener(v -> paginate());
+
+        NavigationView nv = findViewById(R.id.navigation_view);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.viewSongs:
+                        Intent i = new Intent();
+                        //i.setClass();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -76,7 +108,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardSwiped(Direction direction) {
         Log.d("CardStackView", "onCardSwiped: p = " + manager.getTopPosition() + ", d = " + direction);
-        if (manager.getTopPosition() == adapter.getItemCount() - 5) {
+        if (manager.getTopPosition() == adapter.getItemCount()) {
             paginate();
         }
     }
@@ -116,7 +148,6 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private void paginate() {
         List<Card> oldList = adapter.getCards();
         List<Card> newList = new ArrayList<Card>() {{
-            addAll(adapter.getCards());
             addAll(createCards());
         }};
         CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
@@ -132,7 +163,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
                 .getStringSet(getResources().getString(R.string.InitialSeed), null);
         try {
             recommendations = Recommendations
-                    .requestRecommendations(5, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
+                    .requestRecommendations(trackBufferSize, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
                             this.mAccessToken);
         } catch (IOException e) {
             e.printStackTrace();
@@ -142,12 +173,6 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
             for (TrackSimple t : recommendations.getTracks()) {
                 songCard.add(new Card(Track.requestTrack(t.getId(), this.mAccessToken)));
             }
-
-           /* songCard.add(new Card(Track.requestTrack("3n3Ppam7vgaVa1iaRUc9Lp", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("7ouMYWpwJ422jRcDASZB7P", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("7xGfFoTpQ2E7fRF5lN10tr", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("4VqPOruhp5EdPBeR92t6lQ", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("2takcwOaAZWiXQijPHIx7B", mAccessToken))); */
         } catch (IOException e) {
             e.printStackTrace();
         }

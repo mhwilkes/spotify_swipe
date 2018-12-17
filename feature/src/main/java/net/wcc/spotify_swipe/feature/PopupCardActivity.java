@@ -1,6 +1,7 @@
 package net.wcc.spotify_swipe.feature;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,9 @@ import java.io.IOException;
 public class PopupCardActivity extends AppCompatActivity {
 
     private MediaPlayer player = new MediaPlayer();
-    private TextView    song_name, artist_name, album_name;
-    private ImageView                 album_cover;
-    private Intent                    intent;
+    private TextView    song_name, artist_name, album_name, is_preview;
+    private ImageView album_cover;
+    private Intent    intent;
     private FloatingMusicActionButton mFloatingActionButton;
     private int                       seekPos = 0;
 
@@ -31,6 +32,7 @@ public class PopupCardActivity extends AppCompatActivity {
         artist_name = findViewById(R.id.artist_name);
         album_name = findViewById(R.id.album_name);
         album_cover = findViewById(R.id.album_cover);
+        is_preview = findViewById(R.id.no_preview);
         mFloatingActionButton = findViewById(R.id.pause_play);
 
         song_name.setText(intent.getStringExtra("song_name"));
@@ -46,6 +48,9 @@ public class PopupCardActivity extends AppCompatActivity {
                 player.prepareAsync();
                 player.setVolume(.7f, .7f);
                 player.setOnPreparedListener(mp -> player.start());
+            } else {
+                is_preview.setTypeface(Typeface.DEFAULT_BOLD);
+                is_preview.setText("No preview available!");
 
                 mFloatingActionButton
                         .setOnMusicFabClickListener(view -> {
