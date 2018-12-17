@@ -58,7 +58,4 @@ public class AccessToken {
     public String getScope() {
         return scope;
     }
-
-
-
 }

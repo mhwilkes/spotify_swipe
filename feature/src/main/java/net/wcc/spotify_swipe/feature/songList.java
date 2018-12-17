@@ -46,7 +46,7 @@ public class songList extends AppCompatActivity {
     public Map<String, String> getSongs(/*sqlShit*/) {
         Map<String, String> songList = new HashMap<>();
 
-        
+
 
         return songList;
     }
