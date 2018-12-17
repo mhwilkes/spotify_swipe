@@ -46,6 +46,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private AccessToken            mAccessToken;
     private Recommendations        recommendations;
     private SharedPreferences      sharedPreferences;
+    private int                    trackBufferSize = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardSwiped(Direction direction) {
         Log.d("CardStackView", "onCardSwiped: p = " + manager.getTopPosition() + ", d = " + direction);
-        if (manager.getTopPosition() == adapter.getItemCount() - 5) {
+        if (manager.getTopPosition() == adapter.getItemCount()) {
             paginate();
         }
     }
@@ -115,7 +116,6 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private void paginate() {
         List<Card> oldList = adapter.getCards();
         List<Card> newList = new ArrayList<Card>() {{
-            addAll(adapter.getCards());
             addAll(createCards());
         }};
         CardDiffCallback    callback = new CardDiffCallback(oldList, newList);
@@ -131,7 +131,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
                 .getStringSet(getResources().getString(R.string.InitialSeed), null);
         try {
             recommendations = Recommendations
-                    .requestRecommendations(5, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
+                    .requestRecommendations(trackBufferSize, "US", null, initialSeed.toArray(new String[initialSeed.size()]), null,
                             this.mAccessToken);
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,12 +141,6 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
             for (TrackSimple t : recommendations.getTracks()) {
                 songCard.add(new Card(Track.requestTrack(t.getId(), this.mAccessToken)));
             }
-
-           /* songCard.add(new Card(Track.requestTrack("3n3Ppam7vgaVa1iaRUc9Lp", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("7ouMYWpwJ422jRcDASZB7P", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("7xGfFoTpQ2E7fRF5lN10tr", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("4VqPOruhp5EdPBeR92t6lQ", mAccessToken)));
-            songCard.add(new Card(Track.requestTrack("2takcwOaAZWiXQijPHIx7B", mAccessToken))); */
         } catch (IOException e) {
             e.printStackTrace();
         }
