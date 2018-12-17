@@ -32,7 +32,7 @@ public class PopupCardActivity extends AppCompatActivity {
         artist_name = findViewById(R.id.artist_name);
         album_name = findViewById(R.id.album_name);
         album_cover = findViewById(R.id.album_cover);
-        is_preview = findViewById(R.id.no_preview);
+        is_preview = findViewById(R.id.is_preview);
         mFloatingActionButton = findViewById(R.id.pause_play);
 
         song_name.setText(intent.getStringExtra("song_name"));

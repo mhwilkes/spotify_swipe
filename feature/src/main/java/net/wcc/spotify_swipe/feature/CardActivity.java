@@ -1,5 +1,6 @@
 package net.wcc.spotify_swipe.feature;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,8 +13,8 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import com.yuyakaido.android.cardstackview.*;
+import net.wcc.spotify_swipe.feature.SQL.SQLHandler;
 import net.wcc.spotify_swipe.feature.handlers.AuthHandler;
 import net.wcc.spotify_swipe.feature.models.api.Recommendations;
 import net.wcc.spotify_swipe.feature.models.api.Track;
@@ -56,11 +57,16 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     private FloatingActionButton   like;
     private FloatingActionButton   dislike;
     private FloatingActionButton   reload;
+    private SQLHandler             sqlHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+
+        sqlHandler = new SQLHandler(getApplicationContext());
+        sqlHandler.createDatabase();
+        sqlHandler.open();
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
 
@@ -89,11 +95,11 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.viewSongs:
-                        Intent i = new Intent();
-                        //i.setClass();
-                        break;
+                int i1 = menuItem.getItemId();
+                if (i1 == R.id.viewSongs) {
+                    Intent i = new Intent();
+                    i.setClass(getApplicationContext(), songList.class);
+                    startActivity(i);
                 }
                 return false;
             }
@@ -108,6 +114,15 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardSwiped(Direction direction) {
         Log.d("CardStackView", "onCardSwiped: p = " + manager.getTopPosition() + ", d = " + direction);
+        Card   card   = adapter.getAtPosition(manager.getTopPosition());
+
+        if (direction.equals(Direction.Right)) {
+            ContentValues cv = new ContentValues();
+            cv.put("songID", card.getSong_ID());
+            cv.put("songTitle", card.getSong_name());
+            sqlHandler.insert("songs", cv);
+        }
+
         if (manager.getTopPosition() == adapter.getItemCount()) {
             paginate();
         }

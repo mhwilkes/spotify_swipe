@@ -1,4 +1,4 @@
-package net.wcc.spotify_swipe.feature;
+package net.wcc.spotify_swipe.feature.SQL;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -52,5 +52,9 @@ public class SQLHandler {
 
     public int update(String table, ContentValues cv, String where, String[] whereArgs) {
         return db.update(table, cv, where, whereArgs);
+    }
+
+    public long insert(String table, ContentValues cv) {
+        return db.insert(table,null, cv);
     }
 }
