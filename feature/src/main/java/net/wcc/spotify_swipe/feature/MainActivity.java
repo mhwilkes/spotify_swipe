@@ -56,41 +56,12 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
         b.setOnClickListener(v -> {
 
-/*            try {
-                AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
-                        getResources().getString(R.string.client_secret));
-                AccessToken at = a.getAccessToken();
-
-                Log.w("API RESPONSE AUDIOFEATURES", AudioFeatures.requestAudioFeature("11dFghVXANMlKmJXsNCbNl", at)
-                                                                 .getTrack_href());
-                Log.w("API RESPONSE ARTIST", Artist.requestArtist("0oSGxfWSnnOXhD2fKuz2Gy", at).getName());
-                Log.w("API RESPONSE ALBUM", Album.requestAlbum("382ObEPsp2rxGrnsizN5TX", at).getName());
-                Log.w("API RESPONSE TRACK", Track.requestTrack("3n3Ppam7vgaVa1iaRUc9Lp", at).getName());
-
-                String[] seed_genres  = {"classical", "country"};
-                String[] seed_artists = {"4NHQUGzhtTLFvgF5SZesLK"};
-                String[] seed_tracks  = {"0c6xIDDpzE81m2q797ordA"};
-                TrackSimple[] trackSimples = Recommendations
-                        .requestRecommendations(20, "ES", seed_artists, seed_genres,
-                                seed_tracks, at).getTracks();
-
-                for (TrackSimple t : trackSimples) {
-                    Log.w("API RECCOMENDATION TRACK", t.getName());
-                }
-                Search search = new Search("upc:00602537817016", "album", "US", 10, 5);
-                Paging p      = Search.requestSearch(search, at);
-
-                Log.w("API SEARCH", String.valueOf(p.getLimit())); */
-
                 // Set FirstExecution to false, once false, this activity will not be shown again.
                 this.sp.edit().putBoolean(getResources().getString(R.string.FirstExecution), false).apply();
 
                 Intent intent = new Intent(this, InitialSeedActivity.class);
                 startActivity(intent);
 
-           /* } catch (IOException e) {
-                e.printStackTrace();
-            }*/
         });
     }
 
