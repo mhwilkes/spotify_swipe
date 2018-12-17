@@ -38,7 +38,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return Song's Spotify Track URL
      */
     public String getSong_url() {
         return song_url;
@@ -46,7 +46,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return Album object with related album info
      */
     public AlbumSimple getAlbumSimple() {
         return mAlbumSimple;
@@ -54,7 +54,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return Track object containing track info
      */
     public Track getCard_track() {
         return card_track;
@@ -62,7 +62,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return the title of the track
      */
     public String getSong_name() {
         return song_name;
@@ -70,7 +70,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return array of all artists
      */
     public ArtistSimple[] getSong_artists() {
         return song_artists;
@@ -79,7 +79,7 @@ public class Card {
     /**
      *
      * @param position
-     * @return
+     * @return Artist from array @ position position
      */
     public ArtistSimple getSong_artist(int position) {
         return song_artists[position];
@@ -87,7 +87,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return CoverImage array containing related images
      */
     public CoverImage[] getSong_cover() {
         return song_cover;
@@ -95,7 +95,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return cover image URL
      */
     public String getImage_url() {
         return image_url;
@@ -103,7 +103,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return song preview URL
      */
     public String getSong_preview_url() {
         return song_preview_url;
@@ -111,7 +111,7 @@ public class Card {
 
     /**
      *
-     * @return
+     * @return song ID
      */
     public String getSong_ID() {
         return song_ID;

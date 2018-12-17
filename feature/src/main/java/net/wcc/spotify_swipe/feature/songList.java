@@ -13,25 +13,26 @@ import java.util.Map;
 
 public class songList extends AppCompatActivity {
 
-    LinearLayout songList;
-    SQLHandler sqlHandler;
+    LinearLayout songList; // The song list.
+    SQLHandler sqlHandler; // The SQL handler.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
 
+        // Initialize the songList
         songList = findViewById(R.id.songList);
 
-        //initialize sql
+        //Initialize SQL
         sqlHandler = new SQLHandler(getApplicationContext());
         sqlHandler.createDatabase();
         sqlHandler.open();
 
-        //query for all songs
+        //Query for all songs
         Map<String, String> songs = getSongs();
 
-        //populate list with songs
+        //Populate list with songs
         populate(songs, songList);
     }
 
@@ -50,6 +51,7 @@ public class songList extends AppCompatActivity {
         }
     }
 
+    // Get the songs from the database.
     public Map<String, String> getSongs() {
         Map<String, String> songList = new HashMap<>();
 

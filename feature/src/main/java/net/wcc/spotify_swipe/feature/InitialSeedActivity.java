@@ -10,12 +10,16 @@ import java.util.*;
 
 public class InitialSeedActivity extends AppCompatActivity {
 
+    // Define some genres to choose from.
     final String[] genres = {"acoustic", "alternative", "anime", "chill", "classical", "dance", "death-metal",
             "dubstep", "hip-hop", "pop", "reggae", "soul", "soundtracks", "study", "techno"};
+
+    // Define our layout stuff
     TextView     instructions;
     Button       nextButton;
     LinearLayout seedList;
 
+    // Where we will put the selected genre seeds
     Set<String> genreSeeds;
 
     @Override
@@ -23,14 +27,19 @@ public class InitialSeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_seed);
 
+        // Initialize our views.
         instructions = findViewById(R.id.instructions);
         nextButton = findViewById(R.id.nextButton);
         seedList = findViewById(R.id.seedList);
 
+        // Define our seed container.
         genreSeeds = new HashSet<>();
 
+        // Set the text.
         instructions.setText("Choose 5 genres from the list, then tap next...");
         nextButton.setText("Next");
+
+        // Make next button go to the CardActivity if all criteria are met.
         nextButton.setOnClickListener(v -> {
             if (genreSeeds.size() == 5) {
                 SharedPreferences sp = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
@@ -42,9 +51,11 @@ public class InitialSeedActivity extends AppCompatActivity {
             }
         });
 
+        // Fill the list with the genre seeds.
         fillSeedList(genres);
     }
 
+    // Fill a linear layout with CheckBoxes, one for each genre.
     public void fillSeedList(String[] options) {
         for (String s : options) {
             CheckBox option = new CheckBox(this);

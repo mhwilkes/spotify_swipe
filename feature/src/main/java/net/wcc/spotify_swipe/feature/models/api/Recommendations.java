@@ -9,9 +9,9 @@ import okhttp3.Response;
 
 public class Recommendations {
 
-    private        RecommendationsSeed[] seeds;
-    private        TrackSimple[]         tracks;
-    private static String                endpoint = "https://api.spotify.com/v1/recommendations";
+    private        RecommendationsSeed[] seeds; // Seeds to create a recommendation list from.
+    private        TrackSimple[]         tracks; // A list of the recommended tracks received from the Spotify API.
+    private static String                endpoint = "https://api.spotify.com/v1/recommendations"; // The API endpoint.
 
     /**
      * @param seeds  Seed Objects used for Reccommendations
@@ -52,45 +52,53 @@ public class Recommendations {
      * @param at           Access Token
      * @return Recommendations Object
      */
+
+    // Get recommendations from the API, return a Recommendations object contraining an array of TrackSimple.
     public static Recommendations requestRecommendations(int limit, String market, String[] seed_artists,
             String[] seed_genres, String[] seed_tracks,
             AccessToken at) throws IOException {
 
+        // Create string builders for each part of the request.
         StringBuilder sb     = new StringBuilder(getEndpoint());
         StringBuilder sa     = new StringBuilder();
         StringBuilder sg     = new StringBuilder();
         StringBuilder st     = new StringBuilder();
-        OkHttpClient  client = new OkHttpClient();
-        Gson          gson   = new Gson();
 
-        if (limit > 0) { sb.append("?limit=").append(limit); }
-        if (market != null) { sb.append("&market=").append(market); }
+        OkHttpClient  client = new OkHttpClient(); // OkHttpClient to handle requests.
+        Gson          gson   = new Gson();         // Gson to parse JSON from the API response.
 
-        if (seed_artists != null) {
-            for (String s : seed_artists) { sa.append(s).append(','); }
-            if (sa.toString().endsWith(",")) { sa.setLength(sa.length() - 1); }
-            sb.append("&seed_artists=").append(sa.toString());
+        if (limit > 0) { sb.append("?limit=").append(limit); } // Add max number of tracks to return from the request.
+        if (market != null) { sb.append("&market=").append(market); } // Specify the market for requests to be returned from.
+
+        if (seed_artists != null) {                                                 // If seed_artists was provieded...
+            for (String s : seed_artists) { sa.append(s).append(','); }             // Add each of the artist seeds to the request.
+            if (sa.toString().endsWith(",")) { sa.setLength(sa.length() - 1); }     // Take away the unneeded comma from the end.
+            sb.append("&seed_artists=").append(sa.toString());                      // Add the artist list to the request.
         }
 
-        if (seed_genres != null) {
-            for (String s : seed_genres) { sg.append(s).append(','); }
-            if (sg.toString().endsWith(",")) { sg.setLength(sg.length() - 1); }
-            sb.append("&seed_genres=").append(sg.toString());
+        if (seed_genres != null) {                                                  // If seed_genres was provieded...
+            for (String s : seed_genres) { sg.append(s).append(','); }              // Add each of the genre seeds to the request.
+            if (sg.toString().endsWith(",")) { sg.setLength(sg.length() - 1); }     // Take away the unneeded comma from the end.
+            sb.append("&seed_genres=").append(sg.toString());                       // Add the genre list to the request.
         }
 
-        if (seed_tracks != null) {
-            for (String s : seed_tracks) { st.append(s).append(','); }
-            if (st.toString().endsWith(",")) { st.setLength(st.length() - 1); }
-            sb.append("&seed_tracks=").append(st.toString());
+        if (seed_tracks != null) {                                                  // If seed_tracks was provieded...
+            for (String s : seed_tracks) { st.append(s).append(','); }              // Add each of the track seeds to the request.
+            if (st.toString().endsWith(",")) { st.setLength(st.length() - 1); }     // Take away the unneeded comma from the end.
+            sb.append("&seed_tracks=").append(st.toString());                       // Add the track list to the request.
         }
 
+        // Create the request object.
         Request request = new Request.Builder().url(sb.toString()).get().addHeader("Accept", "application/json")
                                                .addHeader("Content-Type", "application/json")
                                                .addHeader("Authorization", "Bearer " + at
                                                        .getAccess_token()).addHeader("cache-control", "no-cache")
                                                .build();
 
+        // Get API response to the request.
         Response response = client.newCall(request).execute();
+
+        // Return the parsed JSON as a Recommendation object.
         return gson.fromJson(response.body().string(), Recommendations.class);
     }
 

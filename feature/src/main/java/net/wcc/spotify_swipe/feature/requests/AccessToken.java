@@ -24,14 +24,14 @@ public class AccessToken {
     }
 
     /**
-     * @return
+     * @return creation time of Token
      */
     public Date getCreation_time() {
         return creation_time;
     }
 
     /**
-     * @return
+     * @return the access token
      */
     public String getAccess_token() {
         return access_token;
@@ -39,21 +39,21 @@ public class AccessToken {
 
 
     /**
-     * @return
+     * @return token type
      */
     public String getToken_type() {
         return token_type;
     }
 
     /**
-     * @return
+     * @return how long access token is valid for
      */
     public int getExpires_in() {
         return expires_in;
     }
 
     /**
-     * @return
+     * @return scope
      */
     public String getScope() {
         return scope;

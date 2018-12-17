@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
      * @param savedInstanceState
      */
 
+    // Define our views.
     private Button                 b;
     private CardStackLayoutManager manager;
     private FrontCardStackAdapter  adapter;
@@ -38,8 +39,10 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize SharedPrefs
         sp = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
 
+        // Detect if its the first launch and act accordingly.
         if (!firstLaunch()) {
             Intent i = new Intent();
             if (hasInitialSeed()) {
@@ -50,10 +53,12 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
             startActivity(i);
         }
 
+        // Setup the cards, to teach the user to swipe.
         setupCardStackView();
 
         b = findViewById(R.id.start);
 
+        // Setup the get started button.
         b.setOnClickListener(v -> {
 
                 // Set FirstExecution to false, once false, this activity will not be shown again.
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         });
     }
 
+    // BEGIN Card stuff //
     @Override
     public void onCardDragging(Direction direction, float ratio) {
         Log.d("CardStackView", "onCardDragging: d = " + direction.name() + ", r = " + ratio);
@@ -88,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         Log.d("CardStackView", "onCardCanceled:" + manager.getTopPosition());
     }
 
+    // END Card stuff //
+
+    // Detect if its the first launch.
     public boolean firstLaunch() {
         if (this.sp.contains(getResources().getString(R.string.FirstExecution))) {
             return this.sp.getBoolean(getResources().getString(R.string.FirstExecution), true);
@@ -95,9 +104,12 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
         return true;
     }
 
+    // Detect if the app has an initial seed.
     public boolean hasInitialSeed() {
         return this.sp.contains(getResources().getString(R.string.InitialSeed));
     }
+
+    // BEGIN more card stuff //
 
     private void setupCardStackView() {
         initialize();
@@ -147,4 +159,6 @@ public class MainActivity extends AppCompatActivity implements CardStackListener
 
         return frontCards;
     }
+
+    // END more card stuff //
 }

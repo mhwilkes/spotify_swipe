@@ -89,42 +89,42 @@ public class TrackSimple {
     }
 
     /**
-     * @return
+     * @return array of all Artists
      */
     public ArtistSimple[] getArtists() {
         return artists;
     }
 
     /**
-     * @return
+     * @return an array of available markets
      */
     public String[] getAvailable_markets() {
         return available_markets;
     }
 
     /**
-     * @return
+     * @return the disc number
      */
     public int getDisc_number() {
         return disc_number;
     }
 
     /**
-     * @return
+     * @return the duration in ms
      */
     public int getDuration_ms() {
         return duration_ms;
     }
 
     /**
-     * @return
+     * @return if explicit
      */
     public Boolean getExplicit() {
         return explicit;
     }
 
     /**
-     * @return
+     * @return external URL to song
      */
     public ExternalURL getExternal_urls() {
         return external_urls;
@@ -138,14 +138,14 @@ public class TrackSimple {
     }
 
     /**
-     * @return
+     * @return track ID
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return if playable
      */
     public Boolean getIs_playable() {
         return is_playable;
@@ -159,7 +159,7 @@ public class TrackSimple {
     }
 
     /**
-     * @return
+     * @return track restrictions
      */
     public Restriction getRestrictions() {
         return restrictions;

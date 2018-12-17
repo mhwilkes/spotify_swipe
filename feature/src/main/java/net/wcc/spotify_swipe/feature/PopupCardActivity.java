@@ -14,9 +14,13 @@ import java.io.IOException;
 
 public class PopupCardActivity extends AppCompatActivity {
 
+    // Media player to play song samples.
     private MediaPlayer player = new MediaPlayer();
+
+    // Define our views.
     private TextView    song_name, artist_name, album_name, is_preview;
     private ImageView album_cover;
+
     private Intent    intent;
     private FloatingMusicActionButton mFloatingActionButton;
     private int                       seekPos = 0;
@@ -28,6 +32,7 @@ public class PopupCardActivity extends AppCompatActivity {
 
         intent = this.getIntent();
 
+        // Initialize our views.
         song_name = findViewById(R.id.song_name);
         artist_name = findViewById(R.id.artist_name);
         album_name = findViewById(R.id.album_name);
@@ -35,13 +40,17 @@ public class PopupCardActivity extends AppCompatActivity {
         is_preview = findViewById(R.id.is_preview);
         mFloatingActionButton = findViewById(R.id.pause_play);
 
+        // Update text views with information related to the track.
         song_name.setText(intent.getStringExtra("song_name"));
         artist_name.setText(intent.getStringExtra("artist_name"));
         album_name.setText(intent.getStringExtra("album_name"));
+
+        // Load the album cover.
         Glide.with(album_cover)
              .load(intent.getStringExtra("album_cover"))
              .into(album_cover);
 
+        // Music player stuff.
         try {
             if (intent.getStringExtra("preview_url") != null) {
                 player.setDataSource(intent.getStringExtra("preview_url"));

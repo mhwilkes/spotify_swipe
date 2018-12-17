@@ -31,6 +31,7 @@ import java.util.Set;
 
 public class CardActivity extends AppCompatActivity implements CardStackListener {
 
+    // Define all things needed to have card swiping.
     private CardStackLayoutManager manager;
     private CardStackAdapter       adapter;
     final   GestureDetector        gestureDetector = new GestureDetector(getBaseContext(),
@@ -50,13 +51,19 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
                 }
             });
     private CardStackView          cardStackView;
+
+    // Define all things needed for API interaction.
     private AccessToken            mAccessToken;
     private Recommendations        recommendations;
     private SharedPreferences      sharedPreferences;
     private int                    trackBufferSize = 10;
+
+    // Define the buttons used to like, dislike, and reload.
     private FloatingActionButton   like;
     private FloatingActionButton   dislike;
     private FloatingActionButton   reload;
+
+    // Define the SQLHandler used to insert new rows into the DB.
     private SQLHandler             sqlHandler;
 
     @Override
@@ -64,12 +71,15 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
+        // Initialize SQL database.
         sqlHandler = new SQLHandler(getApplicationContext());
         sqlHandler.createDatabase();
         sqlHandler.open();
 
+        // Get SharedPrefs for use of the initial seed.
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.SharedPrefsFile), 0);
 
+        // Get the API access Token
         AuthHandler a = new AuthHandler(getResources().getString(R.string.client_id),
                 getResources().getString(R.string.client_secret));
         try {
@@ -78,10 +88,11 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
             e.printStackTrace();
         }
 
+        // Setup the cards.
         setupCardStackView();
-
         cardStackView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
 
+        // Setup the buttons.
         like = findViewById(R.id.like_button);
         like.setOnClickListener(v -> cardStackView.swipe());
 
@@ -91,6 +102,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         reload = findViewById(R.id.rewind_button);
         reload.setOnClickListener(v -> paginate());
 
+        // Set the menu listener to launch the SongList activity
         NavigationView nv = findViewById(R.id.navigation_view);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -114,16 +126,17 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardSwiped(Direction direction) {
         Log.d("CardStackView", "onCardSwiped: p = " + manager.getTopPosition() + ", d = " + direction);
-        Card   card   = adapter.getAtPosition(manager.getTopPosition() - 1);
 
-        if (direction.equals(Direction.Right)) {
+        Card   card   = adapter.getAtPosition(manager.getTopPosition() - 1); // Get the swiped card.
+
+        if (direction.equals(Direction.Right)) { // Put the card in the database if it was swiped right.
             ContentValues cv = new ContentValues();
             cv.put("songID", card.getSong_ID());
             cv.put("songTitle", card.getSong_name());
             sqlHandler.insert("songs", cv);
         }
 
-        if (manager.getTopPosition() == adapter.getItemCount()) {
+        if (manager.getTopPosition() == adapter.getItemCount()) { // Get more cards if needed.
             paginate();
         }
     }
@@ -142,6 +155,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         initialize();
     }
 
+    // Initialize the cards.
     private void initialize() {
         manager = new CardStackLayoutManager(getApplicationContext(), this);
         manager.setStackFrom(StackFrom.Top);
@@ -160,6 +174,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         cardStackView.setAdapter(adapter);
     }
 
+    // Fill the card stack.
     private void paginate() {
         List<Card> oldList = adapter.getCards();
         List<Card> newList = new ArrayList<Card>() {{
@@ -171,6 +186,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
         result.dispatchUpdatesTo(adapter);
     }
 
+    // Create cards for the card stack.
     private List<Card> createCards() {
         List<Card> songCard = new ArrayList<>();
 
