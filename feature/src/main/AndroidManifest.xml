@@ -22,6 +22,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -32,9 +33,12 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".CardActivity"/>
         <activity android:name=".PopupCardActivity"/>
-        <activity android:name=".InitialSeedActivity"
-                  android:label="Lets get to know you!"
-                  android:noHistory="true">
+        <activity
+                android:name=".InitialSeedActivity"
+                android:label="Lets get to know you!"
+                android:noHistory="true">
+        </activity>
+        <activity android:name=".songList">
         </activity>
     </application>
 
