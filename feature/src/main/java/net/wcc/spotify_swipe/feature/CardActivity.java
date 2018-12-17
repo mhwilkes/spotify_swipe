@@ -36,7 +36,8 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
                     intent.putExtra("song_name", card.getSong_name());
                     intent.putExtra("artist_name", card.getSong_artist(0).getName());
                     intent.putExtra("album_name", card.getAlbumSimple().getName());
-                    intent.putExtra("song_url", card.getSong_preview_url());
+                    intent.putExtra("preview_url", card.getSong_preview_url());
+                    intent.putExtra("song_url", card.getSong_url());
                     intent.putExtra("album_cover", card.getImage_url());
                     startActivity(intent);
                     return true;

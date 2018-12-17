@@ -21,6 +21,13 @@
     <string name="remove_two_spots_at_last" tools:ignore="ExtraTranslation">Remove two spots at last</string>
 
 
+    <!-- Play Icon -->
+    <string name="play_icon_upper_path_data">M 44 32 L 44 64 L 100 64 L 100 64 Z</string>
+    <string name="play_icon_bottom_path_data">M 44 96 L 44 64 L 100 64 L 100 64 Z</string>
+    <!-- Pause Icon -->
+    <string name="pause_icon_upper_path_data">M 32 40 L 32 56  L 96 56 L 96 40 Z</string>
+    <string name="pause_icon_bottom_path_data">M 32 88 L 32 72 L 96 72 L 96 88 Z</string>
+
     <!-- API Auth Strings -->
     <string name="client_id">3a36e58be96b4c4ab8829fb5702d05a5</string>
     <string name="client_secret">9b7780574cb1414596bf3a241d15ace0</string>
