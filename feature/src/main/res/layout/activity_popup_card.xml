@@ -106,6 +106,13 @@
                 android:layout_gravity="center"
                 app:backgroundTint="@color/colorPrimary"
                 app:mode="pauseToPlay" />
+
+            <TextView
+                    android:id="@+id/is_preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pause_play"
+                    android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
     </LinearLayout>

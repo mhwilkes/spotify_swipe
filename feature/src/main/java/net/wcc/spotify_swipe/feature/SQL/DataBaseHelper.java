@@ -1,4 +1,4 @@
-package net.wcc.spotify_swipe.feature;
+package net.wcc.spotify_swipe.feature.SQL;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +16,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
     private final Context context;
     private static String DB_PATH = "";
-    private static String DB_NAME = "androidDB.db";
+    private static String DB_NAME = "android.db";
 
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
