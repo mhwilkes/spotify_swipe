@@ -56,48 +56,11 @@ public class Artist {
         StrictMode.setThreadPolicy(policy);
     }
 
-    public Followers getFollowers() {
-        return followers;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public ExternalURL getExternal_urls() {
-        return external_urls;
-    }
-
-    public String[] getGenres() {
-        return genres;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public CoverImage[] getImages() {
-        return images;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
+    /**
+     * @param ID Artist ID
+     * @param at Access Token
+     */
     public static Artist requestArtist(String ID, AccessToken at) throws IOException {
-
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(getEndpoint() + ID).get().addHeader("Accept",
                 "application/json").addHeader("Content-Type", "application/json")
@@ -108,6 +71,15 @@ public class Artist {
         return gson.fromJson(response.body().string(), Artist.class);
     }
 
+    /**
+     * @param ID             Artist ID
+     * @param include_groups Groups to include
+     * @param market         Markets to take from
+     * @param limit          Limit of artists received
+     * @param offset         Offset used for paging results
+     * @param a              Access Token
+     * @return Artist Object
+     */
     public static Artist requestArtist(String ID, String include_groups, String market, int limit, int offset,
             AccessToken a) throws IOException {
         StringBuilder endpoint = new StringBuilder(getEndpoint() + ID + "/albums/");
@@ -133,10 +105,22 @@ public class Artist {
         return gson.fromJson(response.body().string(), Artist.class);
     }
 
+    /**
+     * @return Endpoint used for API requests
+     */
     public static String getEndpoint() {
         return "https://api.spotify.com/v1/artists/";
     }
 
+    /**
+     * @param a              Artist
+     * @param include_groups Groups to include
+     * @param market         Markets to Use
+     * @param limit          Limit of Results
+     * @param offset         Offset used for Paging results
+     * @param at             Access Token
+     * @return array of AlbumSimple Objects
+     */
     public AlbumSimple[] requestArtistAlbums(Artist a, String include_groups, String market, int limit, int offset,
             AccessToken at) throws IOException {
         StringBuilder endpoint = new StringBuilder(getEndpoint() + a.getID() + "/albums");
@@ -162,10 +146,19 @@ public class Artist {
         return gson.fromJson(response.body().string(), AlbumSimple[].class);
     }
 
+    /**
+     * @return ID of Artist
+     */
     public String getID() {
         return id;
     }
 
+    /**
+     * @param a      Artist Object
+     * @param market Markets to Use
+     * @param at     Access Token
+     * @return Artist's Top Tracks
+     */
     public Track[] requestArtistTopTracks(Artist a, String market, AccessToken at) throws IOException {
         final String endpoint = getEndpoint() + a.getID() + "/top-tracks/?market=" + market;
         OkHttpClient client   = new OkHttpClient();
@@ -177,6 +170,11 @@ public class Artist {
         return gson.fromJson(response.body().string(), Track[].class);
     }
 
+    /**
+     * @param a  Artist Object
+     * @param at Access Token
+     * @return array of Related Artists
+     */
     public Artist[] requestRelatedArtists(Artist a, AccessToken at) throws IOException {
         final String endpoint = getEndpoint() + a.getID() + "/related-artists";
         OkHttpClient client   = new OkHttpClient();
@@ -188,6 +186,11 @@ public class Artist {
         return gson.fromJson(response.body().string(), Artist[].class);
     }
 
+    /**
+     * @param IDS array of Artist IDS
+     * @param at  Access Token
+     * @return array of Artists from requested ID's
+     */
     public Artist[] requestArtists(String IDS[], AccessToken at) throws IOException {
         //TODO this may be messed up
         final String  endpoint = getEndpoint() + "?ids=";
@@ -205,5 +208,76 @@ public class Artist {
         Gson     gson     = new Gson();
         return gson.fromJson(response.body().string(), Artist[].class);
     }
+
+    /**
+     * @return Followers
+     */
+    public Followers getFollowers() {
+        return followers;
+    }
+
+    /**
+     * @return ID of Artist
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @return External URLS
+     */
+    public ExternalURL getExternal_urls() {
+        return external_urls;
+    }
+
+    /**
+     * @return Genres
+     */
+    public String[] getGenres() {
+        return genres;
+    }
+
+    /**
+     * @return URL to API access for Artist
+     */
+    public String getHref() {
+        return href;
+    }
+
+    /**
+     * @return Images of Artist Cover
+     */
+    public CoverImage[] getImages() {
+        return images;
+    }
+
+    /**
+     * @return Name of Artist
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return Popularity of Artist
+     */
+    public int getPopularity() {
+        return popularity;
+    }
+
+    /**
+     * @return Artist Type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @return URI
+     */
+    public String getUri() {
+        return uri;
+    }
+
 
 }

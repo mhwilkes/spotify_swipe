@@ -73,7 +73,6 @@ public class PopupCardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
 
     @Override

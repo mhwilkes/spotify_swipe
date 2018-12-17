@@ -27,42 +27,42 @@ public class ArtistSimple {
     }
 
     /**
-     * @return
+     * @return External URLs
      */
     public ExternalURL getExternal_urls() {
         return external_urls;
     }
 
     /**
-     * @return
+     * @return URL to API Access
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return ID of Artist
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Name of Artist
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Artist Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;

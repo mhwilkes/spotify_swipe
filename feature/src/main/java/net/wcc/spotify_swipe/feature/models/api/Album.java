@@ -65,7 +65,6 @@ public class Album {
      * @param type                   The object type: “album”
      * @param uri                    The Spotify URI for the album.
      */
-    @SuppressWarnings("SpellCheckingInspection")
     public Album(String album_type, Artist[] artists, String[] available_markets, Copyright[] copyrights, ExternalID
             external_ids, ExternalURL external_urls, String[] genres, String href, String id, CoverImage[] images,
             String label, String name, int popularity, String release_date, String release_date_precision,
@@ -90,17 +89,16 @@ public class Album {
         this.tracks = tracks;
         this.type = type;
         this.uri = uri;
-        //TODO Not use the main thread for API Requests, develop ASYNC Policy
+
+        //TODO Figure out Async Policy to pass request JSON to main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
 
     /**
-     * @param ID
-     *
-     * @return
-     *
-     * @throws IOException
+     * @param ID spotify ID for Album
+     * @param at Access Token
+     * @return a AlbumSimple object which is a simplified Album Object
      */
     public static AlbumSimple requestAlbum(String ID, AccessToken at) throws IOException {
         OkHttpClient client = new OkHttpClient();
@@ -116,15 +114,12 @@ public class Album {
     }
 
     /**
-     * @param ID
-     * @param market
-     *
-     * @return
-     *
-     * @throws IOException
+     * @param ID     spotify ID for Album
+     * @param market spotify market for album
+     *               * @param at Access Token
+     * @return returns full album
      */
-    //TODO this may be unnecessary, also find out why autoformat adds empty string literals
-    @SuppressWarnings("SpellCheckingInspection")
+
     public Album requestAlbum(String ID, String market, AccessToken at) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Gson         gson   = new Gson();
@@ -139,11 +134,9 @@ public class Album {
     }
 
     /**
-     * @param a
-     *
-     * @return
-     *
-     * @throws IOException
+     * @param a  Album Object
+     * @param at Access Token
+     * @return array of tracks from Album
      */
     final public Track[] requestAlbumTracks(Album a, AccessToken at) throws IOException {
         final String endpoint = getEndpoint() + a.getId() + "/tracks";
@@ -157,11 +150,9 @@ public class Album {
     }
 
     /**
-     * @param IDS
-     *
-     * @return
-     *
-     * @throws IOException
+     * @param IDS the ID's of multiple albums
+     * @param at  Access Token
+     * @return array of Album Objects
      */
     public Album[] requestAlbums(String[] IDS, AccessToken at) throws IOException {
         StringBuilder sb     = new StringBuilder(getEndpoint());
@@ -180,141 +171,147 @@ public class Album {
     }
 
     /**
-     * @return
+     * @return url for api endpoint
      */
     public static String getEndpoint() {
         return endpoint;
     }
 
     /**
-     * @return
+     * @return ID of album
      */
     public String getId() {
         return id;
     }
 
+    /**
+     * @return Images of the Album Cover
+     */
     public CoverImage[] getImages() {
         return images;
     }
 
+    /**
+     * @return Restrictions object
+     */
     public Restriction getRestrictions() {
         return restrictions;
     }
 
     /**
-     * @return
+     * @return Album Type
      */
     public String getAlbum_type() {
         return album_type;
     }
 
     /**
-     * @return
+     * @return Artist Objects of Album
      */
     public Artist[] getArtists() {
         return artists;
     }
 
     /**
-     * @return
+     * @return array of all Markets Album is available in
      */
     public String[] getAvailable_markets() {
         return available_markets;
     }
 
     /**
-     * @return
+     * @return array of CopyRight Objects
      */
     public Copyright[] getCopyrights() {
         return copyrights;
     }
 
     /**
-     * @return
+     * @return ExternalID object
      */
     public ExternalID getExternal_ids() {
         return external_ids;
     }
 
     /**
-     * @return
+     * @return ExternalURL object
      */
     public ExternalURL getExternal_urls() {
         return external_urls;
     }
 
     /**
-     * @return
+     * @return array of Genres in String format
      */
     public String[] getGenres() {
         return genres;
     }
 
     /**
-     * @return
+     * @return String formatted URL to access API info for Album
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return array of CoverImage objects
      */
     public CoverImage[] getCoverImages() {
         return images;
     }
 
     /**
-     * @return
+     * @return Label of Album
      */
     public String getLabel() {
         return label;
     }
 
     /**
-     * @return
+     * @return Album Name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Album Popularity
      */
     public int getPopularity() {
         return popularity;
     }
 
     /**
-     * @return
+     * @return Release Date
      */
     public String getRelease_date() {
         return release_date;
     }
 
     /**
-     * @return
+     * @return Precision of Release Date
      */
     public String getRelease_date_precision() {
         return release_date_precision;
     }
 
     /**
-     * @return
+     * @return Paging object containing tracks
      */
     public Paging getTracks() {
         return tracks;
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;

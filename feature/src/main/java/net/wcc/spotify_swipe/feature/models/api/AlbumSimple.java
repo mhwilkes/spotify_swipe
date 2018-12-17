@@ -61,98 +61,98 @@ public class AlbumSimple {
     }
 
     /**
-     * @return
+     * @return Album Group
      */
     public String getAlbum_group() {
         return album_group;
     }
 
     /**
-     * @return
+     * @return Album Type
      */
     public String getAlbum_type() {
         return album_type;
     }
 
     /**
-     * @return
+     * @return Album Artists
      */
     public Artist[] getArtists() {
         return artists;
     }
 
     /**
-     * @return
+     * @return Available Markets
      */
     public String[] getAvailable_markets() {
         return available_markets;
     }
 
     /**
-     * @return
+     * @return External URLS
      */
     public ExternalURL getExternal_urls() {
         return external_urls;
     }
 
     /**
-     * @return
+     * @return URL for API access
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return ID of Album
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Cover Images
      */
     public CoverImage[] getImages() {
         return images;
     }
 
     /**
-     * @return
+     * @return Name of Album
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Release Date
      */
     public String getRelease_date() {
         return release_date;
     }
 
     /**
-     * @return
+     * @return Release Date Precision
      */
     public String getRelease_date_precision() {
         return release_date_precision;
     }
 
     /**
-     * @return
+     * @return Restrictions Object
      */
     public Restriction getRestrictions() {
         return restrictions;
     }
 
     /**
-     * @return
+     * @return Album Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;
