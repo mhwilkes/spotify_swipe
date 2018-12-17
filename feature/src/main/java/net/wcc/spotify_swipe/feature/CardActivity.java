@@ -114,7 +114,7 @@ public class CardActivity extends AppCompatActivity implements CardStackListener
     @Override
     public void onCardSwiped(Direction direction) {
         Log.d("CardStackView", "onCardSwiped: p = " + manager.getTopPosition() + ", d = " + direction);
-        Card   card   = adapter.getAtPosition(manager.getTopPosition());
+        Card   card   = adapter.getAtPosition(manager.getTopPosition() - 1);
 
         if (direction.equals(Direction.Right)) {
             ContentValues cv = new ContentValues();
