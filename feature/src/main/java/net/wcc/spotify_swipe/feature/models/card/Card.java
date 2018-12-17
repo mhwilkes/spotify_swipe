@@ -15,6 +15,7 @@ public class Card {
     private String         image_url;
     private String         song_preview_url;
     private String         song_ID;
+    private String         song_url;
     private AlbumSimple    mAlbumSimple;
 
     //TODO add
@@ -25,10 +26,15 @@ public class Card {
             this.song_cover = track.getAlbum().getImages();
             this.image_url = this.song_cover[0].getUrl();
         }
+        this.song_url = track.getHref();
         this.card_track = track;
         this.song_preview_url = track.getPreview_url();
         this.song_ID = track.getId();
         this.mAlbumSimple = track.getAlbum();
+    }
+
+    public String getSong_url() {
+        return song_url;
     }
 
     public AlbumSimple getAlbumSimple() {
