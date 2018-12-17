@@ -12,7 +12,7 @@ import java.io.IOException;
 public class PopupCardActivity extends AppCompatActivity {
 
     private MediaPlayer player = new MediaPlayer();
-    private TextView    song_name, artist_name, album_name;
+    private TextView    song_name, artist_name, album_name, is_preview;
     private ImageView album_cover;
     private Intent    intent;
 
@@ -27,6 +27,7 @@ public class PopupCardActivity extends AppCompatActivity {
         artist_name = findViewById(R.id.artist_name);
         album_name = findViewById(R.id.album_name);
         album_cover = findViewById(R.id.album_cover);
+        is_preview = findViewById(R.id.no_preview);
 
         song_name.setText(intent.getStringExtra("song_name"));
         artist_name.setText(intent.getStringExtra("artist_name"));
@@ -41,6 +42,8 @@ public class PopupCardActivity extends AppCompatActivity {
                 player.prepareAsync();
                 player.setVolume(.7f, .7f);
                 player.setOnPreparedListener(mp -> player.start());
+            } else {
+                is_preview.setText("No Preview Available!");
             }
 
         } catch (IOException e) {
