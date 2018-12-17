@@ -19,28 +19,28 @@ public class Context {
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return
+     * @return URL to Context
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return URI
      */
     public String getUri() {
         return uri;
     }
 
     /**
-     * @return
+     * @return External URLS
      */
     public ExternalURL getExternal_urls() {
         return external_urls;

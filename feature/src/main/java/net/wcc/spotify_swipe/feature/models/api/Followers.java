@@ -6,8 +6,8 @@ public class Followers {
     private int    total;
 
     /**
-     * @param href
-     * @param total
+     * @param href Page of Followers
+     * @param total Total #
      */
     public Followers(String href, int total) {
         this.href = href;
@@ -15,14 +15,14 @@ public class Followers {
     }
 
     /**
-     * @return
+     * @return get Followers Page
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return Total # of Followers
      */
     public int getTotal() {
         return total;

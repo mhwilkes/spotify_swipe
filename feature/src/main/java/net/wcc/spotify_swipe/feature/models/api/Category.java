@@ -6,10 +6,10 @@ public class Category {
     private CoverImage[] icons;
 
     /**
-     * @param href
-     * @param icons
-     * @param id
-     * @param name
+     * @param href URL for Category
+     * @param icons Icon For Category
+     * @param id Category ID
+     * @param name Category Name
      */
     public Category(String href, CoverImage[] icons, String id, String name) {
         this.href = href;
@@ -19,28 +19,28 @@ public class Category {
     }
 
     /**
-     * @return
+     * @return URL to access Category from API
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return ID of Category
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return
+     * @return Name of Category
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return
+     * @return Icons for Category
      */
     public CoverImage[] getIcons() {
         return icons;

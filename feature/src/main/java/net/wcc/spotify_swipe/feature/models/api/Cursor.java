@@ -5,14 +5,14 @@ public class Cursor {
     private String after;
 
     /**
-     * @param after
+     * @param after Next Item
      */
     public Cursor(String after) {
         this.after = after;
     }
 
     /**
-     * @return
+     * @return Next
      */
     public String getAfter() {
         return after;

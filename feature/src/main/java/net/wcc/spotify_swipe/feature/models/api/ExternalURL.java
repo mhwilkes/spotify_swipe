@@ -5,8 +5,8 @@ public class ExternalURL {
     private String key, value;
 
     /**
-     * @param key
-     * @param value
+     * @param key   Key for External URL
+     * @param value Value of External URL
      */
     public ExternalURL(String key, String value) {
         this.key = key;
@@ -14,14 +14,14 @@ public class ExternalURL {
     }
 
     /**
-     * @return
+     * @return Key
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * @return
+     * @return Value
      */
     public String getValue() {
         return value;

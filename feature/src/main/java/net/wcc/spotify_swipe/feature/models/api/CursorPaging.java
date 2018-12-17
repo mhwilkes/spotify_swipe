@@ -9,12 +9,12 @@ public class CursorPaging {
     private Cursor cursors;
 
     /**
-     * @param href
-     * @param items
-     * @param limit
-     * @param next
-     * @param cursors
-     * @param total
+     * @param href URL of Item
+     * @param items List of Items
+     * @param limit Limit of Items
+     * @param next Next Item
+     * @param cursors Cursor
+     * @param total Total Items
      */
     public CursorPaging(String href, Object[] items, int limit, String next, Cursor cursors, int total) {
         this.href = href;
@@ -26,42 +26,42 @@ public class CursorPaging {
     }
 
     /**
-     * @return
+     * @return Next Item
      */
     public String getNext() {
         return next;
     }
 
     /**
-     * @return
+     * @return URL of Item
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @return
+     * @return array of Items
      */
     public Object[] getItems() {
         return items;
     }
 
     /**
-     * @return
+     * @return Limit
      */
     public int getLimit() {
         return limit;
     }
 
     /**
-     * @return
+     * @return Total # of Songs
      */
     public int getTotal() {
         return total;
     }
 
     /**
-     * @return
+     * @return Cursor
      */
     public Cursor getCursors() {
         return cursors;

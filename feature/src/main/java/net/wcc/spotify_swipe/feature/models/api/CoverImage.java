@@ -7,9 +7,9 @@ public class CoverImage {
     private int    width;
 
     /**
-     * @param height
-     * @param url
-     * @param width
+     * @param height Height of Image
+     * @param url URL for image
+     * @param width Width of Image
      */
     public CoverImage(int height, String url, int width) {
         this.height = height;
@@ -18,21 +18,21 @@ public class CoverImage {
     }
 
     /**
-     * @return
+     * @return Height
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     * @return
+     * @return Width
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * @return
+     * @return URL to Load
      */
     public String getUrl() {
         return url;

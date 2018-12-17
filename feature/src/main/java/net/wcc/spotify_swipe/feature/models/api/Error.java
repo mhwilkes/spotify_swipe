@@ -6,8 +6,8 @@ public class Error {
     private String message;
 
     /**
-     * @param status
-     * @param message
+     * @param status Error #
+     * @param message Error Message
      */
     public Error(int status, String message) {
         this.status = status;
@@ -15,14 +15,14 @@ public class Error {
     }
 
     /**
-     * @return
+     * @return Error #
      */
     public int getStatus() {
         return status;
     }
 
     /**
-     * @return
+     * @return Message of Error
      */
     public String getMessage() {
         return message;
